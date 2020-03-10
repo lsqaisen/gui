@@ -1,8 +1,13 @@
 import React from 'react';
-import { Router as DefaultRouter, Route, Switch } from 'react-router-dom';
+import {
+  Router as DefaultRouter,
+  Route,
+  Switch,
+  StaticRouter,
+} from 'react-router-dom';
 import dynamic from 'umi/dynamic';
 import renderRoutes from 'umi/lib/renderRoutes';
-import history from '@tmp/history';
+import history from '@@/history';
 import _dvaDynamic from 'dva/dynamic';
 
 const Router = require('dva/router').routerRedux.ConnectedRouter;
@@ -80,7 +85,7 @@ const routes = [
           {
             component: () =>
               React.createElement(
-                require('/Users/aisen/go/src/git.kubeup.cn/kubelite/kubelite/gui/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
+                require('/Users/aisen/workspace/gui-antd-4.0/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
                   .default,
                 { pagesPath: 'src/pages', hasRoutesInConfig: false },
               ),
@@ -120,7 +125,7 @@ const routes = [
           {
             component: () =>
               React.createElement(
-                require('/Users/aisen/go/src/git.kubeup.cn/kubelite/kubelite/gui/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
+                require('/Users/aisen/workspace/gui-antd-4.0/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
                   .default,
                 { pagesPath: 'src/pages', hasRoutesInConfig: false },
               ),
@@ -160,7 +165,7 @@ const routes = [
           {
             component: () =>
               React.createElement(
-                require('/Users/aisen/go/src/git.kubeup.cn/kubelite/kubelite/gui/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
+                require('/Users/aisen/workspace/gui-antd-4.0/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
                   .default,
                 { pagesPath: 'src/pages', hasRoutesInConfig: false },
               ),
@@ -193,7 +198,7 @@ const routes = [
         component: __IS_BROWSER
           ? _dvaDynamic({
               component: () =>
-                import(/* webpackChunkName: "p__log__pod__$name" */ '../log/pod/$name.tsx'),
+                import(/* webpackChunkName: "p__log__pod___name" */ '../log/pod/$name.tsx'),
             })
           : require('../log/pod/$name.tsx').default,
       },
@@ -263,7 +268,7 @@ const routes = [
         component: __IS_BROWSER
           ? _dvaDynamic({
               component: () =>
-                import(/* webpackChunkName: "p__terminal__pod__$name" */ '../terminal/pod/$name.tsx'),
+                import(/* webpackChunkName: "p__terminal__pod___name" */ '../terminal/pod/$name.tsx'),
             })
           : require('../terminal/pod/$name.tsx').default,
       },
@@ -330,7 +335,7 @@ const routes = [
           {
             component: () =>
               React.createElement(
-                require('/Users/aisen/go/src/git.kubeup.cn/kubelite/kubelite/gui/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
+                require('/Users/aisen/workspace/gui-antd-4.0/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
                   .default,
                 { pagesPath: 'src/pages', hasRoutesInConfig: false },
               ),
@@ -340,7 +345,7 @@ const routes = [
       {
         component: () =>
           React.createElement(
-            require('/Users/aisen/go/src/git.kubeup.cn/kubelite/kubelite/gui/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
+            require('/Users/aisen/workspace/gui-antd-4.0/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
               .default,
             { pagesPath: 'src/pages', hasRoutesInConfig: false },
           ),
@@ -350,7 +355,7 @@ const routes = [
   {
     component: () =>
       React.createElement(
-        require('/Users/aisen/go/src/git.kubeup.cn/kubelite/kubelite/gui/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
+        require('/Users/aisen/workspace/gui-antd-4.0/node_modules/umi-build-dev/lib/plugins/404/NotFound.js')
           .default,
         { pagesPath: 'src/pages', hasRoutesInConfig: false },
       ),
@@ -363,7 +368,7 @@ plugins.applyForEach('patchRoutes', { initialValue: routes });
 export { routes };
 
 export default class RouterWrapper extends React.Component {
-  unListen = () => {};
+  unListen() {}
 
   constructor(props) {
     super(props);
@@ -379,7 +384,15 @@ export default class RouterWrapper extends React.Component {
       });
     }
     this.unListen = history.listen(routeChangeHandler);
-    routeChangeHandler(history.location);
+    // dva 中 history.listen 会初始执行一次
+    // 这里排除掉 dva 的场景，可以避免 onRouteChange 在启用 dva 后的初始加载时被多执行一次
+    const isDva =
+      history.listen
+        .toString()
+        .indexOf('callback(history.location, history.action)') > -1;
+    if (!isDva) {
+      routeChangeHandler(history.location);
+    }
   }
 
   componentWillUnmount() {

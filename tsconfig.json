@@ -21,16 +21,16 @@
 		"baseUrl": ".",
 		"paths": {
 			"library": [
-				"src/lib/index.ts"
+				"lib/index.ts"
 			],
 			"library/type/*": [
-				"src/lib/*"
+				"lib/*"
 			],
 			"api": [
-				"src/api/index.ts"
+				"api/index.ts"
 			],
 			"api/type/*": [
-				"src/api/*"
+				"api/*"
 			],
 			"@/*": [
 				"src/*"

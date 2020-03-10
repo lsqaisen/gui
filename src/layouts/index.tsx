@@ -10,7 +10,6 @@ import Sider from './sider';
 import {Dispatch} from '@/models/connect';
 import {AuthModelState} from '@/models/auth';
 import {ChangePasswordRequestType} from 'api/type/user';
-import T from '@/components/apps/topology';
 
 export interface GlobalLayoutProps extends ContextProps {
   init: boolean;
@@ -56,7 +55,7 @@ const GlobalLayout: React.FC<GlobalLayoutProps> = ({
                 completed={!!profile}
                 sider={<Sider />}
               >
-                {children}
+                {/* {children} */}
               </Layout>
             </ConfigProvider>
           </Context.Provider>

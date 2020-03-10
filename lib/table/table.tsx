@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { PureComponent } from 'react';
-import { Table } from 'antd';
-import { TableProps } from 'antd/lib/table';
-import Animate from 'rc-animate';
-import 'rc-table/assets/animation.css';
+import {PureComponent} from 'react';
+import {Table} from 'antd';
+import {TableProps} from 'antd/lib/table';
 import './style/index.less';
 
 class ATable<T> extends PureComponent<TableProps<T>, any> {
@@ -18,7 +16,7 @@ class ATable<T> extends PureComponent<TableProps<T>, any> {
         // }}
         {...this.props}
       />
-    )
+    );
   }
 }
 
