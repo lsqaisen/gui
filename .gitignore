@@ -1,5 +1,5 @@
 .DS_Store
 dist
 node_modules
-src/pages/.umi
-src/pages/.umi-production
+src/pages/.umi/
+src/pages/.umi-production/
