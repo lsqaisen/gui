@@ -1,0 +1,38 @@
+{
+  "name": "liteui",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "MOCK=none umi dev",
+    "mock": "umi dev",
+    "build": "umi build"
+  },
+  "dependencies": {
+    "@antv/g2": "^3.5.8-beta.4",
+    "@antv/g6": "^3.2.7",
+    "@types/js-yaml": "^3.12.1",
+    "@types/react-syntax-highlighter": "^11.0.3",
+    "codemirror": "^5.49.2",
+    "dva": "2.5.0-beta.2",
+    "inputmask": "^4.0.8",
+    "jsencrypt": "^3.0.0-rc.1",
+    "rc-animate": "^2.10.0",
+    "rc-queue-anim": "^1.8.2",
+    "react": "^16.12.0",
+    "react-codemirror2": "^6.0.0",
+    "react-dom": "^16.12.0",
+    "react-json-view": "^1.19.1",
+    "react-media": "^1.10.0",
+    "react-perfect-scrollbar": "^1.5.3",
+    "react-syntax-highlighter": "^11.0.2",
+    "react-time-format": "^0.0.5",
+    "reselect": "^4.0.0",
+    "styled-jsx": "^3.2.4",
+    "xterm": "^3.14.5"
+  },
+  "devDependencies": {
+    "umi": "^2.9.6",
+    "umi-plugin-react": "^1.10.1"
+  }
+}

@@ -1,0 +1,26 @@
+---
+name: Terminal
+route: /terminal
+---
+
+import {Playground} from 'docz';
+import Terminal from './';
+
+# Terminal Component
+
+<Playground>
+  <div style={{height: '240px', transform: 'scale(1)'}}>
+    <Terminal
+      splitWrite={true}
+      bidirectional={false}
+      buffered={true}
+      beforeSendData={[JSON.stringify({ip: '192.168.1.181', type: 'pod'})]}
+      url={`ws://${
+        window.location.host != 'localhost:8000' &&
+        window.location.host != '127.0.0.1:8000'
+          ? window.location.host
+          : '192.168.1.103:30000'
+      }/service/installnode/api/logs/ws`}
+    />
+  </div>
+</Playground>

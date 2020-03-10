@@ -1,0 +1,27 @@
+---
+name: User
+route: /user
+---
+
+import { Playground } from 'docz';
+import User from './';
+
+## User Component
+
+<Playground>
+  <div style={{ padding: 16, backgroundColor: '#ccc' }}>
+    <div style={{ width: 256 }}>
+      <User name={'demo'} admin={false} />
+    </div>
+  </div>
+</Playground>
+
+## User Component width admin
+
+<Playground>
+  <div style={{ padding: 16, backgroundColor: '#ccc' }}>
+    <div style={{ width: 256 }}>
+      <User name={'demo'} admin={true} />
+    </div>
+  </div>
+</Playground>

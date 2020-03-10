@@ -1,0 +1,36 @@
+---
+name: SearchSelect
+route: /search-select
+---
+
+import {Playground} from 'docz';
+import SearchSelect from './.test';
+
+# SearchSelect Component
+
+<Playground>
+  <SearchSelect
+    style={{width: 180}}
+    asyncSearch={() => {}}
+    placeholder="scroll"
+    pageStart={0}
+    initialLoad={true}
+    threshold={200}
+    height={250}
+  />
+</Playground>
+
+# SearchSelect Component not Scroll
+
+<Playground>
+  <SearchSelect
+    isScroll={false}
+    style={{width: 180}}
+    asyncSearch={() => {}}
+    placeholder="not scroll"
+    pageStart={0}
+    initialLoad={true}
+    threshold={200}
+    height={250}
+  />
+</Playground>

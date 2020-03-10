@@ -1,0 +1,75 @@
+---
+name: Menu
+route: /menu
+---
+
+import { Playground } from 'docz';
+import Menu from './';
+
+# Menu Component
+
+<Playground>
+  <div style={{}}>
+    <div style={{ width: 256, backgroundColor: '#ccc' }}>
+      <Menu
+        selectedKeys={['/dashboard']}
+        data={[
+          {
+            type: 'group',
+            key: '0',
+            component: '控制台',
+            childs: [
+              {
+                type: 'item',
+                key: '/dashboard',
+                component: (
+                  <a to="/dashboard">
+                    <i className="icon iconfont icon-dashboard" />
+                    <span className="name">概览</span>
+                  </a>
+                ),
+              },
+              {
+                type: 'group',
+                key: '1',
+                component: '配置与运维',
+                childs: [
+                  {
+                    type: 'item',
+                    key: `/test/test1`,
+                    component: (
+                      <a>
+                        <i className={`icon iconfont icon-tenant`} />
+                        <span className="name">test1</span>
+                      </a>
+                    ),
+                  },
+                  {
+                    type: 'item',
+                    key: `/test/test2`,
+                    component: (
+                      <a>
+                        <i className={`icon iconfont icon-tenant`} />
+                        <span className="name">test2</span>
+                      </a>
+                    ),
+                  },
+                  {
+                    type: 'item',
+                    key: `/test/test3`,
+                    component: (
+                      <a>
+                        <i className={`icon iconfont icon-tenant`} />
+                        <span className="name">test3</span>
+                      </a>
+                    ),
+                  },
+                ],
+              },
+            ],
+          },
+        ]}
+      />
+    </div>
+  </div>
+</Playground>

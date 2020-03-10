@@ -1,0 +1,28 @@
+---
+name: InfiniteScroller
+route: /infinit-scroller
+---
+
+import { Playground } from 'docz';
+import InfiniteScroller from './.test';
+
+# InfiniteScroller Component
+
+<Playground>
+  <div style={{ overflow: 'auto', height: '100px' }}>
+    <InfiniteScroller
+      loadMore={() => {}}
+      element="div"
+      hasMore={true}
+      initialLoad={true}
+      pageStart={0}
+      ref={null}
+      threshold={250}
+      useWindow={true}
+      isReverse={false}
+      useCapture={false}
+      loader={null}
+      getScrollParent={null}
+    />
+  </div>
+</Playground>

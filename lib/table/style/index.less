@@ -1,0 +1,65 @@
+:global {
+  .ant-table-empty {
+    thead {
+      display: none !important;
+    }
+
+    .ant-table-placeholder {
+      border-bottom: 0;
+    }
+  }
+
+  .ant-table-footer,
+  .ant-table-header {
+    border: 0;
+    background-color: #fff;
+
+    &::before {
+      content: none;
+    }
+  }
+
+  .ant-table-tbody,
+  .ant-table-thead {
+    tr {
+      transition: none;
+
+      th,
+      td {
+        border: 0 !important;
+        padding: 8px !important;
+      }
+
+      td {
+        background-color: transparent;
+      }
+
+      th {
+        padding: 16px 8px !important;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .ant-table-body {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+}
+
+.actions {
+  :global {
+    .ant-popover-content,
+    .ant-popover-inner,
+    .ant-popover-inner-content {
+      box-shadow: none;
+      padding: 0;
+    }
+  }
+
+  .menus {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+    border: 0 !important;
+    border-radius: 6px;
+  }
+}

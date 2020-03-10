@@ -1,0 +1,325 @@
+---
+name: Charts
+route: /charts
+---
+
+import {Playground} from 'docz';
+import Charts from './';
+
+# Charts Component
+
+## Simple Chart Component
+
+<Playground>
+  <Charts.Simple
+    line
+    type="area"
+    legend={false}
+    line={false}
+    symbol="%"
+    opaname={1}
+    color={['#286cff']}
+    min={0}
+    height={248}
+    imeMask="m:s"
+    data={[
+      {
+        value: 10,
+        time: new Date().getTime() + 1000000,
+      },
+      {
+        value: 20,
+        time: new Date().getTime() + 2000000,
+      },
+      {
+        value: 15,
+        time: new Date().getTime() + 3000000,
+      },
+    ]}
+  />
+</Playground>
+
+## Contrast Chart Component
+
+<Playground>
+  <Charts.Contrast
+    type="area"
+    symbol="%"
+    color={['#286cff']}
+    timeMask="mm:ss"
+    data={[
+      {
+        diskio: 10,
+        disk: 132,
+        time: new Date().getTime() + 1000000,
+      },
+      {
+        diskio: 20,
+        disk: 12,
+        time: new Date().getTime() + 2000000,
+      },
+      {
+        diskio: 15,
+        disk: 43,
+        time: new Date().getTime() + 3000000,
+      },
+    ]}
+  />
+</Playground>
+
+## Circle Chart Component
+
+<Playground>
+  <Charts.Circle
+    line
+    type="area"
+    symbol="%"
+    color={['#286cff', '#eceef1']}
+    timeMask="mm:ss"
+    data={[
+      {
+        type: '磁盘',
+        value: 44,
+      },
+    ]}
+  />
+</Playground>
+
+## Area Chart Component
+
+<Playground>
+  <Charts.Area
+    line
+    type="area"
+    symbol="%"
+    color={['#286cff']}
+    timeMask="mm:ss"
+    data={[
+      {
+        value: 10,
+        time: new Date().getTime() + 1000000,
+      },
+      {
+        value: 20,
+        time: new Date().getTime() + 2000000,
+      },
+      {
+        value: 15,
+        time: new Date().getTime() + 3000000,
+      },
+    ]}
+  />
+</Playground>
+
+## Waffle Chart Component
+
+<Playground>
+  <Charts.Waffle
+    line
+    type="area"
+    symbol="%"
+    color={['#286cff']}
+    timeMask="mm:ss"
+    height={480}
+    data={[
+      {
+        name: 'Internet Explorer',
+        value: 1,
+      },
+      {
+        name: 'Chrome',
+        value: 4,
+      },
+      {
+        name: 'Firefox',
+        value: 3,
+      },
+      {
+        name: 'Safari',
+        value: 2,
+      },
+      {
+        name: 'Opera',
+        value: 1,
+      },
+      {
+        name: 'Undetectable',
+        value: 2,
+      },
+    ]}
+  />
+</Playground>
+
+## GroupedBar Chart Component
+
+<Playground>
+  <Charts.GroupedBar
+    line
+    type="area"
+    symbol="%"
+    timeMask="mm:ss"
+    height={480}
+    data={[
+      {
+        name: '石家庄',
+        type: '水果',
+        value: 14500,
+      },
+      {
+        name: '石家庄',
+        type: '米面',
+        value: 8500,
+      },
+      {
+        name: '石家庄',
+        type: '特产零食',
+        value: 10000,
+      },
+      {
+        name: '石家庄',
+        type: '茶叶',
+        value: 7000,
+      },
+      {
+        name: '深圳',
+        type: '水果',
+        value: 9000,
+      },
+      {
+        name: '深圳',
+        type: '米面',
+        value: 8500,
+      },
+      {
+        name: '深圳',
+        type: '特产零食',
+        value: 11000,
+      },
+      {
+        name: '深圳',
+        type: '茶叶',
+        value: 6000,
+      },
+      {
+        name: '温州',
+        type: '水果',
+        value: 16000,
+      },
+      {
+        name: '温州',
+        type: '米面',
+        value: 5000,
+      },
+      {
+        name: '温州',
+        type: '特产零食',
+        value: 6000,
+      },
+      {
+        name: '温州',
+        type: '茶叶',
+        value: 10000,
+      },
+      {
+        name: '宁波',
+        type: '水果',
+        value: 14000,
+      },
+      {
+        name: '宁波',
+        type: '米面',
+        value: 9000,
+      },
+      {
+        name: '宁波',
+        type: '特产零食',
+        value: 10000,
+      },
+      {
+        name: '宁波',
+        type: '茶叶',
+        value: 9000,
+      },
+      {
+        name: '无锡',
+        type: '水果',
+        value: 14000,
+      },
+      {
+        name: '无锡',
+        type: '米面',
+        value: 9000,
+      },
+      {
+        name: '无锡',
+        type: '特产零食',
+        value: 10000,
+      },
+      {
+        name: '无锡',
+        type: '茶叶',
+        value: 6000,
+      },
+      {
+        name: '杭州',
+        type: '水果',
+        value: 9000,
+      },
+      {
+        name: '杭州',
+        type: '米面',
+        value: 8500,
+      },
+      {
+        name: '杭州',
+        type: '特产零食',
+        value: 10000,
+      },
+      {
+        name: '杭州',
+        type: '茶叶',
+        value: 6000,
+      },
+      {
+        name: '北京',
+        type: '水果',
+        value: 17000,
+      },
+      {
+        name: '北京',
+        type: '米面',
+        value: 6000,
+      },
+      {
+        name: '北京',
+        type: '特产零食',
+        value: 7000,
+      },
+      {
+        name: '北京',
+        type: '茶叶',
+        value: 10000,
+      },
+      {
+        name: '上海',
+        type: '水果',
+        value: 18000,
+      },
+      {
+        name: '上海',
+        type: '米面',
+        value: 11000,
+      },
+      {
+        name: '上海',
+        type: '特产零食',
+        value: 15000,
+      },
+      {
+        name: '上海',
+        type: '茶叶',
+        value: 14000,
+      },
+    ]}
+  />
+</Playground>

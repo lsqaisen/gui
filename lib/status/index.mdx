@@ -1,0 +1,52 @@
+---
+name: Status
+route: /status
+---
+
+import {Playground} from 'docz';
+import Status from './';
+
+# Status Component
+
+<Playground>
+  <Status
+    status={'pending'}
+    text={'pending'}
+    info={{
+      error: ['error'],
+      success: ['running'],
+      warning: [''],
+      info: ['pending'],
+    }}
+  />
+  <Status
+    status={'error'}
+    text={'error'}
+    info={{
+      error: ['error'],
+      success: ['running'],
+      warning: [''],
+      info: ['pending'],
+    }}
+  />
+  <Status
+    status={'running'}
+    text={'running'}
+    info={{
+      error: ['error'],
+      success: ['running'],
+      warning: [''],
+      info: ['pending'],
+    }}
+  />
+  <Status
+    status={'warning'}
+    text={'warning'}
+    info={{
+      error: ['error'],
+      success: ['running'],
+      warning: ['warning'],
+      info: ['pending'],
+    }}
+  />
+</Playground>

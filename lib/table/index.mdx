@@ -1,0 +1,95 @@
+---
+name: Table
+route: /table
+---
+
+import { Playground } from 'docz';
+import Table from './';
+
+# Table Component
+
+## Normal Table Component
+
+<Playground>
+  <Table
+    pagination={{ total: 1 }}
+    loading={false}
+    columns={[
+      {
+        title: 'Name',
+        dataIndex: 'name',
+        width: 186,
+        onCell: () => ({
+          style: {
+            whiteSpace: 'nowrap',
+            maxWidth: 156,
+            minWidth: 82,
+          },
+        }),
+      },
+      {
+        title: 'Desc',
+        dataIndex: 'desc',
+        width: 186,
+        onCell: () => ({
+          style: {
+            whiteSpace: 'nowrap',
+            maxWidth: 156,
+            minWidth: 82,
+          },
+        }),
+      },
+    ]}
+    dataSource={[
+      { name: 'test1', desc: 'xxxxxxxxxxxxxxx' },
+      { name: 'test1', desc: 'xxxxxxxxxxxxxxx' },
+    ]}
+  />
+</Playground>
+
+## Actions Table Component
+
+<Playground>
+  <Table
+    pagination={{ total: 1 }}
+    loading={false}
+    columns={[
+      {
+        title: 'Name',
+        dataIndex: 'name',
+        width: 186,
+        onCell: () => ({
+          style: {
+            whiteSpace: 'nowrap',
+            maxWidth: 156,
+            minWidth: 82,
+          },
+        }),
+      },
+      {
+        title: 'Desc',
+        dataIndex: 'desc',
+        width: 186,
+        onCell: () => ({
+          style: {
+            whiteSpace: 'nowrap',
+            maxWidth: 156,
+            minWidth: 82,
+          },
+        }),
+      },
+    ]}
+    dataSource={[
+      { name: 'test1', desc: 'xxxxxxxxxxxxxxx' },
+      { name: 'test1', desc: 'xxxxxxxxxxxxxxx' },
+    ]}
+    actions={
+      <React.Fragment>
+        <a onClick={() => onClick('edit')}>编辑</a>
+        <a onClick={() => onClick('quota')}>配额设置</a>
+        <a onClick={() => onClick('owenr')}>管理员设置</a>
+        <a onClick={() => onClick('overset')}>资源优先级</a>
+      </React.Fragment>
+    }
+  />
+</Playground>

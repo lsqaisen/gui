@@ -1,0 +1,58 @@
+{
+  "id": "1522608",
+  "name": "kubelite",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "kubelite",
+  "glyphs": [
+    {
+      "icon_id": "212766",
+      "name": "network_topology ",
+      "font_class": "networktopology",
+      "unicode": "ea2f",
+      "unicode_decimal": 59951
+    },
+    {
+      "icon_id": "384325",
+      "name": "dashboard",
+      "font_class": "gongzuotai",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "1185480",
+      "name": "users",
+      "font_class": "users",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "5111403",
+      "name": "cluster",
+      "font_class": "qunji",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "7577319",
+      "name": "24gf-appsBig4",
+      "font_class": "24gf-appsBig4",
+      "unicode": "e9bf",
+      "unicode_decimal": 59839
+    },
+    {
+      "icon_id": "8930141",
+      "name": "dashboard",
+      "font_class": "icon_dashboard",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "8931660",
+      "name": "仓库",
+      "font_class": "cangku",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    }
+  ]
+}

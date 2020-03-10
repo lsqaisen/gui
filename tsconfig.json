@@ -1,0 +1,55 @@
+{
+	"compilerOptions": {
+		"module": "esnext",
+		"target": "esnext",
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": false,
+		"sourceMap": true,
+		"jsx": "preserve",
+		"strict": true,
+		"experimentalDecorators": true,
+		"types": [
+			"node"
+		],
+		"typeRoots": [
+			"types"
+		],
+		"lib": [
+			"es2017",
+			"dom"
+		],
+		"baseUrl": ".",
+		"paths": {
+			"library": [
+				"src/lib/index.ts"
+			],
+			"library/type/*": [
+				"src/lib/*"
+			],
+			"api": [
+				"src/api/index.ts"
+			],
+			"api/type/*": [
+				"src/api/*"
+			],
+			"@/*": [
+				"src/*"
+			],
+			"@/components/*": [
+				"src/components/*"
+			],
+			"@/models/*": [
+				"src/models/*"
+			],
+			"@/services/*": [
+				"src/services/*"
+			],
+			"@/utils/*": [
+				"src/utils/*"
+			]
+		}
+	},
+	"exclude": [
+		"node_modules"
+	],
+}

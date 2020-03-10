@@ -1,0 +1,17 @@
+.search-select {}
+
+.infinite-container {
+  max-height: 250px;
+  overflow: auto;
+
+  .infinite-loading {
+    text-align: center;
+  }
+
+  :global {
+    .ant-select-dropdown-menu {
+      max-height: none;
+      height: auto;
+    }
+  }
+}

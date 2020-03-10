@@ -1,0 +1,86 @@
+---
+name: Layout
+route: /layout
+---
+
+import { Playground } from 'docz';
+import Media from 'react-media';
+import Layout from './';
+
+# Layout Component
+
+## 一级菜单
+
+<Playground>
+  <Media query="(min-width: 599px)">
+    {matches => (
+      <div style={{ position: 'relative', height: '50vh' }}>
+        <Layout
+          level={0}
+          state="centent"
+          matches={!matches}
+          width={246}
+          sider={
+            <div style={{ height: '100%' }}>
+              <div
+                style={{ lineHeight: '32px', textAlign: 'center', borderTop: '1px solid #f8f8f8' }}
+              >
+                xxx build 1.0.0
+              </div>
+            </div>
+          }
+        >
+          demo
+        </Layout>
+      </div>
+    )}
+  </Media>
+</Playground>
+
+## 多级菜单
+
+<Playground>
+  <Media query="(min-width: 599px)">
+    {matches => (
+      <div style={{ position: 'relative', height: '50vh' }}>
+        <Layout
+          level={0}
+          state="centent"
+          matches={!matches}
+          width={246}
+          sider={
+            <div style={{ height: '100%' }}>
+              <div
+                style={{ lineHeight: '32px', textAlign: 'center', borderTop: '1px solid #f8f8f8' }}
+              >
+                xxx build 1.0.0
+              </div>
+            </div>
+          }
+        >
+          <Layout
+            level={2}
+            state="centent"
+            matches={!matches}
+            width={246}
+            sider={
+              <div style={{ height: '100%' }}>
+                <div
+                  style={{
+                    lineHeight: '32px',
+                    textAlign: 'center',
+                    borderTop: '1px solid #f8f8f8',
+                  }}
+                >
+                  xxx build 1.0.0
+                </div>
+              </div>
+            }
+          >
+            demo
+          </Layout>
+        </Layout>
+      </div>
+    )}
+  </Media>
+</Playground>

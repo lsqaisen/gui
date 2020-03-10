@@ -1,0 +1,32 @@
+.code-input {
+    line-height: 20px;
+    border-radius: 4px;
+    overflow: hidden;
+
+    &.border {
+        border: 1px solid #d9d9d9;
+    }
+
+    :global {
+        .CodeMirror-lines {
+            padding: 5px 0;
+        }
+    }
+
+    &.autosize {
+        :global {
+            .CodeMirror {
+                height: initial;
+                min-height: inherit;
+            }
+        }
+    }
+}
+
+:global(.has-error) .code-input {
+    border-color: #f04134;
+
+    &:hover {
+        border-color: #f04134;
+    }
+}
