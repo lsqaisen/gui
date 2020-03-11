@@ -1,5 +1,6 @@
 import {PureComponent} from 'react';
 import QueueAnim from 'rc-queue-anim';
+import styles from './style/index.less';
 
 export interface LoginProps {
   loginLoading?: boolean;
@@ -31,8 +32,9 @@ export default class extends PureComponent<LoginProps, any> {
     });
   };
   render() {
+    const {type, style} = this.state;
     return (
-      <div>
+      <div className={styles.loginBox}>
         <QueueAnim
           duration={1200}
           type="scale"
@@ -56,14 +58,18 @@ export default class extends PureComponent<LoginProps, any> {
             },
           ]}
         >
-          <div>
+          <div
+            key="a"
+            style={{...style}}
+            className={`${styles.box} ${type === 'login' &&
+              styles.box_flip_l} ${type === 'reset' && styles.box_flip_r}`}
+          >
             {/* {type === "" || type === "login" ? (
               <Login {...loginProps} />
             ) : (
                 <ResetPassword {...resetProps} />
               )
             } */}
-            xxx
           </div>
         </QueueAnim>
       </div>
