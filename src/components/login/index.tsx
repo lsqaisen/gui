@@ -1,5 +1,6 @@
 import {PureComponent} from 'react';
 import QueueAnim from 'rc-queue-anim';
+import Login from './form/login-form';
 import styles from './style/index.less';
 
 export interface LoginProps {
@@ -35,43 +36,24 @@ export default class extends PureComponent<LoginProps, any> {
     const {type, style} = this.state;
     return (
       <div className={styles.loginBox}>
-        <QueueAnim
-          duration={1200}
-          type="scale"
-          ease="easeInOutQuart"
-          animConfig={[
-            {
-              opacity: [1, 0],
-              padding: ['24px', 0],
-              backgroundColor: ['#fff', '#2D225A'],
-              width: ['300px', 0],
-              height: ['328px', 0],
-              borderRadius: ['24px', '100%'],
-            },
-            {
-              opacity: [1, 0],
-              padding: ['24px', 0],
-              backgroundColor: ['#fff', '#2D225A'],
-              width: ['300px', 0],
-              height: ['328px', 0],
-              borderRadius: ['24px', '100%'],
-            },
-          ]}
+        <div
+          className={`${styles.box} ${type === 'login' &&
+            styles.box_flip_l} ${type === 'reset' && styles.box_flip_r}`}
         >
-          <div
-            key="a"
-            style={{...style}}
-            className={`${styles.box} ${type === 'login' &&
-              styles.box_flip_l} ${type === 'reset' && styles.box_flip_r}`}
+          <img
+            className={styles.icon}
+            key="img"
+            src="/dist/oem/icon.png"
+            alt=""
+          />
+          <QueueAnim
+            delay={900}
+            duration={400}
+            animConfig={[{opacity: [1, 0]}, {opacity: [1, 0]}]}
           >
-            {/* {type === "" || type === "login" ? (
-              <Login {...loginProps} />
-            ) : (
-                <ResetPassword {...resetProps} />
-              )
-            } */}
-          </div>
-        </QueueAnim>
+            <Login key="login" />
+          </QueueAnim>
+        </div>
       </div>
     );
   }
