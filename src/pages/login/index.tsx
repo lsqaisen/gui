@@ -16,7 +16,7 @@ const WLogin = ({loading, dispatch}: WLoginProps) => {
     const loader = document.getElementById('loader');
     if (loader) loader.remove();
   }, []);
-  return <Login login={login} />;
+  return <Login loginProps={{loading, submit: login}} />;
 };
 
 export type ConnectState = {

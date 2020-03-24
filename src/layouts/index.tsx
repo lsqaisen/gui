@@ -7,6 +7,7 @@ import {AuthModelState} from '@/models/auth';
 import {UserListModelState} from '@/models/uesr/user';
 import {MenusModelState} from '@/models/menus';
 import {ChangePasswordRequestType} from 'api/type/user';
+import Sider from './sider';
 
 const LayoutG: React.FC<any> = ({
   init,
@@ -22,10 +23,8 @@ const LayoutG: React.FC<any> = ({
   if (!init) {
     return null;
   } else {
-    console.log(profile);
     if (!!profile) {
       const loader = document.getElementById('loader');
-      console.log(loader);
       if (loader) loader.remove();
     }
     return (

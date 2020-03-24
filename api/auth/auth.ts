@@ -1,4 +1,4 @@
-import request, { ResType, encrypt } from '../request';
+import request, {ResType, encrypt} from '../request';
 
 /**
  * @typedef {object} loginRequest
@@ -7,10 +7,10 @@ import request, { ResType, encrypt } from '../request';
  * @property {string} password
  */
 export type loginRequest = {
-  encrypt: string
-  username: string
-  password: string
-}
+  encrypt?: string;
+  username: string;
+  password: string;
+};
 
 /**
  * @param {loginRequest} options
@@ -20,11 +20,11 @@ export type loginRequest = {
  * @returns {Promise<ResType>}
  */
 export function login(options: loginRequest): Promise<ResType> {
-  const { password, ...data } = options;
+  const {password, ...data} = options;
   let _encrypt = encrypt.encrypt(password);
-  return request("/api/auth/login", {
-    method: "post",
-    body: { encrypt: _encrypt, ...data }
+  return request('/api/auth/login', {
+    method: 'post',
+    body: {encrypt: _encrypt, ...data},
   });
 }
 
@@ -32,7 +32,7 @@ export function login(options: loginRequest): Promise<ResType> {
  * @returns {Promise<ResType>}
  */
 export function logout(): Promise<ResType> {
-  return request("/api/auth/logout");
+  return request('/api/auth/logout');
 }
 
 /**
@@ -41,9 +41,9 @@ export function logout(): Promise<ResType> {
  * @property {number} scope
  */
 export type getTokenRequest = {
-  service: string
-  scope?: string
-}
+  service: string;
+  scope?: string;
+};
 
 /**
  * 添加用户
@@ -53,10 +53,10 @@ export type getTokenRequest = {
  * @returns {Promise<ResType>}
  */
 export function getToken(options: getTokenRequest): Promise<ResType> {
-  let { service, scope } = options;
+  let {service, scope} = options;
   return request(`/api/auth/token?service=${service}&scope=${scope}`, {
     headers: {
-      Authorization: ''
-    }
+      Authorization: '',
+    },
   });
 }
