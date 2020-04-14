@@ -10,6 +10,15 @@
   justify-content: center;
   align-items: center;
   z-index: 999999;
+
+  &>img {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
+    animation: animate_img .5s linear infinite;
+  }
 }
 
 .box {
@@ -22,16 +31,8 @@
   top: calc(50% - 25px);
   left: calc(50% - 25px);
   border-radius: 3px;
-
-  &>img {
-    position: absolute;
-    top: 10%;
-    left: 10%;
-    width: 80%;
-    height: 80%;
-    animation: animate_img .5s linear infinite;
-  }
 }
+
 
 @keyframes animate {
   17% {
@@ -57,21 +58,24 @@
 }
 
 @keyframes animate_img {
+  17% {
+    border-bottom-right-radius: 3px;
+  }
 
   25% {
-    transform: rotate(-22.5deg);
+    transform: translateY(9px);
   }
 
   50% {
-    transform: scale(1, .9) rotate(-45deg);
+    transform: translateY(18px) scale(1, .9);
   }
 
   75% {
-    transform: rotate(-67.5deg);
+    transform: translateY(9px);
   }
 
   100% {
-    transform: rotate(-90deg);
+    transform: translateY(0);
   }
 }
 

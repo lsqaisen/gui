@@ -15,7 +15,7 @@ const LayoutG: React.FC<any> = ({
   menus,
   pathname = '',
   children,
-  dispatch,
+  dispatch
 }) => {
   const logout = () => dispatch({type: 'auth/logout'});
   const modifyPassword = (payload: ChangePasswordRequestType) =>
@@ -69,7 +69,7 @@ export default withRouter(
       islogin: auth.success,
       init: users.init,
       profile: users.profile,
-      menus: menus.data,
+      menus: menus.data
     })
   )((props: any) => (
     <ConfigProvider>

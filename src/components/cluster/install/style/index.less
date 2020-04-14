@@ -1,0 +1,35 @@
+.logs {
+  :global {
+    .ant-drawer-header {
+      padding: 0;
+
+      .ant-drawer-close {
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+      }
+    }
+  }
+
+  &.fullscreen {
+    :global {
+      .ant-drawer-content-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 100000;
+        height: 100% !important;
+
+        .ant-drawer-wrapper-body {
+          height: 100% !important;
+        }
+
+        .ant-drawer-body {
+          height: ~'calc(100% - 23px)' !important;
+        }
+      }
+    }
+  }
+}
