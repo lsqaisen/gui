@@ -1,9 +1,11 @@
 import * as React from 'react';
 
-type Options = {
-  useCapture: boolean;
-  passive: boolean;
-} | boolean;
+type Options =
+  | {
+      useCapture: boolean;
+      passive: boolean;
+    }
+  | boolean;
 
 export interface InfiniteScrollProps {
   children: React.ReactNode;
@@ -16,9 +18,9 @@ export interface InfiniteScrollProps {
   pageStart?: number;
   ref?: (ref: any) => any;
   getScrollParent?: () => any;
-  threshold?: number,
-  useCapture?: boolean,
-  useWindow?: boolean
+  threshold?: number;
+  useCapture?: boolean;
+  useWindow?: boolean;
 }
 
 export default class extends React.PureComponent<InfiniteScrollProps, any> {
@@ -80,7 +82,7 @@ export default class extends React.PureComponent<InfiniteScrollProps, any> {
     const testOptions = {
       get passive() {
         passive = true;
-        return passive
+        return passive;
       }
     };
 
@@ -91,7 +93,7 @@ export default class extends React.PureComponent<InfiniteScrollProps, any> {
       // ignore
     }
     return passive;
-  }
+  };
 
   eventListenerOptions = () => {
     let options: any = this.props.useCapture!;
@@ -103,11 +105,11 @@ export default class extends React.PureComponent<InfiniteScrollProps, any> {
       };
     }
     return options;
-  }
+  };
 
   setDefaultLoader = (loader: any) => {
     this.defaultLoader = loader;
-  }
+  };
 
   detachMousewheelListener = () => {
     let scrollEl = window;
@@ -120,7 +122,7 @@ export default class extends React.PureComponent<InfiniteScrollProps, any> {
       this.mousewheelListener,
       (this.options ? this.options : this.props.useCapture) as any
     );
-  }
+  };
 
   detachScrollListener = () => {
     let scrollEl = window;
@@ -138,7 +140,7 @@ export default class extends React.PureComponent<InfiniteScrollProps, any> {
       this.scrollListener,
       (this.options ? this.options : this.props.useCapture) as any
     );
-  }
+  };
 
   getParentElement = (el: any) => {
     const scrollParent =
@@ -147,11 +149,11 @@ export default class extends React.PureComponent<InfiniteScrollProps, any> {
       return scrollParent;
     }
     return el && el.parentNode;
-  }
+  };
 
   filterProps = (props: any) => {
     return props;
-  }
+  };
 
   attachScrollListener = () => {
     const parentElement = this.getParentElement(this.scrollComponent);
@@ -183,13 +185,13 @@ export default class extends React.PureComponent<InfiniteScrollProps, any> {
     if (this.props.initialLoad) {
       this.scrollListener();
     }
-  }
+  };
 
   mousewheelListener = (e: any) => {
     if (e.deltaY === 1 && !this.isPassiveSupported()) {
       e.preventDefault();
     }
-  }
+  };
 
   scrollListener = () => {
     const el = this.scrollComponent;
@@ -218,7 +220,8 @@ export default class extends React.PureComponent<InfiniteScrollProps, any> {
     // Here we make sure the element is visible as well as checking the offset
     if (
       offset < Number(this.props.threshold) &&
-      (el && el.offsetParent !== null)
+      el &&
+      el.offsetParent !== null
     ) {
       this.detachScrollListener();
       this.beforeScrollHeight = parentNode.scrollHeight;
@@ -229,7 +232,7 @@ export default class extends React.PureComponent<InfiniteScrollProps, any> {
         this.loadMore = true;
       }
     }
-  }
+  };
 
   calculateOffset = (el: any, scrollTop: any) => {
     if (!el) {
@@ -240,14 +243,14 @@ export default class extends React.PureComponent<InfiniteScrollProps, any> {
       this.calculateTopPosition(el) +
       (el.offsetHeight - scrollTop - window.innerHeight)
     );
-  }
+  };
 
   calculateTopPosition: (el: any) => any = (el: any) => {
     if (!el) {
       return 0;
     }
     return el.offsetTop + this.calculateTopPosition(el.offsetParent);
-  }
+  };
 
   render() {
     const renderProps = this.filterProps(this.props);

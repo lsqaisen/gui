@@ -24,5 +24,5 @@ export type ConnectState = {
 };
 
 export default connect(({loading}: ConnectState) => ({
-  loading: loading.effects['auth/login'],
+  loading: loading.effects['auth/login']
 }))(WLogin);

@@ -1,9 +1,9 @@
-import { EffectsCommandMap } from 'dva';
-import { AnyAction } from 'redux';
-import { message } from 'antd';
-import { Effect } from 'dva';
-import { Reducer } from 'redux';
-import { cluster } from 'api';
+import {EffectsCommandMap} from 'dva';
+import {AnyAction} from 'redux';
+import {message} from 'antd';
+import {Effect} from 'dva';
+import {Reducer} from 'redux';
+import {cluster} from 'api';
 
 export interface InstallModelState {
   runningstatus: boolean;
@@ -24,39 +24,39 @@ export interface InstallModelType {
 const InstallModel: InstallModelType = {
   namespace: 'install',
   state: {
-    runningstatus: false,
+    runningstatus: false
   },
 
   effects: {
-    *get(_: AnyAction, { call, put }: EffectsCommandMap) {
-      const { data, err } = yield call(cluster.getRunningStatusofInstall);
+    *get(_: AnyAction, {call, put}: EffectsCommandMap) {
+      const {data, err} = yield call(cluster.getRunningStatusofInstall);
       if (!!err) {
-        message.error(err, 5)
+        message.error(err, 5);
       } else {
         yield put({
           type: 'save',
           payload: {
-            runningstatus: data ? data.running : false,
+            runningstatus: data ? data.running : false
           }
         });
       }
     }
   },
   reducers: {
-    save(state: any, { payload }: any) {
-      return { ...state, ...payload }
+    save(state: any, {payload}: any) {
+      return {...state, ...payload};
     },
-    update(state: any, { payload }: any) {
-      let _update = { ...state };
+    update(state: any, {payload}: any) {
+      let _update = {...state};
       Object.entries(payload).map(([key, value]: any) => {
-        _update = Object.assign(_update, { [key]: { ...state[key], ...value } })
-      })
+        _update = Object.assign(_update, {[key]: {...state[key], ...value}});
+      });
       return {
         ...state,
-        ..._update,
-      }
-    },
-  },
-}
+        ..._update
+      };
+    }
+  }
+};
 
 export default InstallModel;

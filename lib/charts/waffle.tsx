@@ -1,7 +1,7 @@
-import { PureComponent } from 'react';
-import * as G2 from '@antv/g2'
-import * as DataSet from '@antv/data-set'
-import Chart, { Types } from './basic';
+import {PureComponent} from 'react';
+import * as G2 from '@antv/g2';
+import * as DataSet from '@antv/data-set';
+import Chart, {Types} from './basic';
 
 export interface WaffleProps {
   line?: boolean;
@@ -24,13 +24,13 @@ class Waffle extends PureComponent<WaffleProps, any> {
     color: ['#286cff'],
     data: [],
     imageMap: {},
-    initDraw: () => null,
-  }
+    initDraw: () => null
+  };
 
   chart: G2.Chart | null | undefined;
 
   initDraw = (chart: G2.Chart) => {
-    const { line, type, color, data, imageMap, initDraw } = this.props;
+    const {line, type, color, data, imageMap, initDraw} = this.props;
 
     var dv = new DataSet.View().source(data).transform({
       type: 'waffle',
@@ -52,15 +52,19 @@ class Waffle extends PureComponent<WaffleProps, any> {
       position: 'bottom'
     });
     chart.legend(false);
-    chart.point().position('x*y').size(265 / 12).shape('name', (name: any) => {
-      return ['image', imageMap[name]];
-    });
-  }
+    chart
+      .point()
+      .position('x*y')
+      .size(265 / 12)
+      .shape('name', (name: any) => {
+        return ['image', imageMap[name]];
+      });
+  };
 
-  UNSAFE_componentWillReceiveProps({ data = [], timeMask }: WaffleProps) {
+  UNSAFE_componentWillReceiveProps({data = [], timeMask}: WaffleProps) {
     if (JSON.stringify(data) !== JSON.stringify(this.props.data)) {
       var dv = new DataSet.View().source(data).transform({
-        type: 'waffle',
+        type: 'waffle'
       });
       this.chart!.source(dv);
       // this.chart!.changeData(dv);
@@ -69,7 +73,7 @@ class Waffle extends PureComponent<WaffleProps, any> {
       this.chart!.scale({
         time: {
           type: 'time',
-          mask: timeMask,
+          mask: timeMask
         }
       });
     }
@@ -81,7 +85,7 @@ class Waffle extends PureComponent<WaffleProps, any> {
         ref={(ref: any) => ref && (this.chart = ref.chart)}
         onDraw={this.initDraw}
       />
-    )
+    );
   }
 }
 

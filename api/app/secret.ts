@@ -30,7 +30,7 @@ export function getSecrets(namespace: string): Promise<ResType> {
 export function addSecret(options: SecretRequest): Promise<ResType> {
   return request(`/api/apps/secrets`, {
     method: 'post',
-    body: options,
+    body: options
   });
 }
 
@@ -49,6 +49,6 @@ export type DeleteSecretRequest = {
 export function deleteSecret(options: DeleteSecretRequest): Promise<ResType> {
   const {namespace, name} = options;
   return request(`/api/apps/secrets/${name}?namespace=${namespace}`, {
-    method: 'delete',
+    method: 'delete'
   });
 }

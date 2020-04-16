@@ -19,5 +19,5 @@ export default {
   // GroupedBar,
   RadialBar,
   MultiLine,
-  MirrorFacet,
-}
+  MirrorFacet
+};

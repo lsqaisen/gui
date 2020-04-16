@@ -1,6 +1,6 @@
-import { PureComponent } from 'react';
-import * as G2 from '@antv/g2'
-import Chart, { Types } from './basic';
+import {PureComponent} from 'react';
+import * as G2 from '@antv/g2';
+import Chart, {Types} from './basic';
 
 export interface RadialBarProps {
   title: string;
@@ -12,7 +12,7 @@ export interface RadialBarProps {
   tooltip?: boolean;
   color?: string[];
   symbol?: string;
-  padding?: any,
+  padding?: any;
   data?: any[];
   height?: number;
   opacity?: number;
@@ -33,29 +33,49 @@ class RadialBar extends PureComponent<RadialBarProps, any> {
     opacity: 1,
     color: undefined,
     data: [],
-    initDraw: () => null,
-  }
+    initDraw: () => null
+  };
 
   chart: G2.Chart | null | undefined;
 
   initDraw = (chart: G2.Chart) => {
-    const { title, legend, axis, color, data, min, max, symbol, formatter, initDraw } = this.props;
+    const {
+      title,
+      legend,
+      axis,
+      color,
+      data,
+      min,
+      max,
+      symbol,
+      formatter,
+      initDraw
+    } = this.props;
     chart.source(data, {
       value: {
         min: min || min === 0 ? min : undefined,
         max: max,
-        formatter: formatter ? formatter : (val: any) => {
-          return `${val}${symbol}`
-        },
+        formatter: formatter
+          ? formatter
+          : (val: any) => {
+              return `${val}${symbol}`;
+            }
       }
     });
-    chart.coord('polar', {
-      innerRadius: 0.1
-    }).transpose();
-    chart.interval().position('name*value').color('value', color!).tooltip('value').label('value', {
-      offset: -5
-    });
-    data!.map(function (obj) {
+    chart
+      .coord('polar', {
+        innerRadius: 0.1
+      })
+      .transpose();
+    chart
+      .interval()
+      .position('name*value')
+      .color('value', color!)
+      .tooltip('value')
+      .label('value', {
+        offset: -5
+      });
+    data!.map(function(obj) {
       chart.guide().text({
         position: [obj.name, 0],
         content: obj.name + ' ',
@@ -64,8 +84,8 @@ class RadialBar extends PureComponent<RadialBarProps, any> {
         }
       });
     });
-    chart.axis(legend!)
-    chart.axis(axis!)
+    chart.axis(legend!);
+    chart.axis(axis!);
     chart.guide().text({
       position: ['50%', '50%'],
       content: String(title).toLocaleUpperCase(),
@@ -76,9 +96,9 @@ class RadialBar extends PureComponent<RadialBarProps, any> {
       }
     });
     initDraw!(chart);
-  }
+  };
 
-  UNSAFE_componentWillReceiveProps({ data = [] }: RadialBarProps) {
+  UNSAFE_componentWillReceiveProps({data = []}: RadialBarProps) {
     if (JSON.stringify(data) !== JSON.stringify(this.props.data)) {
       this.chart!.changeData(data);
     }
@@ -90,7 +110,7 @@ class RadialBar extends PureComponent<RadialBarProps, any> {
         ref={(ref: any) => ref && (this.chart = ref.chart)}
         onDraw={this.initDraw}
       />
-    )
+    );
   }
 }
 

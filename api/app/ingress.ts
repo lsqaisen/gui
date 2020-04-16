@@ -1,4 +1,4 @@
-import request, { ResType } from '../request';
+import request, {ResType} from '../request';
 
 export type IngressRuleType = {
   host: string;
@@ -6,7 +6,7 @@ export type IngressRuleType = {
   port: number;
   protocol: string;
   service: string;
-}
+};
 
 export interface IngressRequest {
   listen_http: boolean;
@@ -14,7 +14,7 @@ export interface IngressRequest {
   name: string;
   namespace: string;
   network_type: string;
-  rules: IngressRuleType[],
+  rules: IngressRuleType[];
   secret: string;
 }
 
@@ -47,9 +47,9 @@ export function addIngress(options: IngressRequest): Promise<ResType> {
 }
 
 export type DeleteIngressRequest = {
-  name: string
-  namespace: string
-}
+  name: string;
+  namespace: string;
+};
 
 /**
  * delete ingress
@@ -59,23 +59,25 @@ export type DeleteIngressRequest = {
  * @returns {Promise<ResType>}
  */
 export function deleteIngress(options: DeleteIngressRequest): Promise<ResType> {
-  const { namespace, name } = options;
+  const {namespace, name} = options;
   return request(`/api/apps/ingresses/${name}?namespace=${namespace}`, {
-    method: 'delete',
+    method: 'delete'
   });
 }
 
-export interface ModifyIngressRulesType extends IngressRequest { }
+export interface ModifyIngressRulesType extends IngressRequest {}
 
 /**
  * delete ingress
  * @param {ModifyIngressRulesType} options
  * @returns {Promise<ResType>}
  */
-export function modifyIngressRules(options: ModifyIngressRulesType): Promise<ResType> {
-  const { name, namespace } = options;
+export function modifyIngressRules(
+  options: ModifyIngressRulesType
+): Promise<ResType> {
+  const {name, namespace} = options;
   return request(`/api/apps/ingresses/${name}?namespace=${namespace}`, {
     method: 'put',
-    body: options,
+    body: options
   });
 }

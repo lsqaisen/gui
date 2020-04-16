@@ -26,7 +26,7 @@ export function checkPassword(rule: any, value: any, callback: Function) {
   } else if (value.length < 8) {
     callback('必须输入8个以上的字符');
   } else if (pattern1.test(value)) {
-    callback('输入的字符不能为!@#$%^&*(\)-_=+,.?/:;{}[]~字母数字之外的');
+    callback('输入的字符不能为!@#$%^&*()-_=+,.?/:;{}[]~字母数字之外的');
   } else if (count < 2) {
     callback('输入包含大写，小写字母，数字，字符两种及以上');
   } else {

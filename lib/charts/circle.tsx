@@ -1,6 +1,6 @@
-import { PureComponent } from 'react';
-import * as G2 from '@antv/g2'
-import Chart, { Types } from './basic';
+import {PureComponent} from 'react';
+import * as G2 from '@antv/g2';
+import Chart, {Types} from './basic';
 import styles from './style/index.less';
 
 export interface CircleProps {
@@ -22,13 +22,13 @@ class Circle extends PureComponent<CircleProps, any> {
     timeMask: 'mm:ss',
     color: ['#286cff'],
     data: [],
-    initDraw: () => null,
-  }
+    initDraw: () => null
+  };
 
   chart: G2.Chart | null | undefined;
 
   initDraw = (chart: G2.Chart) => {
-    const { line, type, data, color, initDraw } = this.props;
+    const {line, type, data, color, initDraw} = this.props;
     chart.source(data);
     chart.legend(false);
 
@@ -47,7 +47,10 @@ class Circle extends PureComponent<CircleProps, any> {
           radius: 0.8,
           innerRadius: 0.5
         });
-        view.intervalStack().position('value').color('type', color!);
+        view
+          .intervalStack()
+          .position('value')
+          .color('type', color!);
         view.guide().html({
           position: ['50%', '50%'],
           html: `<div class="${styles['g2-guide-html']}"><p class="${styles.title}">${data[0].type}</p><p class="${styles.value}">${data[0].value}%</p></div>`
@@ -55,9 +58,9 @@ class Circle extends PureComponent<CircleProps, any> {
       }
     });
     initDraw!(chart);
-  }
+  };
 
-  UNSAFE_componentWillReceiveProps({ data = [] }: CircleProps) {
+  UNSAFE_componentWillReceiveProps({data = []}: CircleProps) {
     if (JSON.stringify(data) !== JSON.stringify(this.props.data)) {
       this.chart!.changeData(data);
     }
@@ -70,7 +73,7 @@ class Circle extends PureComponent<CircleProps, any> {
         ref={(ref: any) => ref && (this.chart = ref.chart)}
         onDraw={this.initDraw}
       />
-    )
+    );
   }
 }
 

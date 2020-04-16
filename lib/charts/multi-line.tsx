@@ -1,9 +1,9 @@
-import { PureComponent } from 'react';
-import * as G2 from '@antv/g2'
-import Chart, { Types } from './basic';
+import {PureComponent} from 'react';
+import * as G2 from '@antv/g2';
+import Chart, {Types} from './basic';
 
 export interface MultiProps {
-  types: { [key: string]: any },
+  types: {[key: string]: any};
   color?: string[];
   symbol?: string;
   timeMask?: string;
@@ -20,27 +20,30 @@ class Multi extends PureComponent<MultiProps, any> {
     timeMask: 'mm:ss',
     color: ['#286cff'],
     data: [],
-    initDraw: () => null,
-  }
+    initDraw: () => null
+  };
 
   chart: G2.Chart | null | undefined;
 
   initDraw = (chart: G2.Chart) => {
-    const { scale, types, timeMask, color, data, initDraw } = this.props;
+    const {scale, types, timeMask, color, data, initDraw} = this.props;
     const _scale = scale || {
       time: {
         type: 'time',
         mask: timeMask
       },
-      ...types,
+      ...types
     };
 
     chart.source(data, _scale);
-    chart.line().position('time*value').color('name', color!);
+    chart
+      .line()
+      .position('time*value')
+      .color('name', color!);
     initDraw!(chart);
-  }
+  };
 
-  UNSAFE_componentWillReceiveProps({ data = [], timeMask }: MultiProps) {
+  UNSAFE_componentWillReceiveProps({data = [], timeMask}: MultiProps) {
     if (JSON.stringify(data) !== JSON.stringify(this.props.data)) {
       this.chart!.changeData(data);
     }
@@ -48,7 +51,7 @@ class Multi extends PureComponent<MultiProps, any> {
       this.chart!.scale({
         time: {
           type: 'time',
-          mask: timeMask,
+          mask: timeMask
         }
       });
     }
@@ -60,7 +63,7 @@ class Multi extends PureComponent<MultiProps, any> {
         ref={(ref: any) => ref && (this.chart = ref.chart)}
         onDraw={this.initDraw}
       />
-    )
+    );
   }
 }
 

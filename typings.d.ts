@@ -9,8 +9,8 @@ declare module 'react-dom';
 declare module 'inputmask';
 
 interface Window {
-  Number: any
-  [key: string]: any
+  Number: any;
+  [key: string]: any;
 }
 
 declare var window: Window & typeof globalThis;

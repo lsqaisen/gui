@@ -1,15 +1,15 @@
-import { Effect } from 'dva';
-import { Reducer } from 'redux';
-import { message } from 'antd';
-import { apps } from 'api';
+import {Effect} from 'dva';
+import {Reducer} from 'redux';
+import {message} from 'antd';
+import {apps} from 'api';
 
 export type NamespaceCondition = {
   lastTransitionTime: string;
   message: string;
   reason: string;
-  status: "True" | "False" | "Unknown";
+  status: 'True' | 'False' | 'Unknown';
   type: string;
-}
+};
 
 export type INs = {
   metadata: {
@@ -20,13 +20,13 @@ export type INs = {
     creationTimestamp: string;
   };
   spec: {
-    finalizers: string[]
+    finalizers: string[];
   };
   status: {
     // conditions?: NamespaceCondition[]
-    phase: "Active" | "Terminating"
+    phase: 'Active' | 'Terminating';
   };
-}
+};
 
 export interface NamespaceModelState {
   error?: string;
@@ -34,7 +34,7 @@ export interface NamespaceModelState {
     metadata: {
       selfLink: string;
       resourceVersion: string;
-    },
+    };
     items: INs[];
   };
 }
@@ -45,14 +45,13 @@ export interface NamespaceModelType {
   effects: {
     get: Effect;
     create: Effect;
-    'delete': Effect;
+    delete: Effect;
   };
   reducers: {
     save: Reducer<NamespaceModelState>;
     update: Reducer<NamespaceModelState>;
   };
 }
-
 
 const NamespaceModel: NamespaceModelType = {
   namespace: 'namespace',
@@ -61,21 +60,21 @@ const NamespaceModel: NamespaceModelType = {
     nslist: {
       metadata: {
         selfLink: '',
-        resourceVersion: '',
+        resourceVersion: ''
       },
       items: []
-    },
+    }
   },
 
   effects: {
-    *get(_, { call, put }) {
-      const { data, err } = yield call(apps.getNamespaces);
+    *get(_, {call, put}) {
+      const {data, err} = yield call(apps.getNamespaces);
       if (!!err) {
         message.error(err, 5);
         yield put({
           type: 'save',
           payload: {
-            error: err,
+            error: err
           }
         });
       } else {
@@ -83,48 +82,48 @@ const NamespaceModel: NamespaceModelType = {
           type: 'save',
           payload: {
             error: undefined,
-            nslist: data || { items: [] },
+            nslist: data || {items: []}
           }
         });
       }
-      return data || { items: [] }
+      return data || {items: []};
     },
-    *create({ payload }, { call, put }) {
-      const { err } = yield call(apps.addNamespace, payload);
+    *create({payload}, {call, put}) {
+      const {err} = yield call(apps.addNamespace, payload);
       if (!!err) {
         message.error(err, 5);
       } else {
         message.success('添加命名空间成功', 5);
-        yield put({ type: 'get' })
+        yield put({type: 'get'});
       }
-      return err
+      return err;
     },
-    *['delete']({ payload }, { call, put }) {
-      const { err } = yield call(apps.deleteNamespace, payload);
+    *['delete']({payload}, {call, put}) {
+      const {err} = yield call(apps.deleteNamespace, payload);
       if (!!err) {
         message.error(err, 5);
       } else {
         message.success('删除命名空间成功', 5);
-        yield put({ type: 'get' })
+        yield put({type: 'get'});
       }
-      return err
-    },
+      return err;
+    }
   },
   reducers: {
-    save(state: any, { payload }: any) {
-      return { ...state, ...payload }
+    save(state: any, {payload}: any) {
+      return {...state, ...payload};
     },
-    update(state: any, { payload }: any) {
-      let _update = { ...state };
+    update(state: any, {payload}: any) {
+      let _update = {...state};
       Object.entries(payload).map(([key, value]: any) => {
-        _update = Object.assign(_update, { [key]: { ...state[key], ...value } })
-      })
+        _update = Object.assign(_update, {[key]: {...state[key], ...value}});
+      });
       return {
         ...state,
-        ..._update,
-      }
-    },
-  },
-}
+        ..._update
+      };
+    }
+  }
+};
 
 export default NamespaceModel;

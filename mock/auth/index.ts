@@ -7,5 +7,5 @@ export default {
   },
   'GET /api/auth/logout': (req: any, res: any) => {
     res.end('test');
-  },
+  }
 };

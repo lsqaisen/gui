@@ -47,7 +47,7 @@ let uuid = 0;
       default:
         break;
     }
-  },
+  }
 }) as any)
 export default class<T> extends React.PureComponent<ArrayInputProps<T[]>, any> {
   static readonly defaultProps = {
@@ -58,16 +58,16 @@ export default class<T> extends React.PureComponent<ArrayInputProps<T[]>, any> {
     loadProps: {},
     others: [],
     actionTypes: ['add'],
-    onChange: () => null,
+    onChange: () => null
   };
 
   state = {
-    keys: [],
+    keys: []
   };
 
   remove = (k: any) => {
     const {
-      form: {getFieldValue, setFieldsValue},
+      form: {getFieldValue, setFieldsValue}
     } = this.props;
     const keys = getFieldValue('keys');
     if (keys.length === 0) {
@@ -77,15 +77,15 @@ export default class<T> extends React.PureComponent<ArrayInputProps<T[]>, any> {
       keys: keys.filter((key: any) => key !== k),
       action: {
         type: 'remove',
-        value: keys.findIndex((key: any) => key === k),
-      },
+        value: keys.findIndex((key: any) => key === k)
+      }
     });
   };
 
   add = () => {
     uuid++;
     const {
-      form: {getFieldValue, setFieldsValue},
+      form: {getFieldValue, setFieldsValue}
     } = this.props;
     const keys = getFieldValue('keys');
     const nextKeys = keys.concat(uuid);
@@ -93,29 +93,29 @@ export default class<T> extends React.PureComponent<ArrayInputProps<T[]>, any> {
       keys: nextKeys,
       action: {
         type: 'add',
-        value: [new Object({} as T)],
-      },
+        value: [new Object({} as T)]
+      }
     });
   };
 
   change = (index: any, v: T) => {
     const {
       value: _value,
-      form: {setFieldsValue},
+      form: {setFieldsValue}
     } = this.props;
     let value: T[] = [].concat(_value as any);
     value[index] = v;
     setFieldsValue({
       action: {
         type: 'modify',
-        value,
-      },
+        value
+      }
     });
   };
 
   load = (data: any[]) => {
     const {
-      form: {getFieldValue, setFieldsValue},
+      form: {getFieldValue, setFieldsValue}
     } = this.props;
     let keys = getFieldValue('keys');
     let load = data.forEach(() => (keys = keys.concat(++uuid)));
@@ -123,14 +123,14 @@ export default class<T> extends React.PureComponent<ArrayInputProps<T[]>, any> {
       keys,
       action: {
         type: 'add',
-        value: load,
-      },
+        value: load
+      }
     });
   };
 
   getValues = () => {
     const {
-      form: {getFieldsValue},
+      form: {getFieldsValue}
     } = this.props;
     let value = getFieldsValue() || {};
     delete value.keys;
@@ -141,7 +141,7 @@ export default class<T> extends React.PureComponent<ArrayInputProps<T[]>, any> {
   componentDidMount() {
     const {value} = this.props;
     this.setState({
-      keys: Object.keys(value!).map(key => parseInt(key, 10)),
+      keys: Object.keys(value!).map(key => parseInt(key, 10))
     });
   }
 
@@ -161,7 +161,7 @@ export default class<T> extends React.PureComponent<ArrayInputProps<T[]>, any> {
       value,
       actions,
       itemWapper,
-      form: {getFieldDecorator, getFieldValue},
+      form: {getFieldDecorator, getFieldValue}
     } = this.props;
     const {keys: initialValue} = this.state;
     getFieldDecorator('keys', {initialValue});
@@ -176,7 +176,7 @@ export default class<T> extends React.PureComponent<ArrayInputProps<T[]>, any> {
         footer={
           btn ? (
             React.cloneElement(btn as any, {
-              onClick: this.add,
+              onClick: this.add
             })
           ) : (
             <Row gutter={8} style={{display: 'flex'}}>
@@ -187,7 +187,7 @@ export default class<T> extends React.PureComponent<ArrayInputProps<T[]>, any> {
                     onClick={this.add}
                     style={{
                       width: btnType === 'link' ? 'auto' : '100%',
-                      ...(btnType === 'link' ? {padding: 0} : {}),
+                      ...(btnType === 'link' ? {padding: 0} : {})
                     }}
                   >
                     {btnText}
@@ -199,7 +199,7 @@ export default class<T> extends React.PureComponent<ArrayInputProps<T[]>, any> {
                   {React.createElement(load as any, {
                     ...loadProps,
                     type: btnType,
-                    onChange: this.load,
+                    onChange: this.load
                   })}
                 </Col>
               )}
@@ -218,7 +218,7 @@ export default class<T> extends React.PureComponent<ArrayInputProps<T[]>, any> {
                       onClick: (e: any) => {
                         e.stopPropagation();
                         this.remove(key);
-                      },
+                      }
                     })
                   )
                 : [
@@ -232,7 +232,7 @@ export default class<T> extends React.PureComponent<ArrayInputProps<T[]>, any> {
                       shape="circle"
                       type="ghost"
                       icon="minus"
-                    />,
+                    />
                   ]
             }
           >
@@ -244,7 +244,7 @@ export default class<T> extends React.PureComponent<ArrayInputProps<T[]>, any> {
                         onClick: e => {
                           e.stopPropagation();
                           this.remove(key);
-                        },
+                        }
                       })
                     )
                   : undefined,
@@ -252,28 +252,28 @@ export default class<T> extends React.PureComponent<ArrayInputProps<T[]>, any> {
                   <FormInput key={key}>
                     {getFieldDecorator(`index_${key}`, {
                       initialValue: value![index],
-                      rules: [],
+                      rules: []
                     })(
                       React.createElement(input as any, {
                         ...inputProps,
                         others: others!.filter((v, i) => i !== index),
-                        onChange: (v: T) => this.change(index, v),
+                        onChange: (v: T) => this.change(index, v)
                       })
                     )}
                   </FormInput>
-                ),
+                )
               })
             ) : (
               <div style={{width: 'calc(100% - 32px)'}}>
                 <FormInput key={key}>
                   {getFieldDecorator(`index_${key}`, {
                     initialValue: value![index],
-                    rules: [],
+                    rules: []
                   })(
                     React.createElement(input as any, {
                       ...inputProps,
                       others: others!.filter((v, i) => i !== index),
-                      onChange: (v: T) => this.change(index, v),
+                      onChange: (v: T) => this.change(index, v)
                     })
                   )}
                 </FormInput>

@@ -20,12 +20,12 @@ type UserState = {
 class User extends PureComponent<UserProps, UserState> {
   static ModifyPassword: typeof ModifyPassword;
   state = {
-    color: colorList[parseInt(`${Math.random() * 10}`) % 4],
+    color: colorList[parseInt(`${Math.random() * 10}`) % 4]
   };
   UNSAFE_componentWillReceiveProps(nextProps: UserProps) {
     if (nextProps.name !== this.props.name) {
       this.setState({
-        color: colorList[parseInt(`${Math.random() * 10}`) % 4],
+        color: colorList[parseInt(`${Math.random() * 10}`) % 4]
       });
     }
   }

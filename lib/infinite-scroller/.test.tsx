@@ -1,13 +1,14 @@
-import { PureComponent } from 'react';
+import {PureComponent} from 'react';
 import * as reqwest from 'reqwest';
 import InfiniteScroller from './index';
 
-const fakeDataUrl = 'https://randomuser.me/api/?results=10&inc=name,gender,email,nat&noinfo';
+const fakeDataUrl =
+  'https://randomuser.me/api/?results=10&inc=name,gender,email,nat&noinfo';
 
 class Test extends PureComponent<any, any> {
   state = {
     data: []
-  }
+  };
   fetchData = (page: number) => {
     reqwest({
       url: fakeDataUrl,
@@ -15,9 +16,17 @@ class Test extends PureComponent<any, any> {
       method: 'get',
       contentType: 'application/json',
       success: (res: any) => {
-        console.log(page)
-        this.setState({ data: this.state.data.concat(res.results.map((v: any) => ({ value: v.email, label: v.email, key: v.email }))) });
-      },
+        console.log(page);
+        this.setState({
+          data: this.state.data.concat(
+            res.results.map((v: any) => ({
+              value: v.email,
+              label: v.email,
+              key: v.email
+            }))
+          )
+        });
+      }
     });
   };
   componentDidMount() {
@@ -25,13 +34,12 @@ class Test extends PureComponent<any, any> {
   }
   render() {
     return (
-      <InfiniteScroller
-        loadMore={this.fetchData}
-        hasMore={true}
-      >
-        {this.state.data.map((v: any) => <div key={v.key}>{v.value}</div>)}
+      <InfiniteScroller loadMore={this.fetchData} hasMore={true}>
+        {this.state.data.map((v: any) => (
+          <div key={v.key}>{v.value}</div>
+        ))}
       </InfiniteScroller>
-    )
+    );
   }
 }
 

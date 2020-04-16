@@ -10,8 +10,8 @@ export default {
         email: 'ttt',
         remark: 'ttt',
         expired_at: 'ttt',
-        privileges: 'ttt',
+        privileges: 'ttt'
       })
     );
-  },
+  }
 };

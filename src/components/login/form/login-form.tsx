@@ -53,7 +53,7 @@ const Login = ({loading, submit}: LoginFormProps) => {
             e.preventDefault();
             Modal.info({
               title: '忘记密码',
-              content: '忘记密码，请联系管理员重置密码。',
+              content: '忘记密码，请联系管理员重置密码。'
             });
           }}
         >

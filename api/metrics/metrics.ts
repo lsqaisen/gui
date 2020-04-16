@@ -1,4 +1,4 @@
-import request, { ResType } from '../request';
+import request, {ResType} from '../request';
 
 /**
  * dashboard display cluster details

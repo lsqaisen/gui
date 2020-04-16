@@ -1,4 +1,4 @@
-import request, { ResType } from '../request';
+import request, {ResType} from '../request';
 
 /**
  * @property {string} account
@@ -7,10 +7,10 @@ import request, { ResType } from '../request';
  * @returns {Promise<ResType>}
  */
 export type addNodesRequest = {
-  account: string
-  addresses: string[]
-  password: string
-}
+  account: string;
+  addresses: string[];
+  password: string;
+};
 
 /**
  * 添加节点
@@ -23,11 +23,10 @@ export type addNodesRequest = {
  */
 export function addNodes(options: addNodesRequest): Promise<ResType> {
   return request(`/api/cluster/add/nodes`, {
-    method: "post",
+    method: 'post',
     body: options
   });
 }
-
 
 /**
  * 获取所有节点
@@ -41,18 +40,17 @@ export function getNodes(): Promise<ResType> {
 /**
  * 获取节点
  * node detail of current cluster
- * @param {string} node 
+ * @param {string} node
  * @returns {Promise<ResType>}
  */
 export function getNode(node: string): Promise<ResType> {
   return request(`/api/cluster/nodes/${node}`);
 }
 
-
 /**
  * 获取节点pods
  * remove node from cluster
- * @param {string} node 
+ * @param {string} node
  * @returns {Promise<ResType>}
  */
 export function getNodePods(node: string): Promise<ResType> {
@@ -65,9 +63,9 @@ export function getNodePods(node: string): Promise<ResType> {
  * @property {"cordon" | "drain" | "uncordon"} action
  */
 export type ctrlNodeRequest = {
-  node: string
-  action: "cordon" | "drain" | "uncordon"
-}
+  node: string;
+  action: 'cordon' | 'drain' | 'uncordon';
+};
 
 /**
  * 控制节点状态
@@ -78,20 +76,20 @@ export type ctrlNodeRequest = {
  * @returns {Promise<ResType>}
  */
 export function ctrlNodeStatus(options: ctrlNodeRequest): Promise<ResType> {
-  const { node, action } = options;
+  const {node, action} = options;
   return request(`/api/cluster/ctrl/${node}/${action}`, {
-    method: 'PATCH',
+    method: 'PATCH'
   });
 }
 
 /**
  * 删除节点
  * remove node from cluster
- * @param {string} node 
+ * @param {string} node
  * @returns {Promise<ResType>}
  */
 export function deleteNode(node: string): Promise<ResType> {
   return request(`/api/cluster/remove/${node}`, {
-    method: 'delete',
+    method: 'delete'
   });
 }

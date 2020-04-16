@@ -1,17 +1,15 @@
-import { PureComponent, useState } from 'react';
+import {PureComponent, useState} from 'react';
 import * as ReactDOM from 'react-dom';
-import { Input } from 'antd';
-import { InputProps } from 'antd/lib/input'
+import {Input} from 'antd';
+import {InputProps} from 'antd/lib/input';
 import Inputmask from 'inputmask';
 
 class IPInput extends PureComponent<InputProps, any> {
   componentDidMount() {
-    Inputmask({ alias: 'ip', placeholder: "0" }).mask(ReactDOM.findDOMNode(this))
+    Inputmask({alias: 'ip', placeholder: '0'}).mask(ReactDOM.findDOMNode(this));
   }
   render() {
-    return (
-      <Input {...this.props} />
-    )
+    return <Input {...this.props} />;
   }
 }
 

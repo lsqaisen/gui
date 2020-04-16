@@ -1,4 +1,4 @@
-import request, { ResType } from '../request';
+import request, {ResType} from '../request';
 
 /**
  * all network vips of current cluster
@@ -18,7 +18,7 @@ export type vipRequest = {
   addresses: string[];
   name: string;
   protocol: string;
-}
+};
 
 /**
  * @typedef {object} addVipRequest
@@ -27,7 +27,7 @@ export type vipRequest = {
  * @property {string} name
  * @property {string} time
  */
-export interface addVipRequest extends vipRequest { }
+export interface addVipRequest extends vipRequest {}
 
 /**
  * add ip vip of calico subnets
@@ -41,7 +41,7 @@ export interface addVipRequest extends vipRequest { }
 export function addVip(options: addVipRequest): Promise<ResType> {
   return request(`/api/network/vip-pool`, {
     method: 'post',
-    body: options,
+    body: options
   });
 }
 
@@ -52,7 +52,7 @@ export function addVip(options: addVipRequest): Promise<ResType> {
  * @property {string} name
  * @property {string} time
  */
-export interface deleteVipRequest extends vipRequest { }
+export interface deleteVipRequest extends vipRequest {}
 /**
  * delete vip address from pool
  * @param {deleteVipRequest} options
@@ -65,7 +65,6 @@ export interface deleteVipRequest extends vipRequest { }
 export function deleteVip(options: deleteVipRequest): Promise<ResType> {
   return request(`/api/network/vip-pool`, {
     method: 'delete',
-    body: options,
+    body: options
   });
 }
-

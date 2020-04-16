@@ -1,4 +1,4 @@
-import request, { ResType } from '../request';
+import request, {ResType} from '../request';
 
 /**
  * @typedef {object} getImagesRequest
@@ -8,24 +8,26 @@ import request, { ResType } from '../request';
  * @property {string | number} size
  */
 export type getImagesRequest = {
-  query?: string
-  domain?: 'on'
-  page: string | number
-  size: string | number
-}
+  query?: string;
+  domain?: 'on';
+  page: string | number;
+  size: string | number;
+};
 
 /**
  * list all images of docker registry
  * @param {getImagesRequest} options
  * @param {string} options.query
  * @param {"on"} options.domain
- * @param {string | number} options.page 
+ * @param {string | number} options.page
  * @param {string | number} options.size
  * @returns {Promise<ResType>}
  */
 export function getImages(options: getImagesRequest): Promise<ResType> {
-  const { query = "", domain = "", page, size } = options;
-  return request(`/api/registry/images?q=${query}&page=${page}&size=${size}&domain=${domain}`);
+  const {query = '', domain = '', page, size} = options;
+  return request(
+    `/api/registry/images?q=${query}&page=${page}&size=${size}&domain=${domain}`
+  );
 }
 
 /**
@@ -44,22 +46,22 @@ export function getTags(image: string): Promise<ResType> {
  * @property {string} size
  */
 export type changeStatusRequest = {
-  action: "lock" | "unlock" | "pub" | "unpub"
-  name: string
-  tag?: string
-}
+  action: 'lock' | 'unlock' | 'pub' | 'unpub';
+  name: string;
+  tag?: string;
+};
 /**
  * change image status
  * @param {changeStatusRequest} options
  * @param {string} name image name
  * @param {string} tag image tag
- * @param {string} action 
+ * @param {string} action
  * @returns {Promise<ResType>}
  */
 export function changeStatus(options: changeStatusRequest): Promise<ResType> {
   return request(`/api/registry/image/status`, {
     method: 'PATCH',
-    body: options,
+    body: options
   });
 }
 
@@ -69,9 +71,9 @@ export function changeStatus(options: changeStatusRequest): Promise<ResType> {
  * @property {string} size
  */
 export type deleteImageRequest = {
-  name: string
-  tag?: string
-}
+  name: string;
+  tag?: string;
+};
 /**
  * delete images or by tags
  * @param {deleteImageRequest} options
@@ -82,7 +84,6 @@ export type deleteImageRequest = {
 export function deleteImage(options: deleteImageRequest): Promise<ResType> {
   return request(`/api/registry/image/delete`, {
     method: 'delete',
-    body: options,
+    body: options
   });
 }
-

@@ -1,6 +1,6 @@
-import { PureComponent } from 'react';
-import * as G2 from '@antv/g2'
-import Chart, { Types } from './basic';
+import {PureComponent} from 'react';
+import * as G2 from '@antv/g2';
+import Chart, {Types} from './basic';
 
 export interface GroupedBarProps {
   min?: number;
@@ -11,7 +11,7 @@ export interface GroupedBarProps {
   tooltip?: boolean;
   color?: string[];
   symbol?: string;
-  padding?: any,
+  padding?: any;
   data?: any[];
   height?: number;
   opacity?: number;
@@ -31,21 +31,32 @@ class GroupedBar extends PureComponent<GroupedBarProps, any> {
     opacity: 1,
     color: undefined,
     data: [],
-    initDraw: () => null,
-  }
+    initDraw: () => null
+  };
 
   chart: G2.Chart | null | undefined;
 
   initDraw = (chart: G2.Chart) => {
-    const {legend, color, data, min, max, symbol, formatter, initDraw } = this.props;
+    const {
+      legend,
+      color,
+      data,
+      min,
+      max,
+      symbol,
+      formatter,
+      initDraw
+    } = this.props;
     chart.source(data, {
       value: {
         min: min || min === 0 ? min : undefined,
         max: max,
         nice: false,
-        formatter: formatter ? formatter : (val: any) => {
-          return `${val}${symbol}`
-        },
+        formatter: formatter
+          ? formatter
+          : (val: any) => {
+              return `${val}${symbol}`;
+            }
       }
     });
     chart.axis('name', {
@@ -77,14 +88,21 @@ class GroupedBar extends PureComponent<GroupedBarProps, any> {
     });
     chart.legend(true);
     chart.coord().transpose();
-    chart.interval().position('name*value').color('type', color!).opacity(1).adjust([{
-      type: 'dodge',
-      marginRatio: 0.3
-    }]);
+    chart
+      .interval()
+      .position('name*value')
+      .color('type', color!)
+      .opacity(1)
+      .adjust([
+        {
+          type: 'dodge',
+          marginRatio: 0.3
+        }
+      ]);
     initDraw!(chart);
-  }
+  };
 
-  UNSAFE_componentWillReceiveProps({ data = [], timeMask }: GroupedBarProps) {
+  UNSAFE_componentWillReceiveProps({data = [], timeMask}: GroupedBarProps) {
     if (JSON.stringify(data) !== JSON.stringify(this.props.data)) {
       this.chart!.changeData(data);
     }
@@ -92,7 +110,7 @@ class GroupedBar extends PureComponent<GroupedBarProps, any> {
       this.chart!.scale({
         time: {
           type: 'time',
-          mask: timeMask,
+          mask: timeMask
         }
       });
     }
@@ -104,7 +122,7 @@ class GroupedBar extends PureComponent<GroupedBarProps, any> {
         ref={(ref: any) => ref && (this.chart = ref.chart)}
         onDraw={this.initDraw}
       />
-    )
+    );
   }
 }
 

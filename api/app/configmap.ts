@@ -1,11 +1,11 @@
-import request, { ResType } from '../request';
+import request, {ResType} from '../request';
 
 export type ConfigMapRequest = {
-  binary_data: { [key: string]: any }
-  data: { [key: string]: any }
-  name: string
-  namespace: string
-}
+  binary_data: {[key: string]: any};
+  data: {[key: string]: any};
+  name: string;
+  namespace: string;
+};
 
 /**
  * query configmaps
@@ -33,9 +33,9 @@ export function addConfigMap(options: ConfigMapRequest): Promise<ResType> {
 }
 
 export type DeleteConfigMapRequest = {
-  name: string
-  namespace: string
-}
+  name: string;
+  namespace: string;
+};
 
 /**
  * delete configmaps
@@ -44,9 +44,11 @@ export type DeleteConfigMapRequest = {
  * @param {string} options.namespace
  * @returns {Promise<ResType>}
  */
-export function deleteConfigMap(options: DeleteConfigMapRequest): Promise<ResType> {
-  const { namespace, name } = options;
+export function deleteConfigMap(
+  options: DeleteConfigMapRequest
+): Promise<ResType> {
+  const {namespace, name} = options;
   return request(`/api/apps/namespaces/${namespace}/configmaps/${name}`, {
-    method: 'delete',
+    method: 'delete'
   });
 }

@@ -1,4 +1,4 @@
-import request, { ResType } from '../request';
+import request, {ResType} from '../request';
 
 /**
  * list all registry configs
@@ -14,9 +14,9 @@ export function getPrivates(): Promise<ResType> {
  * @property {string} namespace
  */
 export type privateRequest = {
-  domain: string
-  namespace: string
-}
+  domain: string;
+  namespace: string;
+};
 
 /**
  * @typedef {object} addPrivateRequest
@@ -26,8 +26,8 @@ export type privateRequest = {
  * @property {string} username
  */
 export interface addPrivateRequest extends privateRequest {
-  password: string
-  username: string
+  password: string;
+  username: string;
 }
 
 /**
@@ -42,7 +42,7 @@ export interface addPrivateRequest extends privateRequest {
 export function addPrivate(options: addPrivateRequest): Promise<ResType> {
   return request(`/api/registry/private`, {
     method: 'post',
-    body: options,
+    body: options
   });
 }
 
@@ -56,7 +56,6 @@ export function addPrivate(options: addPrivateRequest): Promise<ResType> {
 export function deletePrivate(options: privateRequest): Promise<ResType> {
   return request(`/api/registry/private`, {
     method: 'delete',
-    body: options,
+    body: options
   });
 }
-

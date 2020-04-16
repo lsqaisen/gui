@@ -1,4 +1,4 @@
-import request, { ResType } from '../request';
+import request, {ResType} from '../request';
 
 /**
  * all network pools of current cluster
@@ -20,7 +20,7 @@ export type poolRequest = {
   cidr: string;
   name: string;
   time: string;
-}
+};
 
 /**
  * @typedef {object} addPoolRequest
@@ -29,7 +29,7 @@ export type poolRequest = {
  * @property {string} name
  * @property {string} time
  */
-export interface addPoolRequest extends poolRequest { }
+export interface addPoolRequest extends poolRequest {}
 
 /**
  * add ip pool of calico subnets
@@ -43,7 +43,7 @@ export interface addPoolRequest extends poolRequest { }
 export function addPool(options: addPoolRequest): Promise<ResType> {
   return request(`/api/network/pool`, {
     method: 'post',
-    body: options,
+    body: options
   });
 }
 
@@ -54,7 +54,7 @@ export function addPool(options: addPoolRequest): Promise<ResType> {
  * @property {string} name
  * @property {string} time
  */
-export interface deletePoolRequest extends poolRequest { }
+export interface deletePoolRequest extends poolRequest {}
 /**
  * delete registry secret
  * @param {deletePoolRequest} options
@@ -67,7 +67,6 @@ export interface deletePoolRequest extends poolRequest { }
 export function deletePool(options: deletePoolRequest): Promise<ResType> {
   return request(`/api/network/pool`, {
     method: 'delete',
-    body: options,
+    body: options
   });
 }
-

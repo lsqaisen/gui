@@ -24,12 +24,12 @@ const MenusModel: MenusModelType = {
       {
         key: 'dashboard',
         name: '总览',
-        path: '/dashboard',
+        path: '/dashboard'
       },
       {
         key: 'cluster',
         name: '集群管理',
-        path: '/cluster',
+        path: '/cluster'
       },
       {
         key: 'apps',
@@ -39,34 +39,34 @@ const MenusModel: MenusModelType = {
           {
             key: 'list',
             name: '应用列表',
-            path: '/list',
+            path: '/list'
           },
           {
             key: 'ingress',
             name: '应用负载均衡',
-            path: '/ingress',
+            path: '/ingress'
           },
           {
             key: 'nlb',
             name: '网络负载均衡',
-            path: '/nlb',
+            path: '/nlb'
           },
           {
             key: 'configmap',
             name: '配置管理',
-            path: '/configmap',
+            path: '/configmap'
           },
           {
             key: 'secret',
             name: '证书管理',
-            path: '/secret',
+            path: '/secret'
           },
           {
             key: 'topology',
             name: '应用拓扑图',
-            path: '/topology',
-          },
-        ],
+            path: '/topology'
+          }
+        ]
       },
       {
         key: 'network',
@@ -76,14 +76,14 @@ const MenusModel: MenusModelType = {
           {
             key: 'pool',
             name: 'IP资源池',
-            path: '/pool',
+            path: '/pool'
           },
           {
             key: 'vip',
             name: '负载均衡vip',
-            path: '/vip',
-          },
-        ],
+            path: '/vip'
+          }
+        ]
       },
       {
         key: 'registry',
@@ -93,19 +93,19 @@ const MenusModel: MenusModelType = {
           {
             key: 'images',
             name: '镜像列表',
-            path: '/images',
+            path: '/images'
           },
           {
             key: 'private',
             name: '外部仓库',
-            path: '/private',
+            path: '/private'
           },
           {
             key: 'logs',
             name: '操作日志',
-            path: '/logs',
-          },
-        ],
+            path: '/logs'
+          }
+        ]
       },
       {
         key: 'user',
@@ -115,17 +115,17 @@ const MenusModel: MenusModelType = {
           {
             key: 'list',
             name: '用户列表',
-            path: '/list',
+            path: '/list'
           },
           {
             key: 'audits',
             name: '审计日志',
-            path: '/audits',
-          },
-        ],
-      },
-    ],
-  },
+            path: '/audits'
+          }
+        ]
+      }
+    ]
+  }
 };
 
 export default MenusModel;

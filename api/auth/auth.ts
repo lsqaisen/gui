@@ -24,7 +24,7 @@ export function login(options: loginRequest): Promise<ResType> {
   let _encrypt = encrypt.encrypt(password);
   return request('/api/auth/login', {
     method: 'post',
-    body: {encrypt: _encrypt, ...data},
+    body: {encrypt: _encrypt, ...data}
   });
 }
 
@@ -56,7 +56,7 @@ export function getToken(options: getTokenRequest): Promise<ResType> {
   let {service, scope} = options;
   return request(`/api/auth/token?service=${service}&scope=${scope}`, {
     headers: {
-      Authorization: '',
-    },
+      Authorization: ''
+    }
   });
 }

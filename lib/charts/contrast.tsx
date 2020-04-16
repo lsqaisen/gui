@@ -1,9 +1,9 @@
-import { PureComponent } from 'react';
-import * as G2 from '@antv/g2'
-import Chart, { Types } from './basic';
+import {PureComponent} from 'react';
+import * as G2 from '@antv/g2';
+import Chart, {Types} from './basic';
 
 export interface ContrastProps {
-  types?: [Types, Types],
+  types?: [Types, Types];
   color?: string[];
   symbol?: string;
   timeMask?: string;
@@ -19,13 +19,13 @@ class Contrast extends PureComponent<ContrastProps, any> {
     timeMask: 'mm:ss',
     color: ['#286cff'],
     data: [],
-    initDraw: () => null,
-  }
+    initDraw: () => null
+  };
 
   chart: G2.Chart | null | undefined;
 
   initDraw = (chart: G2.Chart) => {
-    const { scale, types, timeMask, color, data, initDraw } = this.props;
+    const {scale, types, timeMask, color, data, initDraw} = this.props;
     chart.axis('disk', {
       grid: null
     });
@@ -43,27 +43,29 @@ class Contrast extends PureComponent<ContrastProps, any> {
         sync: true,
         alias: '磁盘读写请求数（iops）',
         formatter(val: any) {
-          return `${val}`
-        },
+          return `${val}`;
+        }
       },
       disk: {
         type: 'linear',
         sync: true,
         alias: '磁盘读写速度',
         formatter(val: any) {
-          return `${window.Number(val).flowCeil(0)}`
-        },
+          return `${window.Number(val).flowCeil(0)}`;
+        }
       }
     };
-    chart.source(data, _scale)
-    let keys = Object.keys(_scale).filter(key => key !== 'time')
+    chart.source(data, _scale);
+    let keys = Object.keys(_scale).filter(key => key !== 'time');
     keys.forEach((key, i) => {
-      chart[types![i] || types![0]]().position(`time*${key}`).color('title', color!)
-    })
+      chart[types![i] || types![0]]()
+        .position(`time*${key}`)
+        .color('title', color!);
+    });
     initDraw!(chart);
-  }
+  };
 
-  UNSAFE_componentWillReceiveProps({ data = [], timeMask }: ContrastProps) {
+  UNSAFE_componentWillReceiveProps({data = [], timeMask}: ContrastProps) {
     if (JSON.stringify(data) !== JSON.stringify(this.props.data)) {
       this.chart!.changeData(data);
     }
@@ -71,7 +73,7 @@ class Contrast extends PureComponent<ContrastProps, any> {
       this.chart!.scale({
         time: {
           type: 'time',
-          mask: timeMask,
+          mask: timeMask
         }
       });
     }
@@ -83,7 +85,7 @@ class Contrast extends PureComponent<ContrastProps, any> {
         ref={(ref: any) => ref && (this.chart = ref.chart)}
         onDraw={this.initDraw}
       />
-    )
+    );
   }
 }
 

@@ -1,4 +1,4 @@
-import request, { ResType } from '../request';
+import request, {ResType} from '../request';
 
 /**
  * 获取当前用户数据
@@ -6,7 +6,7 @@ import request, { ResType } from '../request';
  * @returns {Promise<ResType>}
  */
 export function getCurrentUser(): Promise<ResType> {
-	return request(`/api/users/current`);
+  return request(`/api/users/current`);
 }
 
 /**
@@ -14,7 +14,7 @@ export function getCurrentUser(): Promise<ResType> {
  * @returns {Promise<ResType>}
  */
 export function getPrivileges(): Promise<ResType> {
-	return request(`/api/users/privileges`);
+  return request(`/api/users/privileges`);
 }
 
 /**
@@ -22,7 +22,7 @@ export function getPrivileges(): Promise<ResType> {
  * @returns {Promise<ResType>}
  */
 export function geUsers(): Promise<ResType> {
-	return request(`/api/users/all`);
+  return request(`/api/users/all`);
 }
 
 /**
@@ -33,14 +33,13 @@ export function geUsers(): Promise<ResType> {
  * @property {string} username
  */
 export type userRequest = {
-	email: string
-	expired_at: string
-	password: string
-	privileges?: string
-	remark: string
-	username: string
-}
-
+  email: string;
+  expired_at: string;
+  password: string;
+  privileges?: string;
+  remark: string;
+  username: string;
+};
 
 /**
  * add new registry secret
@@ -54,14 +53,14 @@ export type userRequest = {
  * @returns {Promise<ResType>}
  */
 export function addUser(options: userRequest): Promise<ResType> {
-	return request(`/api/users/add`, {
-		method: 'post',
-		body: options,
-	});
+  return request(`/api/users/add`, {
+    method: 'post',
+    body: options
+  });
 }
 
 export interface deleteUserRequest extends userRequest {
-	id: string;
+  id: string;
 }
 
 /**
@@ -76,14 +75,14 @@ export interface deleteUserRequest extends userRequest {
  * @returns {Promise<ResType>}
  */
 export function deleteUser(options: deleteUserRequest): Promise<ResType> {
-	return request(`/api/users/delete`, {
-		method: 'delete',
-		body: options,
-	});
+  return request(`/api/users/delete`, {
+    method: 'delete',
+    body: options
+  });
 }
 
 export interface updateUserRequest extends userRequest {
-	id: string;
+  id: string;
 }
 /**
  * update user profile
@@ -97,10 +96,10 @@ export interface updateUserRequest extends userRequest {
  * @returns {Promise<ResType>}
  */
 export function updateUser(options: updateUserRequest): Promise<ResType> {
-	return request(`/api/users/profile`, {
-		method: 'put',
-		body: options,
-	});
+  return request(`/api/users/profile`, {
+    method: 'put',
+    body: options
+  });
 }
 
 /**
@@ -110,40 +109,41 @@ export function updateUser(options: updateUserRequest): Promise<ResType> {
  * @property {string | number} size
  */
 export type getAuditsRequest = {
-	query?: string
-	page: string | number
-	size: string | number
-}
+  query?: string;
+  page: string | number;
+  size: string | number;
+};
 
 /**
  * get access log of images
  * @param {getAuditsRequest} options
  * @param {string} options.query
- * @param {string | number} options.page 
+ * @param {string | number} options.page
  * @param {string | number} options.size
  * @returns {Promise<ResType>}
  */
 export function getAudits(options: getAuditsRequest): Promise<ResType> {
-	const { query = "", page, size } = options;
-	return request(`/api/users/audits?q=${query}&page=${page}&size=${size}`);
+  const {query = '', page, size} = options;
+  return request(`/api/users/audits?q=${query}&page=${page}&size=${size}`);
 }
 
-
 export interface ChangePasswordRequestType {
-	current: string;
-	new: string;
+  current: string;
+  new: string;
 }
 
 /**
  * change current user password
  * @param {ChangePasswordRequestType} options
- * @param {string} options.current 
+ * @param {string} options.current
  * @param {string} options.new
  * @returns {Promise<ResType>}
  */
-export function changePassword(options: ChangePasswordRequestType): Promise<ResType> {
-	return request(`/api/users/password`, {
-		method: 'PUT',
-		body: options,
-	});
+export function changePassword(
+  options: ChangePasswordRequestType
+): Promise<ResType> {
+  return request(`/api/users/password`, {
+    method: 'PUT',
+    body: options
+  });
 }

@@ -1,18 +1,18 @@
-import request, { ResType } from '../request';
+import request, {ResType} from '../request';
 
 export type NlbPortType = {
   node_port: number;
   port: number;
   protocol: number;
   target_port: number;
-}
+};
 
 export interface NlbRequest {
   app_name: string;
   app_type: string;
   name: string;
   namespace: string;
-  ports: NlbPortType[],
+  ports: NlbPortType[];
 }
 
 /**
@@ -24,21 +24,20 @@ export function getNlbList(namespace: string): Promise<ResType> {
   return request(`/api/apps/nlb?namespace=${namespace}`);
 }
 
-
 export interface NlbNameRequest {
-  name: string
-  namespace: string
+  name: string;
+  namespace: string;
 }
 
 /**
-* query nlb
+ * query nlb
  * @param {NlbNameRequest} options
  * @param {string} options.name
  * @param {string} options.namespace
-* @returns {Promise<ResType>}
-*/
+ * @returns {Promise<ResType>}
+ */
 export function getNlb(options: NlbNameRequest): Promise<ResType> {
-  const { name, namespace } = options;
+  const {name, namespace} = options;
   return request(`/api/apps/nlb/${name}?namespace=${namespace}`);
 }
 
@@ -69,8 +68,8 @@ export interface DeleteNlbRequest extends NlbRequest {}
  * @returns {Promise<ResType>}
  */
 export function deleteNlb(options: NlbRequest): Promise<ResType> {
-  const { namespace, name } = options;
+  const {namespace, name} = options;
   return request(`/api/apps/nlb/${name}?namespace=${namespace}`, {
-    method: 'delete',
+    method: 'delete'
   });
 }

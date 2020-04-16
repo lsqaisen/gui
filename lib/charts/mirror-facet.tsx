@@ -1,6 +1,6 @@
-import { PureComponent } from 'react';
-import * as G2 from '@antv/g2'
-import Chart, { Types } from './basic';
+import {PureComponent} from 'react';
+import * as G2 from '@antv/g2';
+import Chart, {Types} from './basic';
 
 export interface MirrorProps {
   min?: number;
@@ -24,13 +24,13 @@ class Mirror extends PureComponent<MirrorProps, any> {
     timeMask: 'mm:ss',
     color: ['#286cff'],
     data: [],
-    initDraw: () => null,
-  }
+    initDraw: () => null
+  };
 
   chart: G2.Chart | null | undefined;
 
   initDraw = (chart: G2.Chart) => {
-    const { min, max, size, scale, timeMask, color, data, initDraw } = this.props;
+    const {min, max, size, scale, timeMask, color, data, initDraw} = this.props;
     const _scale = scale || {
       time: {
         type: 'time',
@@ -38,7 +38,7 @@ class Mirror extends PureComponent<MirrorProps, any> {
       },
       value: {
         min: min || min === 0 ? min : undefined,
-        max: max,
+        max: max
       }
     };
 
@@ -47,13 +47,17 @@ class Mirror extends PureComponent<MirrorProps, any> {
       fields: ['name'],
       padding: [0, 0, 40, 0] as any,
       eachView: function eachView(view) {
-        view.interval().position('time*value').color('name', color!).size(size!);
+        view
+          .interval()
+          .position('time*value')
+          .color('name', color!)
+          .size(size!);
       }
     });
     initDraw!(chart);
-  }
+  };
 
-  UNSAFE_componentWillReceiveProps({ data = [], timeMask }: MirrorProps) {
+  UNSAFE_componentWillReceiveProps({data = [], timeMask}: MirrorProps) {
     if (JSON.stringify(data) !== JSON.stringify(this.props.data)) {
       this.chart!.changeData(data);
     }
@@ -61,7 +65,7 @@ class Mirror extends PureComponent<MirrorProps, any> {
       this.chart!.scale({
         time: {
           type: 'time',
-          mask: timeMask,
+          mask: timeMask
         }
       });
     }
@@ -73,7 +77,7 @@ class Mirror extends PureComponent<MirrorProps, any> {
         ref={(ref: any) => ref && (this.chart = ref.chart)}
         onDraw={this.initDraw}
       />
-    )
+    );
   }
 }
 

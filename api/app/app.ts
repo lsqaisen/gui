@@ -1,164 +1,170 @@
-import request, { ResType } from '../request';
+import request, {ResType} from '../request';
 
 export type VolumeMount = {
-  mount_path: string
-  name: string
-  read_only: boolean
-  sub_path: string
-}
+  mount_path: string;
+  name: string;
+  read_only: boolean;
+  sub_path: string;
+};
 
 export type EnvKeyRef = {
-  key: string
-  name: string
-  optional: boolean
-}
+  key: string;
+  name: string;
+  optional: boolean;
+};
 
 export type EnvFieldRef = {
-  apiVersion: string
-  fieldPath: string
-}
+  apiVersion: string;
+  fieldPath: string;
+};
 
 export type ResourceQuantity = {
   d: {
-    scale: number
-    unscaled: string
-  }
+    scale: number;
+    unscaled: string;
+  };
   i: {
-    scale: number
-    value: number
-  }
-  s: string
-}
+    scale: number;
+    value: number;
+  };
+  s: string;
+};
 
 export type EnvResourceFieldRef = {
-  containerName: string
-  divisor: ResourceQuantity
-  resource: string
-}
+  containerName: string;
+  divisor: ResourceQuantity;
+  resource: string;
+};
 
 export type Env = {
-  name: string
-  value: string
+  name: string;
+  value: string;
   valueFrom: {
-    configMapKeyRef: EnvKeyRef
-    secretKeyRef: EnvKeyRef
-    fieldRef: EnvFieldRef
-    resourceFieldRef: EnvResourceFieldRef
-  }
-}
+    configMapKeyRef: EnvKeyRef;
+    secretKeyRef: EnvKeyRef;
+    fieldRef: EnvFieldRef;
+    resourceFieldRef: EnvResourceFieldRef;
+  };
+};
 
 export type LivenessProbe = {
   exec?: {
-    command: string[]
-  }
+    command: string[];
+  };
   tcpSocket?: {
-    host: string
-    port: number
-  }
+    host: string;
+    port: number;
+  };
   httpGet?: {
-    host: string
-    path: string
-    scheme: string
-    port: number
+    host: string;
+    path: string;
+    scheme: string;
+    port: number;
     httpHeaders?: {
-      name: string
-      value: string
-    }[]
-  }
-  failureThreshold: number
-  initialDelaySeconds: number
-  periodSeconds: number
-  successThreshold: number
-  timeoutSeconds: number
-}
+      name: string;
+      value: string;
+    }[];
+  };
+  failureThreshold: number;
+  initialDelaySeconds: number;
+  periodSeconds: number;
+  successThreshold: number;
+  timeoutSeconds: number;
+};
 
 export type Resources = {
   limits: {
-    [key: string]: ResourceQuantity
-  }
+    [key: string]: ResourceQuantity;
+  };
   requests: {
-    [key: string]: ResourceQuantity
-  }
-}
+    [key: string]: ResourceQuantity;
+  };
+};
 
 export type Container = {
-  name: string
-  image: string
-  working_dir: string
-  privileged: boolean
-  args: string[]
-  command: string[]
-  env: Env[]
-  liveness_probe: LivenessProbe
-  volume_mounts: VolumeMount[]
-  resources: Resources
-}
+  name: string;
+  image: string;
+  working_dir: string;
+  privileged: boolean;
+  args: string[];
+  command: string[];
+  env: Env[];
+  liveness_probe: LivenessProbe;
+  volume_mounts: VolumeMount[];
+  resources: Resources;
+};
 
 export type VolumeItem = {
-  key: string
-  mode: number
-  path: string
-}
+  key: string;
+  mode: number;
+  path: string;
+};
 
 export type ConfigMap = {
-  defaultMode: number
-  items: VolumeItem[]
-  name: string
-  optional: boolean
-}
+  defaultMode: number;
+  items: VolumeItem[];
+  name: string;
+  optional: boolean;
+};
 
 export type HostPath = {
-  path: string
-  type: "" | "BlockDevice" | "CharDevice" | "Directory" | "DirectoryOrCreate" | "File" | "FileOrCreate" | "Socket"
-}
-
+  path: string;
+  type:
+    | ''
+    | 'BlockDevice'
+    | 'CharDevice'
+    | 'Directory'
+    | 'DirectoryOrCreate'
+    | 'File'
+    | 'FileOrCreate'
+    | 'Socket';
+};
 
 export type Secret = {
-  defaultMode: number
-  items: VolumeItem[]
-  optional: boolean
-  secretName: string
-}
+  defaultMode: number;
+  items: VolumeItem[];
+  optional: boolean;
+  secretName: string;
+};
 
 export type Volume = {
-  name: string
-  config_map: ConfigMap
-  host_path: HostPath
-  secret: Secret
-}
+  name: string;
+  config_map: ConfigMap;
+  host_path: HostPath;
+  secret: Secret;
+};
 
 export type Port = {
-  node_port: number
-  port: number
-  protocol: string
-  target_port: number
-}
+  node_port: number;
+  port: number;
+  protocol: string;
+  target_port: number;
+};
 
 export type LoadBalance = {
-  auto_create: boolean
-}
+  auto_create: boolean;
+};
 
 export interface Service {
   name?: string;
-  external_traffic_policy: "Local" | "Cluster"
-  session_affinity: "ClientIP" | "None"
-  type: "ExternalName" | "ClusterIP" | "NodePort" | "LoadBalancer"
-  load_balance: LoadBalance
-  ports: Port[]
+  external_traffic_policy: 'Local' | 'Cluster';
+  session_affinity: 'ClientIP' | 'None';
+  type: 'ExternalName' | 'ClusterIP' | 'NodePort' | 'LoadBalancer';
+  load_balance: LoadBalance;
+  ports: Port[];
 }
 
 export type App = {
-  name: string
-  namespace: string
-  type: string
-  replicas: number
-  labels: { [key: string]: any }
-  volumes: Volume[]
-  containers: Container[]
-  service: Service
-  ip_pool: string
-}
-
+  name: string;
+  namespace: string;
+  type: string;
+  replicas: number;
+  labels: {[key: string]: any};
+  volumes: Volume[];
+  containers: Container[];
+  service: Service;
+  ip_pool: string;
+};
 
 /**
  * query namespace
@@ -176,7 +182,7 @@ export function getNamespaces(): Promise<ResType> {
 export function addNamespace(name: string): Promise<ResType> {
   return request(`/api/apps/namespaces`, {
     method: 'post',
-    body: { name }
+    body: {name}
   });
 }
 
@@ -187,7 +193,7 @@ export function addNamespace(name: string): Promise<ResType> {
  */
 export function deleteNamespace(name: string): Promise<ResType> {
   return request(`/api/apps/namespaces/${name}`, {
-    method: 'DELETE',
+    method: 'DELETE'
   });
 }
 
@@ -208,62 +214,66 @@ export interface GetAppDetailType {
 
 /**
  * 获取
- * @param {GetAppDetailType} options 
+ * @param {GetAppDetailType} options
  * @param {string} options.name
  * @param {string} options.namespace
  * @param {string} options.type
  * @returns {Promise<ResType>}
  */
 export function getAppDetail(options: GetAppDetailType): Promise<ResType> {
-  const { name, namespace, type } = options;
+  const {name, namespace, type} = options;
   return request(`/api/apps/apps/${name}?namespace=${namespace}&type=${type}`);
 }
 
-
 /**
- * @param {App} options 
+ * @param {App} options
  * @returns {Promise<ResType>}
  */
 export function createApp(options: App): Promise<ResType> {
   return request(`/api/apps/apps`, {
-    method: "post",
-    body: options,
+    method: 'post',
+    body: options
   });
 }
 
 /**
- * @param {App} options 
+ * @param {App} options
  * @returns {Promise<ResType>}
  */
 export function modifyApp(options: App): Promise<ResType> {
-  return request(`/api/apps/apps/${options.name}?namespace=${options.namespace}&type=${options.type}`, {
-    method: "put",
-    body: options,
-  });
+  return request(
+    `/api/apps/apps/${options.name}?namespace=${options.namespace}&type=${options.type}`,
+    {
+      method: 'put',
+      body: options
+    }
+  );
 }
 
 export type DeleteAppRequest = {
-  name: string
-  namespace: string
-  app_type: string
-}
+  name: string;
+  namespace: string;
+  app_type: string;
+};
 
 /**
  * delete apps
- * @param {DeleteAppRequest} options 
+ * @param {DeleteAppRequest} options
  * @param {string} options.name
  * @param {string} options.namespace
  * @param {string} options.app_type
  * @returns {Promise<ResType>}
  */
 export function deleteApp(options: DeleteAppRequest): Promise<ResType> {
-  const { namespace, name, app_type } = options;
-  return request(`/api/apps/namespaces/${namespace}/apps/${name}?app_type=${app_type}`, {
-    method: "delete",
-    body: options,
-  });
+  const {namespace, name, app_type} = options;
+  return request(
+    `/api/apps/namespaces/${namespace}/apps/${name}?app_type=${app_type}`,
+    {
+      method: 'delete',
+      body: options
+    }
+  );
 }
-
 
 export interface ModifyReplicasRequest extends DeleteAppRequest {
   replicas: number;
@@ -271,34 +281,41 @@ export interface ModifyReplicasRequest extends DeleteAppRequest {
 
 /**
  * modify replicas
- * @param {ModifyReplicasRequest} options 
+ * @param {ModifyReplicasRequest} options
  * @param {string} options.name
  * @param {string} options.namespace
  * @param {string} options.app_type
  * @param {number} options.replicas
  * @returns {Promise<ResType>}
  */
-export function modifyReplicas(options: ModifyReplicasRequest): Promise<ResType> {
-  const { namespace, name, replicas, app_type } = options;
-  return request(`/api/apps/namespaces/${namespace}/apps/${name}/replicas/${replicas}?app_type=${app_type}`, {
-    method: "put",
-    body: options,
-  });
+export function modifyReplicas(
+  options: ModifyReplicasRequest
+): Promise<ResType> {
+  const {namespace, name, replicas, app_type} = options;
+  return request(
+    `/api/apps/namespaces/${namespace}/apps/${name}/replicas/${replicas}?app_type=${app_type}`,
+    {
+      method: 'put',
+      body: options
+    }
+  );
 }
 
-export interface GetMetricsType extends GetAppDetailType { }
+export interface GetMetricsType extends GetAppDetailType {}
 
 /**
  * get App Metrics
- * @param {GetMetricsType} options 
+ * @param {GetMetricsType} options
  * @param {string} options.name
  * @param {string} options.namespace
  * @param {string} options.type
  * @returns {Promise<ResType>}
  */
 export function getMetrics(options: GetMetricsType): Promise<ResType> {
-  const { namespace, name, type } = options;
-  return request(`/api/apps/namespaces/${namespace}/apps/${name}/metrics?app_type=${type}`);
+  const {namespace, name, type} = options;
+  return request(
+    `/api/apps/namespaces/${namespace}/apps/${name}/metrics?app_type=${type}`
+  );
 }
 
 /**
@@ -323,15 +340,14 @@ export interface GetServiceType {
  * @returns {Promise<ResType>}
  */
 export function getService(options: GetServiceType): Promise<ResType> {
-  const { name, namespace } = options;
+  const {name, namespace} = options;
   return request(`/api/apps/services/${name}?namespace=${namespace}`);
 }
-
 
 export interface ModifyServiceType {
   name: string;
   namespace: string;
-  service: Service
+  service: Service;
 }
 
 /**
@@ -343,19 +359,18 @@ export interface ModifyServiceType {
  * @returns {Promise<ResType>}
  */
 export function modifyService(options: ModifyServiceType): Promise<ResType> {
-  const { name, namespace, service } = options;
+  const {name, namespace, service} = options;
   if (service) {
     return request(`/api/apps/services/${name}?namespace=${namespace}`, {
-      method: "PUT",
-      body: service || {},
+      method: 'PUT',
+      body: service || {}
     });
   } else {
     return request(`/api/apps/services/${name}?namespace=${namespace}`, {
-      method: "DELETE",
+      method: 'DELETE'
     });
   }
 }
-
 
 export interface LogsRequestType {
   name: string;
@@ -370,10 +385,9 @@ export interface LogsRequestType {
  * @returns {Promise<ResType>}
  */
 export function getLogs(options: LogsRequestType): Promise<ResType> {
-  const { name, namespace } = options;
+  const {name, namespace} = options;
   return request(`/api/apps/pods/${name}/console?namespace=${namespace}`);
 }
-
 
 export interface DeletePodType {
   name: string;
@@ -382,20 +396,20 @@ export interface DeletePodType {
 
 /**
  * delete apps
- * @param {DeletePodType} options 
+ * @param {DeletePodType} options
  * @param {string} options.name
  * @param {string} options.namespace
  * @returns {Promise<ResType>}
  */
 export function deletePod(options: DeletePodType): Promise<ResType> {
-  const { namespace, name } = options;
+  const {namespace, name} = options;
   return request(`/api/apps/pods/${name}?namespace=${namespace}`, {
-    method: "delete",
-    body: options,
+    method: 'delete',
+    body: options
   });
 }
 
-export interface GetAppEventType extends GetAppDetailType { }
+export interface GetAppEventType extends GetAppDetailType {}
 
 /**
  * query apps event by name
@@ -406,11 +420,13 @@ export interface GetAppEventType extends GetAppDetailType { }
  * @returns {Promise<ResType>}
  */
 export function getAppEvent(options: GetAppEventType): Promise<ResType> {
-  const { name, namespace, type } = options;
-  return request(`/api/apps/apps/${name}/events?namespace=${namespace}&type=${type}`);
+  const {name, namespace, type} = options;
+  return request(
+    `/api/apps/apps/${name}/events?namespace=${namespace}&type=${type}`
+  );
 }
 
-export interface GetAppHistoryVersionType extends GetAppDetailType { }
+export interface GetAppHistoryVersionType extends GetAppDetailType {}
 
 /**
  * Get App History version
@@ -420,12 +436,16 @@ export interface GetAppHistoryVersionType extends GetAppDetailType { }
  * @param {string} options.type
  * @returns {Promise<ResType>}
  */
-export function getAppHistoryVersion(options: GetAppHistoryVersionType): Promise<ResType> {
-  const { name, namespace, type } = options;
-  return request(`/api/apps/apps/${name}/versions?namespace=${namespace}&app_type=${type}`);
+export function getAppHistoryVersion(
+  options: GetAppHistoryVersionType
+): Promise<ResType> {
+  const {name, namespace, type} = options;
+  return request(
+    `/api/apps/apps/${name}/versions?namespace=${namespace}&app_type=${type}`
+  );
 }
 
-export interface ExportAppType extends GetAppDetailType { }
+export interface ExportAppType extends GetAppDetailType {}
 
 /**
  * export apps by name
@@ -436,8 +456,10 @@ export interface ExportAppType extends GetAppDetailType { }
  * @returns {Promise<ResType>}
  */
 export function exportApp(options: ExportAppType): Promise<ResType> {
-  const { name, namespace, type } = options;
-  return request(`/api/apps/apps/${name}/yaml?namespace=${namespace}&type=${type}`);
+  const {name, namespace, type} = options;
+  return request(
+    `/api/apps/apps/${name}/yaml?namespace=${namespace}&type=${type}`
+  );
 }
 
 export interface ImportAppType extends GetAppDetailType {
@@ -454,11 +476,12 @@ export interface ImportAppType extends GetAppDetailType {
  * @returns {Promise<ResType>}
  */
 export function importApp(options: ImportAppType): Promise<ResType> {
-  const { name, namespace, type, yaml } = options;
-  return request(`/api/apps/apps/${name}/yaml?namespace=${namespace}&type=${type}`, {
-    method: 'PUT',
-    body: yaml
-  });
+  const {name, namespace, type, yaml} = options;
+  return request(
+    `/api/apps/apps/${name}/yaml?namespace=${namespace}&type=${type}`,
+    {
+      method: 'PUT',
+      body: yaml
+    }
+  );
 }
-
-
