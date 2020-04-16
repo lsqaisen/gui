@@ -5,7 +5,7 @@ import {Button} from 'antd';
 import {Page} from 'library';
 import Node from '@/components/cluster/';
 import Actions from './basic/actions';
-import AddNode from '@/components/cluster/add-node';
+import {AddNode} from '@/components/cluster/actions/';
 import Install from '@/components/cluster/install';
 import {INode, ClusterModelState} from '@/models/cluster/cluster';
 import {ConnectLoading, Dispatch} from '@/models/connect';
@@ -34,7 +34,6 @@ const Nodes: React.FC<NodesProps> = ({
     getNodes();
     getRunningStatus();
   }, []);
-  return <AddNode onSubmit={addNodes} />;
   return (
     <Page
       ref={ref => setContainer(ReactDOM.findDOMNode(ref))}

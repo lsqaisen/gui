@@ -56,7 +56,7 @@ export default {
   proxy: {
     // api
     '/api': {
-      target: 'https://192.168.1.140:6600/',
+      target: 'https://192.168.1.150:6600/',
       changeOrigin: true,
       secure: false,
       pathRewrite: {'^/api': '/api'}
