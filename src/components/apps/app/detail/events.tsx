@@ -15,8 +15,8 @@ const Events = ({data}: EventsProps) => {
             new Date(b.lastTimestamp).getTime() -
             new Date(a.lastTimestamp).getTime()
         )
-        .map(v => ({key: v.metadata.name, ...v}))}
-      renderItem={v => {
+        .map((v) => ({key: v.metadata.name, ...v}))}
+      renderItem={(v) => {
         return (
           <List.Item
             actions={[
@@ -28,12 +28,12 @@ const Events = ({data}: EventsProps) => {
                 overflowCount={999}
                 count={v.count}
                 style={{backgroundColor: v.type === 'Normal' ? '#286cff' : ''}}
-              />
+              />,
             ]}
           >
             <Typography.Text type={v.type.toLocaleLowerCase() as any}>
               [{v.type}]
-            </Typography.Text>{' '}
+            </Typography.Text>
             {v.message}
           </List.Item>
         );

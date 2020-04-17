@@ -19,7 +19,7 @@ const options = ({title, dump}: OptionsProps) => (
   class extends PureComponent<VolumeOptionsProps, any> {
     form?: WrappedFormUtils;
     state = {
-      visible: true
+      visible: true,
     };
     componentDidMount() {
       this.setState({visible: false});
@@ -60,8 +60,7 @@ const options = ({title, dump}: OptionsProps) => (
                 }}
                 style={{marginRight: 8}}
               >
-                {' '}
-                取消{' '}
+                取消
               </Button>
               <Button
                 onClick={() => {
@@ -76,8 +75,7 @@ const options = ({title, dump}: OptionsProps) => (
                 }}
                 type="primary"
               >
-                {' '}
-                确认{' '}
+                确认
               </Button>
             </div>
           </Drawer>

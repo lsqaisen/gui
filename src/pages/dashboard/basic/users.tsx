@@ -38,18 +38,16 @@ const Users = ({loading, total = 0, audits, dispatch}: UsersProps) => {
             <List
               dataSource={audits.items}
               locale={{emptyText: '暂无审计日志'}}
-              renderItem={audit => (
+              renderItem={(audit) => (
                 <Typography.Paragraph
                   style={{
                     wordBreak: 'break-all',
-                    color: audit.status !== 200 ? '#ff5242' : ''
+                    color: audit.status !== 200 ? '#ff5242' : '',
                   }}
                   ellipsis={{rows: 2, expandable: true}}
                 >
                   对象：
-                  <Typography.Text mark>
-                    {audit.repo_name}
-                  </Typography.Text> ->{' '}
+                  <Typography.Text mark>{audit.repo_name}</Typography.Text> ->
                   <Typography.Text mark>{audit.resource}</Typography.Text>,
                   记录：{audit.operation}
                 </Typography.Paragraph>
@@ -69,5 +67,5 @@ export type ConnectState = {
 export default connect(({users, loading}: ConnectState) => ({
   total: users.list.length,
   audits: users.audits,
-  loading: loading.effects['users/get'] || loading.effects['users/audits']
+  loading: loading.effects['users/get'] || loading.effects['users/audits'],
 }))(Users);

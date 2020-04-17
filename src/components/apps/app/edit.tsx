@@ -14,7 +14,7 @@ export interface EditAppProps {
 
 class EditApp extends PureComponent<EditAppProps, any> {
   state = {
-    loading: false
+    loading: false,
   };
 
   render() {
@@ -33,8 +33,7 @@ class EditApp extends PureComponent<EditAppProps, any> {
         <EditAppForm data={data} ref="editapp" />
         <div className={'drawer-bottom-actions'}>
           <Button onClick={onClose} style={{marginRight: 8}}>
-            {' '}
-            取消{' '}
+            取消
           </Button>
           <Context.Consumer>
             {({modifyApp}) => (
@@ -57,8 +56,7 @@ class EditApp extends PureComponent<EditAppProps, any> {
                 }}
                 type="primary"
               >
-                {' '}
-                提交{' '}
+                提交
               </Button>
             )}
           </Context.Consumer>

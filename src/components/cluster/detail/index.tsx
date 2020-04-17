@@ -8,7 +8,7 @@ import {
   Col,
   Statistic,
   Typography,
-  Breadcrumb
+  Breadcrumb,
 } from 'antd';
 import router from 'umi/router';
 import Link from 'umi/link';
@@ -34,7 +34,7 @@ class Node extends PureComponent<NodeProps, any> {
   static readonly defaultProps: NodeProps = {
     node: {} as INode,
     pods: [] as IPod[],
-    getDode: () => null
+    getDode: () => null,
   };
   render() {
     const {pods, node, onLoad, getDode} = this.props;
@@ -45,16 +45,16 @@ class Node extends PureComponent<NodeProps, any> {
           routes={[
             {
               path: '/dashboard',
-              breadcrumbName: '总览'
+              breadcrumbName: '总览',
             },
             {
               path: `/cluster`,
-              breadcrumbName: '节点列表'
+              breadcrumbName: '节点列表',
             },
             {
               path: `/cluster/${node!.metadata.name}`,
-              breadcrumbName: '节点详情'
-            }
+              breadcrumbName: '节点详情',
+            },
           ]}
           itemRender={(route, _, routes) => {
             const last = routes.indexOf(route) === routes.length - 1;
@@ -72,7 +72,7 @@ class Node extends PureComponent<NodeProps, any> {
           subTitle={
             (
               node!.addresses.find((v: any) => v.type === 'InternalIP') || {
-                address: ''
+                address: '',
               }
             ).address
           }
@@ -92,13 +92,13 @@ class Node extends PureComponent<NodeProps, any> {
                 ) : (
                   <span style={{color: '#f5222d'}}>异常</span>
                 )}
-              </Tag>
+              </Tag>,
             ] as any
           }
           extra={[
             <Button key="3" onClick={getDode}>
               刷新
-            </Button>
+            </Button>,
           ]}
           footer={
             <Tabs style={{padding: '0 16px'}} defaultActiveKey="1">
@@ -184,8 +184,7 @@ class Node extends PureComponent<NodeProps, any> {
                   <b className={styles.blue}>{node!.pods} 个</b>
                 </Description>
                 <Description term="最大Pod数" xs={24} md={12}>
-                  <b className={styles.blue}>{node!.allocatable.pods || 0}</b>{' '}
-                  个
+                  <b className={styles.blue}>{node!.allocatable.pods || 0}</b>个
                 </Description>
               </Row>
             </Col>

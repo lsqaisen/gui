@@ -85,24 +85,25 @@ class App extends PureComponent<AppProps, any> {
         }
       }),
       render: (t, r) => {
+        return null
         return (
-          <Context.Consumer>
-            {({modifyReplicas}) => (
-              <Inputs.Edit
-                type="number"
-                value={t}
-                onChange={replicas =>
-                  modifyReplicas!({
-                    ...r,
-                    app_type: r.type,
-                    replicas: Number(replicas)
-                  })
-                }
-              >
-                {`${r.ready} / ${r.replicas}`}
-              </Inputs.Edit>
-            )}
-          </Context.Consumer>
+          // <Context.Consumer>
+          //   {({modifyReplicas}) => (
+          //     <Inputs.Edit
+          //       type="number"
+          //       value={t}
+          //       onChange={replicas =>
+          //         modifyReplicas!({
+          //           ...r,
+          //           app_type: r.type,
+          //           replicas: Number(replicas)
+          //         })
+          //       }
+          //     >
+          //       {`${r.ready} / ${r.replicas}`}
+          //     </Inputs.Edit>
+          //   )}
+          // </Context.Consumer>
         );
       }
     },

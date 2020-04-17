@@ -27,14 +27,14 @@ export default ({
         data={data}
         btn={<Menu.Item disabled={!data.replicas} {...props} />}
         callback={() => update(data.name)}
-        onOk={replicas => {
+        onOk={(replicas) => {
           return dispatch({
             type: `apps/modifyReplicas`,
             payload: {
               ...data,
               app_type: data.type,
-              replicas
-            }
+              replicas,
+            },
           });
         }}
       >
@@ -49,11 +49,10 @@ export default ({
         onOk={() => {
           return dispatch({
             type: `apps/delete`,
-            payload: {app_type: data.type, ...data}
+            payload: {app_type: data.type, ...data},
           });
         }}
       >
-        {' '}
         删除
       </Delete>
     </>

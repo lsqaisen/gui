@@ -9,7 +9,7 @@ import {
   SecretRequest,
   ModifyReplicasRequest,
   ImportAppType,
-  ModifyServiceType
+  ModifyServiceType,
 } from 'api/type/app';
 import {Add as AddConfigMap} from '@/components/apps/configmap/create';
 import {Add as AddSecret} from '@/components/apps/secret/create';
@@ -56,22 +56,22 @@ const Layout: React.FC<LayoutProps> = ({ns, dispatch, children}) => {
         getIPPools,
         modifyService,
         namespace: ns,
-        CreateConfigMapComp: ({onCreate}) => (
-          <AddConfigMap
-            canFullScreen
-            submit={createConfigMap}
-            value={{namespace: ns}}
-            onCreate={onCreate}
-          />
-        ),
-        CreateSecretComp: ({onCreate}) => (
-          <AddSecret
-            canFullScreen
-            submit={createSecret}
-            value={{namespace: ns}}
-            onCreate={onCreate}
-          />
-        )
+        // CreateConfigMapComp: ({onCreate}) => (
+        //   <AddConfigMap
+        //     canFullScreen
+        //     submit={createConfigMap}
+        //     value={{namespace: ns}}
+        //     onCreate={onCreate}
+        //   />
+        // ),
+        // CreateSecretComp: ({onCreate}) => (
+        //   <AddSecret
+        //     canFullScreen
+        //     submit={createSecret}
+        //     value={{namespace: ns}}
+        //     onCreate={onCreate}
+        //   />
+        // )
       }}
     >
       {children}

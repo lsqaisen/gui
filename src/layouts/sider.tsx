@@ -16,7 +16,7 @@ export default ({onEnd}: SiderProps) => (
       pathname,
       menus,
       logout = () => null,
-      modifyPassword = () => null
+      modifyPassword = () => null,
     }) => (
       <div style={{height: '100%', width: '100%'}}>
         <section style={{height: 64, padding: 8}}>
@@ -54,8 +54,8 @@ export default ({onEnd}: SiderProps) => (
                       <Link to={`${child.path}${_child.path}`}>
                         <span className="name">{_child.name}</span>
                       </Link>
-                    )
-                  }))
+                    ),
+                  })),
                 };
               } else {
                 return {
@@ -66,7 +66,7 @@ export default ({onEnd}: SiderProps) => (
                       <i className={`icon iconfont icon-${child.key}`} />
                       <span className="name">{child.name}</span>
                     </Link>
-                  )
+                  ),
                 };
               }
             })}
@@ -76,11 +76,10 @@ export default ({onEnd}: SiderProps) => (
           style={{
             lineHeight: '32px',
             textAlign: 'center',
-            borderTop: '1px solid #f8f8f8'
+            borderTop: '1px solid #f8f8f8',
           }}
         >
-          {' '}
-          build{' '}
+          build
           <Time
             format="YYYY-MM-DD  HH:mm"
             value={new Date(Number(process.env.VERSION))}

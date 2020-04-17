@@ -15,11 +15,11 @@ export interface AddRulesProps {
 class AddRules extends PureComponent<AddRulesProps, any> {
   form?: WrappedFormUtils;
   static readonly defaultProps = {
-    submit: () => null
+    submit: () => null,
   };
 
   state = {
-    loading: false
+    loading: false,
   };
 
   render() {
@@ -38,8 +38,7 @@ class AddRules extends PureComponent<AddRulesProps, any> {
         <AddRulesForm ref={(ref: any) => (this.form = ref)} value={data} />
         <div className={'drawer-bottom-actions'}>
           <Button onClick={onClose} style={{marginRight: 8}}>
-            {' '}
-            取消{' '}
+            取消
           </Button>
           <Button
             loading={loading}
@@ -60,8 +59,7 @@ class AddRules extends PureComponent<AddRulesProps, any> {
             }}
             type="primary"
           >
-            {' '}
-            提交{' '}
+            提交
           </Button>
         </div>
       </Drawer>

@@ -13,7 +13,7 @@ export interface EditServiceProps {
 
 class EditService extends PureComponent<EditServiceProps, any> {
   state = {
-    loading: false
+    loading: false,
   };
 
   render() {
@@ -32,8 +32,7 @@ class EditService extends PureComponent<EditServiceProps, any> {
         <EditServiceForm data={data} ref="editapp" />
         <div className={'drawer-bottom-actions'}>
           <Button onClick={onClose} style={{marginRight: 8}}>
-            {' '}
-            取消{' '}
+            取消
           </Button>
           <Context.Consumer>
             {({modifyService}) => (
@@ -49,7 +48,7 @@ class EditService extends PureComponent<EditServiceProps, any> {
                           (await modifyService!({
                             name: data!.name,
                             namespace: data!.namespace,
-                            service: values.service
+                            service: values.service,
                           })) as any
                         ) {
                           this.setState({loading: false});
@@ -63,8 +62,7 @@ class EditService extends PureComponent<EditServiceProps, any> {
                 }}
                 type="primary"
               >
-                {' '}
-                提交{' '}
+                提交
               </Button>
             )}
           </Context.Consumer>

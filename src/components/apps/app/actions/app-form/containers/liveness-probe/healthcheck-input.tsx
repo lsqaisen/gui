@@ -21,8 +21,8 @@ class LivenessProbeInput extends PureComponent<LivenessProbeInputProps, any> {
     onChange: () => null,
     formItemLayout: {
       labelCol: {xs: 24, md: 5},
-      wrapperCol: {xs: 24, md: 19}
-    }
+      wrapperCol: {xs: 24, md: 19},
+    },
   };
   constructor(props: LivenessProbeInputProps) {
     super(props);
@@ -31,7 +31,7 @@ class LivenessProbeInput extends PureComponent<LivenessProbeInputProps, any> {
         ? 'CMD'
         : props.value!.tcpSocket
         ? 'TCP'
-        : 'HTTP'
+        : 'HTTP',
     };
   }
   componentDidMount() {}
@@ -46,7 +46,7 @@ class LivenessProbeInput extends PureComponent<LivenessProbeInputProps, any> {
       periodSeconds,
       timeoutSeconds,
       successThreshold,
-      failureThreshold
+      failureThreshold,
     } = value!;
     const {getFieldDecorator, setFieldsValue} = form;
     const {protocol} = this.state;
@@ -55,7 +55,7 @@ class LivenessProbeInput extends PureComponent<LivenessProbeInputProps, any> {
         <FormItem {...formItemLayout} label="检测协议">
           <Radio.Group
             value={protocol}
-            onChange={e => {
+            onChange={(e) => {
               this.setState({protocol: e.target.value});
               let value = {};
               switch (e.target.value) {
@@ -68,7 +68,7 @@ class LivenessProbeInput extends PureComponent<LivenessProbeInputProps, any> {
                     timeoutSeconds: 6,
                     periodSeconds: 6,
                     successThreshold: 1,
-                    failureThreshold: 3
+                    failureThreshold: 3,
                   };
                   break;
                 case 'HTTP':
@@ -79,13 +79,13 @@ class LivenessProbeInput extends PureComponent<LivenessProbeInputProps, any> {
                       host: undefined,
                       path: undefined,
                       scheme: undefined,
-                      port: undefined
+                      port: undefined,
                     },
                     initialDelaySeconds: 5,
                     timeoutSeconds: 6,
                     periodSeconds: 6,
                     successThreshold: 1,
-                    failureThreshold: 3
+                    failureThreshold: 3,
                   };
                 case 'CMD':
                   value = {
@@ -96,7 +96,7 @@ class LivenessProbeInput extends PureComponent<LivenessProbeInputProps, any> {
                     timeoutSeconds: 6,
                     periodSeconds: 6,
                     successThreshold: 1,
-                    failureThreshold: 3
+                    failureThreshold: 3,
                   };
               }
               setFieldsValue(value);
@@ -114,7 +114,7 @@ class LivenessProbeInput extends PureComponent<LivenessProbeInputProps, any> {
                 <FormInput {...formItemLayout} label="监听端口">
                   {getFieldDecorator('tcpSocket', {
                     initialValue: tcpSocket,
-                    rules: []
+                    rules: [],
                   })(<TcpInput />)}
                 </FormInput>
               );
@@ -123,7 +123,7 @@ class LivenessProbeInput extends PureComponent<LivenessProbeInputProps, any> {
                 <FormInput>
                   {getFieldDecorator('httpGet', {
                     initialValue: httpGet,
-                    rules: []
+                    rules: [],
                   })(<HttpInput {...formItemLayout} />)}
                 </FormInput>
               );
@@ -132,7 +132,7 @@ class LivenessProbeInput extends PureComponent<LivenessProbeInputProps, any> {
                 <FormInput {...formItemLayout} label="命令" required>
                   {getFieldDecorator('exec', {
                     initialValue: exec,
-                    rules: []
+                    rules: [],
                   })(<ExecInput />)}
                 </FormInput>
               );
@@ -144,49 +144,41 @@ class LivenessProbeInput extends PureComponent<LivenessProbeInputProps, any> {
           {getFieldDecorator('initialDelaySeconds', {
             initialValue: initialDelaySeconds,
             validateFirst: true,
-            rules: [{required: true, message: '初始化延时不能为空！'}]
+            rules: [{required: true, message: '初始化延时不能为空！'}],
           })(
             <InputNumber
               style={{width: 180}}
               placeholder="请输入初始化延时时间"
             />
-          )}{' '}
+          )}
           秒
         </FormItem>
         <FormItem {...formItemLayout} label="检测间隔">
           {getFieldDecorator('periodSeconds', {
             initialValue: periodSeconds,
-            rules: [{required: true, message: '检测间隔不能为空！'}]
-          })(
-            <InputNumber style={{width: 180}} placeholder="请输入检测间隔" />
-          )}{' '}
+            rules: [{required: true, message: '检测间隔不能为空！'}],
+          })(<InputNumber style={{width: 180}} placeholder="请输入检测间隔" />)}
           秒
         </FormItem>
         <FormItem {...formItemLayout} label="响应时限">
           {getFieldDecorator('timeoutSeconds', {
             initialValue: timeoutSeconds,
-            rules: [{required: true, message: '响应时限不能为空！'}]
-          })(
-            <InputNumber style={{width: 180}} placeholder="请输入响应时限" />
-          )}{' '}
+            rules: [{required: true, message: '响应时限不能为空！'}],
+          })(<InputNumber style={{width: 180}} placeholder="请输入响应时限" />)}
           秒
         </FormItem>
         <FormItem {...formItemLayout} label="健康阈值">
           {getFieldDecorator('successThreshold', {
             initialValue: successThreshold,
-            rules: [{required: true, message: '健康阈值不能为空！'}]
-          })(
-            <InputNumber style={{width: 180}} placeholder="请输入健康阈值" />
-          )}{' '}
+            rules: [{required: true, message: '健康阈值不能为空！'}],
+          })(<InputNumber style={{width: 180}} placeholder="请输入健康阈值" />)}
           次
         </FormItem>
         <FormItem {...formItemLayout} label="故障阈值">
           {getFieldDecorator('failureThreshold', {
             initialValue: failureThreshold,
-            rules: [{required: true, message: '故障阈值不能为空！'}]
-          })(
-            <InputNumber style={{width: 180}} placeholder="请输入故障阈值" />
-          )}{' '}
+            rules: [{required: true, message: '故障阈值不能为空！'}],
+          })(<InputNumber style={{width: 180}} placeholder="请输入故障阈值" />)}
           次
         </FormItem>
       </Card>

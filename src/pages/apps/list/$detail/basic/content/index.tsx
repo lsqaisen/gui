@@ -37,7 +37,6 @@ const Content = ({loading, app}: ContentProps) => {
         key="events"
         tab={
           <Badge count={count} dot>
-            {' '}
             <Icon type="notification" />
             事件列表
           </Badge>

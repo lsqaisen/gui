@@ -16,7 +16,7 @@ export type OptionType = {
   children?: OptionType[];
 };
 
-export interface SearchSelectProps extends SelectProps {
+export interface SearchSelectProps extends SelectProps<any> {
   isScroll?: boolean;
   pageStart?: number;
   initialLoad?: boolean;
@@ -39,21 +39,21 @@ class SearchSelect extends PureComponent<SearchSelectProps, any> {
     pageStart: 0,
     initialLoad: false,
     threshold: 200,
-    height: 250
+    height: 250,
   };
 
   state = {
     total: Infinity,
     data: [] as OptionType[],
     loading: false,
-    hasMore: true
+    hasMore: true,
   };
 
   open: boolean = false;
 
   getOptions = (options: OptionType[]) => {
     if (Array.isArray(options)) {
-      return options.map(option => {
+      return options.map((option) => {
         if (Array.isArray(option.children)) {
           return (
             <OptGroup key={option.key} label={option.label}>
@@ -81,28 +81,28 @@ class SearchSelect extends PureComponent<SearchSelectProps, any> {
     let {total, data} = this.state;
     const {asyncSearch} = this.props;
     this.setState({
-      loading: true
+      loading: true,
     });
     if (data.length >= total!) {
       this.setState({
         hasMore: false,
-        loading: false
+        loading: false,
       });
       return;
     }
-    asyncSearch!(page, res => {
+    asyncSearch!(page, (res) => {
       data = data.concat(res.results);
       if (this.props.isScroll) {
         this.setState({
           data,
           total: res.total,
-          loading: false
+          loading: false,
         });
       } else if (!this.props.isScroll && this.open) {
         this.setState({
           data,
           total: res.total,
-          loading: false
+          loading: false,
         });
       }
     });
@@ -124,10 +124,10 @@ class SearchSelect extends PureComponent<SearchSelectProps, any> {
     return (
       <Select
         {...props}
-        onFocus={() => {
+        onFocus={(e) => {
           this.open = true;
           !isScroll && this.handleInfiniteOnLoad(0);
-          props.onFocus && props.onFocus();
+          props.onFocus && props.onFocus(e);
         }}
         onBlur={(v: any) => {
           this.open = false;
@@ -148,7 +148,7 @@ class SearchSelect extends PureComponent<SearchSelectProps, any> {
             '暂无数据'
           )
         }
-        dropdownRender={menuNode => {
+        dropdownRender={(menuNode) => {
           if (isScroll) {
             return (
               <div

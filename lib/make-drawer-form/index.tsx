@@ -31,7 +31,7 @@ const makeDrawerForm = <P extends any, C extends MakeDrawerFormProps<P>>(
       loading: false,
       visible: false,
       show: false,
-      fullscreen: false
+      fullscreen: false,
     };
 
     render() {
@@ -52,7 +52,7 @@ const makeDrawerForm = <P extends any, C extends MakeDrawerFormProps<P>>(
             React.cloneElement(btn as any, {
               onClick: () => {
                 this.setState({visible: true});
-              }
+              },
             })
           ) : (
             <Button
@@ -77,7 +77,7 @@ const makeDrawerForm = <P extends any, C extends MakeDrawerFormProps<P>>(
                     type="link"
                     icon={!fullscreen ? 'fullscreen' : 'fullscreen-exit'}
                     onClick={() => this.setState({fullscreen: !fullscreen})}
-                  />{' '}
+                  />
                   {btnText}
                 </>
               ) : (
@@ -90,7 +90,7 @@ const makeDrawerForm = <P extends any, C extends MakeDrawerFormProps<P>>(
               this.setState({visible: false, fullscreen: false});
             }}
             visible={visible}
-            afterVisibleChange={visible => {
+            afterVisibleChange={(visible) => {
               visible && this.setState({show: true});
             }}
           >
@@ -109,8 +109,7 @@ const makeDrawerForm = <P extends any, C extends MakeDrawerFormProps<P>>(
                 }}
                 style={{marginRight: 8}}
               >
-                {' '}
-                取消{' '}
+                取消
               </Button>
               <Button
                 loading={loading}
@@ -126,7 +125,7 @@ const makeDrawerForm = <P extends any, C extends MakeDrawerFormProps<P>>(
                           this.setState({
                             visible: false,
                             fullscreen: false,
-                            loading: false
+                            loading: false,
                           });
                         }
                       }
@@ -135,8 +134,7 @@ const makeDrawerForm = <P extends any, C extends MakeDrawerFormProps<P>>(
                 }}
                 type="primary"
               >
-                {' '}
-                提交{' '}
+                提交
               </Button>
             </div>
           </Drawer>

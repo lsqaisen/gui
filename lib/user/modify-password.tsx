@@ -1,7 +1,7 @@
 import {PureComponent, cloneElement, Fragment} from 'react';
 import {Icon, Button, Drawer} from 'antd';
 import ModifyPasswordForm, {
-  ModifyPasswordFormProps
+  ModifyPasswordFormProps,
 } from './form/modify-password-form';
 
 export interface ModifyPasswordProps extends ModifyPasswordFormProps {
@@ -11,12 +11,12 @@ export interface ModifyPasswordProps extends ModifyPasswordFormProps {
 
 class ModifyPassword extends PureComponent<ModifyPasswordProps, any> {
   static readonly defaultProps = {
-    submit: () => null
+    submit: () => null,
   };
 
   state = {
     loading: false,
-    visible: false
+    visible: false,
   };
 
   render() {
@@ -29,7 +29,7 @@ class ModifyPassword extends PureComponent<ModifyPasswordProps, any> {
             ...props,
             onClick: () => {
               this.setState({visible: true});
-            }
+            },
           })
         ) : (
           <Button
@@ -60,8 +60,7 @@ class ModifyPassword extends PureComponent<ModifyPasswordProps, any> {
               }}
               style={{marginRight: 8}}
             >
-              {' '}
-              取消{' '}
+              取消
             </Button>
             <Button
               loading={loading}
@@ -81,8 +80,7 @@ class ModifyPassword extends PureComponent<ModifyPasswordProps, any> {
               }}
               type="primary"
             >
-              {' '}
-              提交{' '}
+              提交
             </Button>
           </div>
         </Drawer>
