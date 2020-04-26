@@ -2,7 +2,7 @@ import {connect} from 'dva';
 import {Button} from 'antd';
 import {Page} from 'library';
 import Table from '@/components/apps/app/table';
-import {CreateApp} from '@/components/apps/app/actions/';
+import CreateApp from './basic/actions/create';
 // import EditApp from '@/components/apps/app/edit';
 // import ImportApp from '@/components/apps/app/yaml-create';
 import {Dispatch, ConnectLoading} from '@/models/connect';

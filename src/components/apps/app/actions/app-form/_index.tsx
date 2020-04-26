@@ -14,6 +14,7 @@ import Context from '../../context';
 import NameInput from './name-input';
 import {SearchSelect} from 'library';
 import LabelsInput from './labels-input';
+import VolumesInput from './volumes-input/';
 // import {ColProps} from 'antd/lib/grid/col';
 // import Labels from './labels';
 // import Volumes from './volumes';
@@ -33,12 +34,12 @@ const AppForm: React.FC<AppFormProps> = ({
   children,
 }) => {
   const [form] = Form.useForm();
-  console.log(form.getFieldValue('labels'), form.__INTERNAL__);
 
   return (
     <Form
       form={form}
       name="app-form"
+      scrollToFirstError
       colon={false}
       labelAlign="left"
       initialValues={initialValues}
@@ -106,15 +107,24 @@ const AppForm: React.FC<AppFormProps> = ({
           <Radio value="StatefulSet">StatefulSet（有状态集的运行Pod）</Radio>
         </Radio.Group>
       </Form.Item> */}
-      <Form.Item
+      {/* <Form.Item
         name="labels"
         style={{marginBottom: 0}}
         label="标签"
         extra={`只能包含字母、数字及分隔符("-"、"_"、"."、"/")， 且必须以字母、数字开头和结尾`}
-        validateStatus=""
-        help=""
+        validateStatus="success"
+        help={undefined}
       >
-        <LabelsInput />
+        <LabelsInput form={form} />
+      </Form.Item> */}
+      <Form.Item
+        name="volumes"
+        style={{marginBottom: 0}}
+        label="数据卷"
+        validateStatus="success"
+        help={undefined}
+      >
+        <VolumesInput form={form} />
       </Form.Item>
       {children || (
         <Form.Item
