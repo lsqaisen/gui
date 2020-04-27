@@ -17,6 +17,10 @@ const LayoutG: React.FC<any> = ({
   children,
   dispatch,
 }) => {
+  if (!!profile) {
+    const loader = document.getElementById('loader');
+    if (loader) loader.remove();
+  }
   return children;
   const logout = () => dispatch({type: 'auth/logout'});
   const modifyPassword = (payload: ChangePasswordRequestType) =>

@@ -7,7 +7,7 @@ import CreateApp from './basic/actions/create';
 // import ImportApp from '@/components/apps/app/yaml-create';
 import {Dispatch, ConnectLoading} from '@/models/connect';
 import {AppsModelState, IApp} from '@/models/apps/apps';
-import Namespace, {Layout as NamespaceLayout} from '../../basic/namespace';
+import {Layout, Namespace} from '@/pages/basic/';
 import router from 'umi/router';
 import Actions from './basic/actions';
 import {useEffect} from 'react';
@@ -26,56 +26,51 @@ const AppList = ({loading, ns, apps, dispatch}: AppListProps) => {
     ns && getApps();
   }, [ns]);
   return (
-    <NamespaceLayout ns={ns} goto={goto}>
-      <CreateApp />
-    </NamespaceLayout>
+    <Layout ns={ns} goto={goto}>
+      <Page
+        style={{minHeight: '100%'}}
+        title=""
+        routes={[
+          {
+            path: '/dashboard',
+            breadcrumbName: '总览',
+          },
+          {
+            path: `/apps/list`,
+            breadcrumbName: '应用列表',
+          },
+        ]}
+      >
+        <section className="box">
+          <header style={{overflow: 'hidden', marginBottom: 16}}>
+            <Namespace ns={ns} goto={goto} />
+            <div className="fl" style={{marginRight: 16}}>
+              <CreateApp />
+            </div>
+            {/* <div className="fl" style={{marginRight: 16}}>
+              <ImportApp />
+            </div> */}
+            <div className="fr">
+              <Button
+                style={{marginLeft: 16}}
+                loading={loading}
+                onClick={getApps}
+              >
+                刷新
+              </Button>
+            </div>
+          </header>
+          {/* <Table
+            loading={loading}
+            data={apps}
+            actions={<Actions dispatch={dispatch} />}
+          >
+            <EditApp key="edit" />
+          </Table> */}
+        </section>
+      </Page>
+    </Layout>
   );
-  // return (
-  //   <NamespaceLayout ns={ns} goto={goto}>
-  //     <Page
-  //       style={{minHeight: '100%'}}
-  //       title=""
-  //       routes={[
-  //         {
-  //           path: '/dashboard',
-  //           breadcrumbName: '总览',
-  //         },
-  //         {
-  //           path: `/apps/list`,
-  //           breadcrumbName: '应用列表',
-  //         },
-  //       ]}
-  //     >
-  //       <section className="box">
-  //         <header style={{overflow: 'hidden', marginBottom: 16}}>
-  //           <Namespace ns={ns} goto={goto} />
-  //           <div className="fl" style={{marginRight: 16}}>
-  //             <CreateApp />
-  //           </div>
-  //           <div className="fl" style={{marginRight: 16}}>
-  //             <ImportApp />
-  //           </div>
-  //           <div className="fr">
-  //             <Button
-  //               style={{marginLeft: 16}}
-  //               loading={loading}
-  //               onClick={getApps}
-  //             >
-  //               刷新
-  //             </Button>
-  //           </div>
-  //         </header>
-  //         <Table
-  //           loading={loading}
-  //           data={apps}
-  //           actions={<Actions dispatch={dispatch} />}
-  //         >
-  //           <EditApp key="edit" />
-  //         </Table>
-  //       </section>
-  //     </Page>
-  //   </NamespaceLayout>
-  // );
 };
 
 export type ConnectState = {

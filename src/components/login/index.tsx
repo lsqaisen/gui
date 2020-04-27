@@ -1,13 +1,8 @@
 import * as React from 'react';
 import QueueAnim from 'rc-queue-anim';
-import LoginForm, {LoginFormProps} from './form/login-form';
 import styles from './style/index.less';
 
-export interface LoginProps {
-  loginProps: LoginFormProps;
-}
-
-const Login = ({loginProps}: LoginProps) => {
+const Login: React.FC<any> = ({children}) => {
   return (
     <div className={styles.loginBox}>
       <div className={styles.box}>
@@ -22,10 +17,11 @@ const Login = ({loginProps}: LoginProps) => {
           duration={400}
           animConfig={[{opacity: [1, 0]}, {opacity: [1, 0]}]}
         >
-          <LoginForm key="login" {...loginProps} />
+          <section key="login"> {children}</section>
         </QueueAnim>
       </div>
     </div>
   );
 };
+
 export default Login;

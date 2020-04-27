@@ -3,17 +3,17 @@ import {Button, Drawer} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
 import {App} from 'api/type/app/';
 import {connect} from 'dva';
-import AppForm from '../form/';
+import ConfigMapForm from './config-map-form/';
 import {ConnectLoading} from '@/models/connect';
 
 export interface CreateAppProps {
+  btnText?: string;
   loading: boolean;
   namespace: string;
   onSubmit?: (value: App) => any;
 }
 
-const CreateApp = ({namespace}: CreateAppProps) => {
-  const [loading, setLoading] = React.useState(false);
+const CreateApp = ({btnText, loading, namespace}: CreateAppProps) => {
   const [visible, setVisible] = React.useState(false);
   return (
     <>
@@ -23,7 +23,7 @@ const CreateApp = ({namespace}: CreateAppProps) => {
           setVisible(true);
         }}
       >
-        <PlusOutlined /> 添加应用
+        <PlusOutlined /> {btnText || '添加应用'}
       </Button>
       <Drawer
         bodyStyle={{height: 'calc(100% - 108px)', overflow: 'auto'}}
@@ -35,8 +35,16 @@ const CreateApp = ({namespace}: CreateAppProps) => {
         }}
         visible={visible}
       >
-        <AppForm
-          initialValues={{namespace, type: 'Deployment', containers: [{}]}}
+        <ConfigMapForm
+          loading={loading}
+          initialValues={{
+            namespace,
+            data: {
+              KEY: 'VALUE',
+              FILE: `{PORT: "8080", ADDRESS: "0.0.0.0" }`,
+            },
+          }}
+          onCancel={() => setVisible(false)}
           onSubmit={async (values) => {
             console.log(values);
             // setLoading(true);
@@ -46,21 +54,7 @@ const CreateApp = ({namespace}: CreateAppProps) => {
             // }
             // setLoading(false);
           }}
-        >
-          <div className={'drawer-bottom-actions'}>
-            <Button
-              onClick={() => {
-                setVisible(false);
-              }}
-              style={{marginRight: 8}}
-            >
-              取消
-            </Button>
-            <Button type="primary" htmlType="submit" loading={loading}>
-              提交
-            </Button>
-          </div>
-        </AppForm>
+        />
       </Drawer>
     </>
   );
@@ -71,5 +65,5 @@ export type ConnectState = {
 };
 
 export default connect(({loading}: ConnectState) => ({
-  loading: loading.effects['apps/create'],
+  loading: loading.effects['configmap/create'],
 }))(CreateApp);

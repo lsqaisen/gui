@@ -34,6 +34,7 @@ const Code = ({
       style={style}
     >
       <CodeMirror
+        autoCursor
         value={value}
         options={{...options, mode}}
         onBeforeChange={(e, d, v) => {

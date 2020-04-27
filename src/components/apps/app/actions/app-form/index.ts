@@ -4,6 +4,5 @@ import LabelsInput from './labels-input';
 export {LabelsInputProps} from './labels-input';
 
 import VolumesInput from './volumes-input';
-export {VolumesInputProps} from './volumes-input';
 
 export {NameInput, LabelsInput, VolumesInput};

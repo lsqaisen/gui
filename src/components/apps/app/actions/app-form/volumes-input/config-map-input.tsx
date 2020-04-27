@@ -1,20 +1,21 @@
 import * as React from 'react';
-import {Form, Button, Drawer, Input, Radio} from 'antd';
+import {Form, Button, Drawer, Input, Radio, Row, Col} from 'antd';
 import {SearchSelect} from 'library';
-import Context from '@/components/apps/app/context';
 import {IConfigMap} from '@/models/apps/configmap';
 import ItemsInput from './items-input';
 
 export type ConfigMapInputProps = {
   value?: any;
   onChange?: (value: any) => void;
-  [key: string]: any;
+  getConfigMaps: () => Promise<any>;
 };
 
-const ConfigMapInput = ({
+const ConfigMapInput: React.FC<ConfigMapInputProps> = ({
   value = {},
   onChange = () => {},
-}: ConfigMapInputProps) => {
+  getConfigMaps,
+  children,
+}) => {
   const [visible, setVisible] = React.useState(false);
   const [form] = Form.useForm();
   return (
@@ -51,17 +52,16 @@ const ConfigMapInput = ({
             setVisible(false);
           }}
         >
-          <Context.Consumer>
-            {({getConfigMaps, CreateConfigMapComp}) => (
-              <>
+          <Form.Item required label="ConfigMap">
+            <Row gutter={8}>
+              <Col style={{width: `calc(100% - 82px)`}}>
                 <Form.Item
-                  required
+                  noStyle
                   name="name"
-                  label="ConfigMap"
                   rules={[{required: true, message: '必须选择ConfigMap'}]}
                 >
                   <SearchSelect
-                    style={{width: 'calc(100% - 68px)'}}
+                    style={{width: '100%'}}
                     initialLoad
                     placeholder="选择ConfigMap"
                     asyncSearch={async (page, callback) => {
@@ -84,18 +84,16 @@ const ConfigMapInput = ({
                     // }}
                   />
                 </Form.Item>
-                <span style={{float: 'right'}}>
-                  {CreateConfigMapComp && (
-                    <CreateConfigMapComp
-                      onCreate={(data: IConfigMap) => {
-                        // setFieldsValue({name: data.name});
-                      }}
-                    />
-                  )}
-                </span>
-              </>
-            )}
-          </Context.Consumer>
+              </Col>
+              <Col style={{width: 82}}>
+                {React.cloneElement(children as any, {
+                  onCreate: (data: IConfigMap) => {
+                    // setFieldsValue({name: data.name});
+                  },
+                })}
+              </Col>
+            </Row>
+          </Form.Item>
           <Form.Item required name="optional" label="选项">
             <Radio.Group
               onChange={(value) =>

@@ -1,21 +1,21 @@
 import * as React from 'react';
-import {Form, Input, Button, message, Modal} from 'antd';
+import {Form, Input, Button, Modal} from 'antd';
 import {UserOutlined, LockOutlined} from '@ant-design/icons';
-import QueueAnim from 'rc-queue-anim';
+import {connect} from 'dva';
 import {Logo} from 'library';
-import {checkPassword} from './checks';
-import {loginRequest} from 'api/type/auth';
-import styles from './style/index.less';
+import {ConnectLoading, Dispatch} from '@/models/connect';
 
 export interface LoginFormProps {
   loading: boolean;
-  submit: (data: loginRequest) => void;
+  dispatch: Dispatch<any>;
 }
 
-const Login = ({loading, submit}: LoginFormProps) => {
+const LoginForm = ({loading, dispatch}: LoginFormProps) => {
   return (
-    <Form key="login" onFinish={values => submit(values as loginRequest)}>
-      <header className={styles.logo}>
+    <Form
+      onFinish={(values) => dispatch({type: `auth/login`, payload: values})}
+    >
+      <header style={{overflow: 'hidden', marginBottom: 24}}>
         <Logo
           iconSrc={`/dist/oem${
             process.env.NODE_ENV === 'development' ? process.env.OEM_NAME : ''
@@ -39,7 +39,7 @@ const Login = ({loading, submit}: LoginFormProps) => {
         <Input.Password prefix={<LockOutlined />} placeholder="请输入密码" />
       </Form.Item>
       <Button
-        className={styles[`btn`]}
+        style={{width: '100%', marginBottom: 16}}
         type="primary"
         loading={loading}
         htmlType="submit"
@@ -49,11 +49,11 @@ const Login = ({loading, submit}: LoginFormProps) => {
       <footer style={{lineHeight: '24px', textAlign: 'right'}}>
         <a
           href="#"
-          onClick={e => {
+          onClick={(e) => {
             e.preventDefault();
             Modal.info({
               title: '忘记密码',
-              content: '忘记密码，请联系管理员重置密码。'
+              content: '忘记密码，请联系管理员重置密码。',
             });
           }}
         >
@@ -64,4 +64,10 @@ const Login = ({loading, submit}: LoginFormProps) => {
   );
 };
 
-export default Login;
+export type ConnectState = {
+  loading: ConnectLoading;
+};
+
+export default connect(({loading}: ConnectState) => ({
+  loading: loading.effects['auth/login'],
+}))(LoginForm);

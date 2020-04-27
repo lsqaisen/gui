@@ -12,7 +12,7 @@ import {
 } from 'antd';
 import {NameInput, LabelsInput} from '@/components/apps/app/actions/app-form/';
 import VolumesInput from './volumes-input';
-import {SearchSelect} from 'library';
+import {Inputs, SearchSelect} from 'library';
 // import {ColProps} from 'antd/lib/grid/col';
 // import Labels from './labels';
 // import Volumes from './volumes';
@@ -20,6 +20,8 @@ import {SearchSelect} from 'library';
 // import Service from './service';
 import {INetworkPool} from '@/models/network/pool';
 // import {InputProps} from 'antd/lib/input';
+
+import * as YAML from 'js-yaml';
 
 export interface AppFormProps {
   initialValues?: any;
@@ -122,7 +124,7 @@ const AppForm: React.FC<AppFormProps> = ({
         validateStatus="success"
         help={undefined}
       >
-        <VolumesInput form={form} />
+        <VolumesInput ns={initialValues.namespace} />
       </Form.Item>
       {children || (
         <Form.Item

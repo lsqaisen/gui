@@ -4019,10 +4019,10 @@ code-point-at@^1.0.0:
   resolved "https://registry.npm.taobao.org/code-point-at/download/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
-codemirror@^5.49.2:
-  version "5.52.0"
-  resolved "https://registry.npm.taobao.org/codemirror/download/codemirror-5.52.0.tgz#4dbd6aef7f0e63db826b9a23922f0c03ac75c0a7"
-  integrity sha1-Tb1q738OY9uCa5ojki8MA6x1wKc=
+codemirror@^5.53.2:
+  version "5.53.2"
+  resolved "https://registry.npm.taobao.org/codemirror/download/codemirror-5.53.2.tgz#9799121cf8c50809cca487304e9de3a74d33f428"
+  integrity sha1-l5kSHPjFCAnMpIcwTp3jp00z9Cg=
 
 collapse-white-space@^1.0.2:
   version "1.0.6"
@@ -12663,10 +12663,10 @@ react-base16-styling@^0.6.0:
     lodash.flow "^3.3.0"
     pure-color "^1.2.0"
 
-react-codemirror2@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.npm.taobao.org/react-codemirror2/download/react-codemirror2-6.0.0.tgz#180065df57a64026026cde569a9708fdf7656525"
-  integrity sha1-GABl31emQCYCbN5WmpcI/fdlZSU=
+react-codemirror2@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.npm.taobao.org/react-codemirror2/download/react-codemirror2-7.1.0.tgz#b874a275ad4f6f2ee5adb23b550c0f4b8b82776d"
+  integrity sha1-uHSida1Pby7lrbI7VQwPS4uCd20=
 
 react-dev-utils@9.0.1:
   version "9.0.1"
