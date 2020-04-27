@@ -50,6 +50,21 @@ const VolumesInput: React.FC<VolumesInputProps> = ({form, children}) => {
                       </Col>
                       <Col span={12}>
                         {children(type)}
+                        <Form.Item
+                          name={[field.name, 'host_path']}
+                          fieldKey={[field.fieldKey, 'host_path'] as any}
+                          rules={[
+                            {
+                              validator: async (_, value) => {
+                                if (!value || !value.path) {
+                                  throw new Error('未设置主机路径');
+                                }
+                              },
+                            },
+                          ]}
+                        >
+                          <HostPathInput />
+                        </Form.Item>
                         {/* {type === 'host' ? (
                           <Form.Item
                             name={[field.name, 'host_path']}
