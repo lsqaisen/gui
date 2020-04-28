@@ -9,10 +9,11 @@ export interface LabelsInputProps {
   onChange?: (value: any) => void;
 }
 
-const LabelsInput = ({value = [], form}: LabelsInputProps) => {
+const LabelsInput = ({value = [], form, ...props}: LabelsInputProps) => {
+  console.log(form, props);
   const labels = value || [];
   return (
-    <Form.List name={['labels']}>
+    <Form.List name={['app-form_labels']}>
       {(fields, {add, remove}) => {
         let names: any[] = labels.map((v: any, i) => {
           if (!v) {

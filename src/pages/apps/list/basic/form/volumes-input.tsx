@@ -11,20 +11,26 @@ interface VolumesProps extends VolumesInputProps {
 
 const Volumes = ({ns, dispatch, ...props}: VolumesProps) => {
   const getConfigMaps = () => dispatch({type: 'configmap/get', payload: ns});
+  const getSecrets = () => dispatch({type: 'secret/get', payload: ns});
   return (
     <VolumesInput {...props}>
       {(type) => {
         switch (type) {
           case 'secret':
+            return (
+              <VolumesInput.Secret getSecrets={getSecrets}>
+                <AddConfigMap btnText="添加" />
+              </VolumesInput.Secret>
+            );
           case 'conf':
             return (
-              <VolumesInput.ConfigMapInput getConfigMaps={getConfigMaps}>
+              <VolumesInput.ConfigMap getConfigMaps={getConfigMaps}>
                 <AddConfigMap btnText="添加" />
-              </VolumesInput.ConfigMapInput>
+              </VolumesInput.ConfigMap>
             );
           case 'host':
           default:
-            return <VolumesInput.HostPathInput />;
+            return <VolumesInput.HostPath />;
         }
       }}
     </VolumesInput>

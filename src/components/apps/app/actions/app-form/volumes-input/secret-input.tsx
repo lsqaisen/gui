@@ -1,24 +1,24 @@
 import * as React from 'react';
 import {Form, Button, Drawer, Input, Radio, Row, Col} from 'antd';
 import {SearchSelect} from 'library';
-import {IConfigMap} from '@/models/apps/configmap';
+import {ISecret} from '@/models/apps/secret';
 import ItemsInput from './items-input';
-import {FormInstance} from 'antd/lib/form';
 
-export type ConfigMapInputProps = {
+export type SecretInputProps = {
   value?: any;
   children?: React.ReactNode;
   onChange?: (value: any) => void;
-  getConfigMaps: () => Promise<any>;
+  getSecrets: () => Promise<any>;
 };
 
-const ConfigMapInput = ({
+const SecretInput: React.FC<SecretInputProps> = ({
   value = {},
   onChange = () => {},
-  getConfigMaps,
+  getSecrets,
   children,
-}: ConfigMapInputProps) => {
+}) => {
   const [visible, setVisible] = React.useState(false);
+  const [itemsData, setItemsData] = React.useState<string[]>([]);
   const [form] = Form.useForm();
   return (
     <Form
@@ -47,49 +47,50 @@ const ConfigMapInput = ({
       <Drawer
         destroyOnClose={false}
         bodyStyle={{height: 'calc(100% - 108px)', overflow: 'auto'}}
-        title="配置ConfigMap"
+        title="配置Secret"
         width={580}
         placement="right"
         onClose={() => setVisible(false)}
         visible={visible}
       >
-        <Form.Item required label="ConfigMap">
+        <Form.Item required label="Secret">
           <Row gutter={8}>
             <Col style={{width: `calc(100% - 82px)`}}>
               <Form.Item
                 noStyle
                 name="name"
-                rules={[{required: true, message: '必须选择ConfigMap'}]}
+                rules={[{required: true, message: '必须选择Secret'}]}
               >
                 <SearchSelect
                   style={{width: '100%'}}
                   isScroll={false}
                   initialLoad
-                  placeholder="选择ConfigMap"
+                  placeholder="选择Secret"
                   asyncSearch={async (page, callback) => {
-                    let configmaps: IConfigMap[] = await getConfigMaps!();
+                    let secrets: ISecret[] = await getSecrets!();
                     callback({
-                      total: configmaps.length,
-                      results: configmaps.map((v) => ({
-                        key: v.name,
-                        label: v.name,
+                      total: secrets.length,
+                      results: secrets.map((v) => ({
+                        key: v.metadata.name,
+                        label: v.metadata.name,
                         ...v,
                       })) as any,
                     });
                   }}
-                  // onChangeOptions={(name, _, configmaps: IConfigMap[]) => {
-                  //   setVolumeItemsData(
-                  //     Object.entries(
-                  //       configmaps.find((v) => v.name === name)!.data || {}
-                  //     ).map(([key]) => key)
-                  //   );
-                  // }}
+                  onChangeOptions={(name, _, secrets: ISecret[]) => {
+                    setItemsData(
+                      Object.entries(
+                        secrets.find((v) => v.metadata.name === name)!.data ||
+                          {}
+                      ).map(([key]) => key)
+                    );
+                  }}
                 />
               </Form.Item>
             </Col>
             <Col style={{width: 82}}>
               {/* {React.cloneElement(children as any, {
-                onCreate: (data: IConfigMap) => {
+                onCreate: (data: ISecret) => {
                   // setFieldsValue({name: data.name});
                 },
               })} */}
@@ -134,7 +135,7 @@ const ConfigMapInput = ({
                 validateStatus="success"
                 help={undefined}
               >
-                <ItemsInput form={form} />
+                <ItemsInput itemsData={itemsData} form={form} />
               </Form.Item>
             ) : null;
           }}
@@ -157,4 +158,4 @@ const ConfigMapInput = ({
   );
 };
 
-export default ConfigMapInput;
+export default SecretInput;

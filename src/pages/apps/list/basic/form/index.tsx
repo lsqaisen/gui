@@ -107,7 +107,7 @@ const AppForm: React.FC<AppFormProps> = ({
           <Radio value="StatefulSet">StatefulSet（有状态集的运行Pod）</Radio>
         </Radio.Group>
       </Form.Item> */}
-      {/* <Form.Item
+      <Form.Item
         name="labels"
         style={{marginBottom: 0}}
         label="标签"
@@ -116,8 +116,8 @@ const AppForm: React.FC<AppFormProps> = ({
         help={undefined}
       >
         <LabelsInput form={form} />
-      </Form.Item> */}
-      <Form.Item
+      </Form.Item>
+      {/* <Form.Item
         name="volumes"
         style={{marginBottom: 0}}
         label="数据卷"
@@ -125,7 +125,7 @@ const AppForm: React.FC<AppFormProps> = ({
         help={undefined}
       >
         <VolumesInput ns={initialValues.namespace} />
-      </Form.Item>
+      </Form.Item> */}
       {children || (
         <Form.Item
           wrapperCol={{

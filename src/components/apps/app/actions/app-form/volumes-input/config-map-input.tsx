@@ -6,17 +6,16 @@ import ItemsInput from './items-input';
 
 export type ConfigMapInputProps = {
   value?: any;
-  children?: React.ReactNode;
   onChange?: (value: any) => void;
   getConfigMaps: () => Promise<any>;
 };
 
-const ConfigMapInput = ({
+const ConfigMapInput: React.FC<ConfigMapInputProps> = ({
   value = {},
   onChange = () => {},
   getConfigMaps,
   children,
-}: ConfigMapInputProps) => {
+}) => {
   const [visible, setVisible] = React.useState(false);
   const [itemsData, setItemsData] = React.useState<string[]>([]);
   const [form] = Form.useForm();
