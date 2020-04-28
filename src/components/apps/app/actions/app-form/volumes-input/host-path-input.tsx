@@ -5,7 +5,6 @@ import {SelectProps} from 'antd/lib/select';
 export type HostPathInputProps = {
   value?: any;
   onChange?: (value: any) => void;
-  [key: string]: any;
 };
 
 const Type = ({value, onChange = () => {}, ...props}: SelectProps<any>) => {
@@ -66,7 +65,6 @@ const HostPathInput = ({
           labelCol={{xs: 24, md: 5}}
           wrapperCol={{xs: 24, md: 19}}
           onFinish={(values) => {
-            console.log(values);
             onChange(values);
             setVisible(false);
           }}

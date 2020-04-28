@@ -35,7 +35,9 @@ const AddNamespace = ({loading, goto, dispatch}: AddNamespaceProps) => {
             dispatch({type: 'namespace/create', payload: name}).then(
               (error: any) => {
                 if (!error) {
-                  goto!(name);
+                  dispatch({type: 'namespace/get'}).then(() => {
+                    goto!(name);
+                  });
                   setVisible(false);
                 }
               }

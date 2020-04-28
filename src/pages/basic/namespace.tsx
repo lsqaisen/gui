@@ -19,7 +19,6 @@ export default connect(({namespace, loading}: ConnectState) => ({
   if (!!nslist[0] && nslist.every((v: any) => v.metadata.name !== ns)) {
     goto!(nslist[0].metadata.name);
   }
-
   return (
     <Namespace<INs>
       current={ns}
@@ -27,10 +26,17 @@ export default connect(({namespace, loading}: ConnectState) => ({
       onChange={goto}
       onLoad={() => dispatch({type: 'namespace/get'})}
       onDelete={(namespace) =>
-        dispatch({type: 'namespace/delete', payload: namespace})
+        dispatch({type: 'namespace/delete', payload: namespace}).then(
+          (err: any) => {
+            if (!err) {
+              dispatch({type: 'namespace/get'});
+            }
+          }
+        )
       }
       actions={[
         <Button
+          key="reload"
           className="fl"
           icon={<ReloadOutlined />}
           loading={loading}

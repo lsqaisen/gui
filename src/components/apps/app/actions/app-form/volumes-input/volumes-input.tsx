@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {Form, Row, Col, Button, Input, Select} from 'antd';
 import {MinusOutlined, PlusOutlined} from '@ant-design/icons';
-import {FormInstance} from 'antd/lib/form';
 import {Volume} from 'api/type/app/';
 
 enum ItemName {
@@ -50,8 +49,8 @@ const VolumesInput: React.FC<VolumesInputProps> = ({children}) => {
                         </Form.Item>
                       </Col>
                       <Col span={12}>
-                        {/* {children(type)} */}
                         <Form.Item
+                          key={type}
                           name={[field.name, ItemName[type]]}
                           fieldKey={[field.fieldKey, ItemName[type]] as any}
                           rules={[

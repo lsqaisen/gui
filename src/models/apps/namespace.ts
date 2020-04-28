@@ -2,6 +2,7 @@ import {Effect} from 'dva';
 import {Reducer} from 'redux';
 import {message} from 'antd';
 import {apps} from 'api';
+import {delay} from '@/utils/index';
 
 export type NamespaceCondition = {
   lastTransitionTime: string;
@@ -60,10 +61,10 @@ const NamespaceModel: NamespaceModelType = {
     nslist: {
       metadata: {
         selfLink: '',
-        resourceVersion: ''
+        resourceVersion: '',
       },
-      items: []
-    }
+      items: [],
+    },
   },
 
   effects: {
@@ -74,16 +75,16 @@ const NamespaceModel: NamespaceModelType = {
         yield put({
           type: 'save',
           payload: {
-            error: err
-          }
+            error: err,
+          },
         });
       } else {
         yield put({
           type: 'save',
           payload: {
             error: undefined,
-            nslist: data || {items: []}
-          }
+            nslist: data || {items: []},
+          },
         });
       }
       return data || {items: []};
@@ -94,7 +95,7 @@ const NamespaceModel: NamespaceModelType = {
         message.error(err, 5);
       } else {
         message.success('添加命名空间成功', 5);
-        yield put({type: 'get'});
+        // yield put({type: 'get'});
       }
       return err;
     },
@@ -107,7 +108,7 @@ const NamespaceModel: NamespaceModelType = {
         yield put({type: 'get'});
       }
       return err;
-    }
+    },
   },
   reducers: {
     save(state: any, {payload}: any) {
@@ -120,10 +121,10 @@ const NamespaceModel: NamespaceModelType = {
       });
       return {
         ...state,
-        ..._update
+        ..._update,
       };
-    }
-  }
+    },
+  },
 };
 
 export default NamespaceModel;

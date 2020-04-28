@@ -14,7 +14,7 @@ export interface CreateAppProps {
 
 const CreateApp = ({namespace}: CreateAppProps) => {
   const [loading, setLoading] = React.useState(false);
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = React.useState(true);
   return (
     <>
       <Button

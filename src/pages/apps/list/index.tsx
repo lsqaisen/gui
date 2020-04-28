@@ -45,7 +45,7 @@ const AppList = ({loading, ns, apps, dispatch}: AppListProps) => {
           <header style={{overflow: 'hidden', marginBottom: 16}}>
             <Namespace ns={ns} goto={goto} />
             <div className="fl" style={{marginRight: 16}}>
-              <CreateApp />
+              <CreateApp namespace={ns} />
             </div>
             {/* <div className="fl" style={{marginRight: 16}}>
               <ImportApp />

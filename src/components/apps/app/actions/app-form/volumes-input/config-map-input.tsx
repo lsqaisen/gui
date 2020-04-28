@@ -6,17 +6,19 @@ import ItemsInput from './items-input';
 
 export type ConfigMapInputProps = {
   value?: any;
+  children?: React.ReactNode;
   onChange?: (value: any) => void;
   getConfigMaps: () => Promise<any>;
 };
 
-const ConfigMapInput: React.FC<ConfigMapInputProps> = ({
+const ConfigMapInput = ({
   value = {},
   onChange = () => {},
   getConfigMaps,
   children,
-}) => {
+}: ConfigMapInputProps) => {
   const [visible, setVisible] = React.useState(false);
+  const [itemsData, setItemsData] = React.useState<string[]>([]);
   const [form] = Form.useForm();
   return (
     <>
@@ -32,8 +34,8 @@ const ConfigMapInput: React.FC<ConfigMapInputProps> = ({
       <Drawer
         destroyOnClose={false}
         bodyStyle={{height: 'calc(100% - 108px)', overflow: 'auto'}}
-        title="配置主机路径"
-        width={480}
+        title="配置ConfigMap"
+        width={580}
         placement="right"
         onClose={() => setVisible(false)}
         visible={visible}
@@ -62,6 +64,7 @@ const ConfigMapInput: React.FC<ConfigMapInputProps> = ({
                 >
                   <SearchSelect
                     style={{width: '100%'}}
+                    isScroll={false}
                     initialLoad
                     placeholder="选择ConfigMap"
                     asyncSearch={async (page, callback) => {
@@ -75,48 +78,69 @@ const ConfigMapInput: React.FC<ConfigMapInputProps> = ({
                         })) as any,
                       });
                     }}
-                    // onChangeOptions={(name, _, configmaps: IConfigMap[]) => {
-                    //   setVolumeItemsData(
-                    //     Object.entries(
-                    //       configmaps.find((v) => v.name === name)!.data || {}
-                    //     ).map(([key]) => key)
-                    //   );
-                    // }}
+                    onChangeOptions={(name, _, configmaps: IConfigMap[]) => {
+                      setItemsData(
+                        Object.entries(
+                          configmaps.find((v) => v.name === name)!.data || {}
+                        ).map(([key]) => key)
+                      );
+                      form.setFieldsValue({items: undefined});
+                    }}
                   />
                 </Form.Item>
               </Col>
               <Col style={{width: 82}}>
-                {React.cloneElement(children as any, {
-                  onCreate: (data: IConfigMap) => {
-                    // setFieldsValue({name: data.name});
-                  },
-                })}
+                {/* {React.cloneElement(children as any, {
+                onCreate: (data: IConfigMap) => {
+                  // setFieldsValue({name: data.name});
+                },
+              })} */}
               </Col>
             </Row>
           </Form.Item>
-          <Form.Item required name="optional" label="选项">
-            <Radio.Group
-              onChange={(value) =>
-                value && form.setFieldsValue({items: undefined})
-              }
-            >
-              <Radio value={false}>全部</Radio>
-              <Radio value={true} disabled={!form.getFieldValue('name')}>
-                指定部分Key
-              </Radio>
-            </Radio.Group>
+          <Form.Item
+            noStyle
+            shouldUpdate={(prevValues, currentValues) =>
+              prevValues.name !== currentValues.name
+            }
+          >
+            {({getFieldValue}) => {
+              return (
+                <Form.Item required name="optional" label="选项">
+                  <Radio.Group
+                    onChange={(value) =>
+                      value && form.setFieldsValue({items: undefined})
+                    }
+                  >
+                    <Radio value={false}>全部</Radio>
+                    <Radio value={true} disabled={!getFieldValue('name')}>
+                      指定部分Key
+                    </Radio>
+                  </Radio.Group>
+                </Form.Item>
+              );
+            }}
           </Form.Item>
-          {form.getFieldValue('optional') && (
-            <Form.Item
-              name="items"
-              style={{marginBottom: 0}}
-              label="数据卷"
-              validateStatus="success"
-              help={undefined}
-            >
-              <ItemsInput form={form} />
-            </Form.Item>
-          )}
+          <Form.Item
+            noStyle
+            shouldUpdate={(prevValues, currentValues) =>
+              prevValues.optional !== currentValues.optional
+            }
+          >
+            {({getFieldValue}) => {
+              return getFieldValue('optional') ? (
+                <Form.Item
+                  name="items"
+                  style={{marginBottom: 0}}
+                  label="数据卷"
+                  validateStatus="success"
+                  help={undefined}
+                >
+                  <ItemsInput itemsData={itemsData} form={form} />
+                </Form.Item>
+              ) : null;
+            }}
+          </Form.Item>
           <div className={'drawer-bottom-actions'}>
             <Button
               onClick={() => {
