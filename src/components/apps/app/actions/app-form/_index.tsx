@@ -40,8 +40,6 @@ const AppForm: React.FC<AppFormProps> = ({
       form={form}
       name="app-form"
       scrollToFirstError
-      colon={false}
-      labelAlign="left"
       initialValues={initialValues}
       onFinish={onSubmit}
       labelCol={{xs: 24, md: 4}}

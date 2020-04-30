@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Form, Button, Drawer, Input, Radio, Row, Col} from 'antd';
 import {SearchSelect} from 'library';
 import {IConfigMap} from '@/models/apps/configmap';
-import ItemsInput from './items-input';
+import ItemsInput from './items';
 
 export type ConfigMapInputProps = {
   value?: any;

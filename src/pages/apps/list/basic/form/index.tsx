@@ -10,9 +10,10 @@ import {
   Typography,
   Checkbox,
 } from 'antd';
-import {NameInput, LabelsInput} from '@/components/apps/app/actions/app-form/';
+import {NameInput, LabelsInput} from '@/components/apps/app/inputs/';
+import IPPoolInput from './ip-pool-input';
 import VolumesInput from './volumes-input';
-import {Inputs, SearchSelect} from 'library';
+import ContainersInput from './containers-input/';
 // import {ColProps} from 'antd/lib/grid/col';
 // import Labels from './labels';
 // import Volumes from './volumes';
@@ -20,8 +21,6 @@ import {Inputs, SearchSelect} from 'library';
 // import Service from './service';
 import {INetworkPool} from '@/models/network/pool';
 // import {InputProps} from 'antd/lib/input';
-
-import * as YAML from 'js-yaml';
 
 export interface AppFormProps {
   initialValues?: any;
@@ -40,8 +39,6 @@ const AppForm: React.FC<AppFormProps> = ({
       form={form}
       name="app-form"
       scrollToFirstError
-      colon={false}
-      labelAlign="left"
       initialValues={initialValues}
       onFinish={onSubmit}
       labelCol={{xs: 24, md: 4}}
@@ -73,41 +70,18 @@ const AppForm: React.FC<AppFormProps> = ({
         ]}
       >
         <NameInput placeholder="服务名称" />
-      </Form.Item>
-      <Context.Consumer>
-        {({getIPPools}) => (
-          <Form.Item name="ip_pool" label="虚拟子网">
-            <SearchSelect
-              style={{width: '100%'}}
-              showSearch
-              allowClear
-              initialLoad={true}
-              placeholder="选择虚拟子网"
-              onChange={() => {
-                form.setFieldsValue({image_tag: undefined});
-              }}
-              asyncSearch={async (page, callback) => {
-                const pools: INetworkPool[] = await getIPPools!();
-                callback({
-                  total: pools.length,
-                  results: pools.map((pool) => ({
-                    key: pool.name,
-                    label: pool.name,
-                  })),
-                });
-              }}
-            />
-          </Form.Item>
-        )}
-      </Context.Consumer>
-      <Form.Item name="type" label="类型" required>
+      </Form.Item> */}
+      {/* <Form.Item name="ip_pool" label="虚拟子网">
+        <IPPoolInput />
+      </Form.Item> */}
+      {/* <Form.Item name="type" label="类型" required>
         <Radio.Group style={{maxWidth: 320}}>
           <Radio value="Deployment">Deployment（可扩展的部署Pod）</Radio>
           <Radio value="DaemonSet">DaemonSet（在每个主机上运行Pod）</Radio>
           <Radio value="StatefulSet">StatefulSet（有状态集的运行Pod）</Radio>
         </Radio.Group>
       </Form.Item> */}
-      <Form.Item
+      {/* <Form.Item
         name="labels"
         style={{marginBottom: 0}}
         label="标签"
@@ -116,7 +90,7 @@ const AppForm: React.FC<AppFormProps> = ({
         help={undefined}
       >
         <LabelsInput form={form} />
-      </Form.Item>
+      </Form.Item> */}
       {/* <Form.Item
         name="volumes"
         style={{marginBottom: 0}}
@@ -126,24 +100,29 @@ const AppForm: React.FC<AppFormProps> = ({
       >
         <VolumesInput ns={initialValues.namespace} />
       </Form.Item> */}
-      {children || (
-        <Form.Item
-          wrapperCol={{
-            xs: {
-              span: 24,
-              offset: 0,
-            },
-            sm: {
-              span: 16,
-              offset: 8,
-            },
-          }}
-        >
-          <Button type="primary" htmlType="submit">
-            提交
-          </Button>
-        </Form.Item>
-      )}
+      {/* <Form.Item
+        required
+        name="replicas"
+        label="实例数量"
+        rules={[{required: true, message: '必须指定实例数量！'}]}
+      >
+        <InputNumber
+          style={{width: 180}}
+          min={1}
+          max={10000}
+          placeholder="实例数量"
+        />
+      </Form.Item> */}
+      <Form.Item
+        name="volumes"
+        style={{marginBottom: 0}}
+        label="数据卷"
+        validateStatus="success"
+        help={undefined}
+      >
+        <ContainersInput form={form} />
+      </Form.Item>
+      {children}
     </Form>
   );
 };

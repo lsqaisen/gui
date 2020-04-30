@@ -36,7 +36,12 @@ const CreateApp = ({namespace}: CreateAppProps) => {
         visible={visible}
       >
         <AppForm
-          initialValues={{namespace, type: 'Deployment', containers: [{}]}}
+          initialValues={{
+            namespace,
+            type: 'Deployment',
+            replicas: 1,
+            containers: [{}],
+          }}
           onSubmit={async (values) => {
             console.log(values);
             // setLoading(true);

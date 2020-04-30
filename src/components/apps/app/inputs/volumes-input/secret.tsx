@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Form, Button, Drawer, Input, Radio, Row, Col} from 'antd';
 import {SearchSelect} from 'library';
 import {ISecret} from '@/models/apps/secret';
-import ItemsInput from './items-input';
+import ItemsInput from './items';
 
 export type SecretInputProps = {
   value?: any;

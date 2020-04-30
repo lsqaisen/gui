@@ -12,7 +12,7 @@ export interface AddNodeFormProps {
 const AddNodeForm: React.FC<AddNodeFormProps> = ({
   initialValues,
   children,
-  onSubmit
+  onSubmit,
 }) => {
   const [form] = Form.useForm();
   const [list, setIPList] = React.useState<string[]>(
@@ -27,8 +27,6 @@ const AddNodeForm: React.FC<AddNodeFormProps> = ({
     <Form
       form={form}
       name="add-node"
-      colon={false}
-      labelAlign="left"
       initialValues={initialValues}
       onFinish={onSubmit}
       labelCol={{xs: 24, md: 5}}
@@ -89,7 +87,7 @@ const AddNodeForm: React.FC<AddNodeFormProps> = ({
             mode="multiple"
             style={{width: '100%'}}
           >
-            {list.map(ip => {
+            {list.map((ip) => {
               return (
                 <Select.Option key={ip} value={ip}>
                   {ip}
@@ -121,8 +119,8 @@ const AddNodeForm: React.FC<AddNodeFormProps> = ({
                 }
               }
               callback();
-            }
-          }
+            },
+          },
         ]}
       >
         <Input placeholder="请输入用户名" />
@@ -139,12 +137,12 @@ const AddNodeForm: React.FC<AddNodeFormProps> = ({
           wrapperCol={{
             xs: {
               span: 24,
-              offset: 0
+              offset: 0,
             },
             sm: {
               span: 16,
-              offset: 8
-            }
+              offset: 8,
+            },
           }}
         >
           <Button type="primary" htmlType="submit">

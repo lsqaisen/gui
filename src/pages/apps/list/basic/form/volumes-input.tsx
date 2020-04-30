@@ -1,6 +1,6 @@
 import {connect} from 'dva';
-import {VolumesInput} from '@/components/apps/app/actions/app-form/';
-import {VolumesInputProps} from '@/components/apps/app/actions/app-form/volumes-input/volumes-input';
+import {VolumesInput} from '@/components/apps/app/inputs/';
+import {VolumesInputProps} from '@/components/apps/app/inputs/volumes-input/volumes';
 import {Dispatch} from '@/models/connect';
 import AddConfigMap from '@/pages/apps/configmap/basic/actions/create';
 

@@ -48,8 +48,6 @@ const AddNamespace = ({loading, goto, dispatch}: AddNamespaceProps) => {
         <Form
           form={form}
           name="app-form"
-          colon={false}
-          labelAlign="left"
           labelCol={{xs: 24, md: 6}}
           wrapperCol={{xs: 24, md: 18}}
         >
