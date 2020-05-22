@@ -33,7 +33,6 @@ const AppForm: React.FC<AppFormProps> = ({
   children,
 }) => {
   const [form] = Form.useForm();
-
   return (
     <Form
       form={form}
@@ -91,15 +90,15 @@ const AppForm: React.FC<AppFormProps> = ({
       >
         <LabelsInput form={form} />
       </Form.Item> */}
-      {/* <Form.Item
+      <Form.Item
         name="volumes"
         style={{marginBottom: 0}}
         label="数据卷"
-        validateStatus="success"
-        help={undefined}
+        // validateStatus="success"
+        // help={undefined}
       >
         <VolumesInput ns={initialValues.namespace} />
-      </Form.Item> */}
+      </Form.Item>
       {/* <Form.Item
         required
         name="replicas"
@@ -114,13 +113,13 @@ const AppForm: React.FC<AppFormProps> = ({
         />
       </Form.Item> */}
       <Form.Item
-        name="volumes"
+        name="containers"
         style={{marginBottom: 0}}
-        label="数据卷"
-        validateStatus="success"
-        help={undefined}
+        label="容器配置"
+        // validateStatus="success"
+        // help={undefined}
       >
-        <ContainersInput form={form} />
+        <ContainersInput ns={initialValues.namespace} form={form} />
       </Form.Item>
       {children}
     </Form>

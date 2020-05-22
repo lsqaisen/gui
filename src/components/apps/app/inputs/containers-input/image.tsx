@@ -28,6 +28,7 @@ const ImageInput = ({
           <Row gutter={8}>
             <Col span={16}>
               <FormItem
+                style={{marginBottom: 0}}
                 extra={`搜索针对于当前下拉显示的数据，默认显示10条数据，下拉滚动可加载更多数据`}
               >
                 <SearchSelect

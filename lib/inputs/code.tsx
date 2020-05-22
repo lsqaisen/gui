@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {Controlled as CodeMirror, ICodeMirror} from 'react-codemirror2';
 import styles from './style/index.less';
 import 'codemirror/lib/codemirror.css';
@@ -28,13 +28,12 @@ const Code = ({
   }, []);
   return (
     <div
-      className={`${styles[`code-input`]} ${
+      className={`input-code ${styles[`code-input`]} ${
         autosize ? styles[`autosize`] : ''
       } ${border ? styles[`border`] : ''} ${className || ''}`}
       style={style}
     >
       <CodeMirror
-        autoCursor
         value={value}
         options={{...options, mode}}
         onBeforeChange={(e, d, v) => {

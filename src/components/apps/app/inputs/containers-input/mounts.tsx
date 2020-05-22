@@ -7,9 +7,7 @@ import {VolumeMount, Volume} from 'api/type/app';
 
 export interface MountsInputProps {
   value?: VolumeMount[];
-  volumes: Volume[];
   form: FormInstance;
-  onChange?: (value: any) => void;
 }
 
 const ReadOnly = React.forwardRef(
@@ -30,13 +28,12 @@ const ReadOnly = React.forwardRef(
   }
 );
 
-const MountsInput = ({
-  value = [],
-  volumes,
-  form,
-  ...props
-}: MountsInputProps) => {
+const MountsInput = ({value = [], form}: MountsInputProps) => {
+  let volumes: Volume[] = [];
   const mounts = value || [];
+  React.useLayoutEffect(() => {
+    volumes = form.getFieldValue('volumes');
+  }, []);
   return (
     <Form.List name={['mounts']}>
       {(fields, {add, remove}) => {

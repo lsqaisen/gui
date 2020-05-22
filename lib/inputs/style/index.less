@@ -16,12 +16,14 @@
   &.autosize {
     :global {
       .CodeMirror {
+        min-height: 30px;
         height: initial;
         min-height: inherit;
       }
     }
   }
 }
+
 :global(.has-error) .code-input {
   border-color: #f04134;
 

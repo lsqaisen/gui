@@ -16,21 +16,41 @@ export interface VolumesInputProps {
   children: (type: VolumeType) => React.ReactNode;
 }
 
-const VolumesInput: React.FC<VolumesInputProps> = ({children}) => {
-  const [type, setType] = React.useState<VolumeType>('host');
+const VolumesInput: React.FC<VolumesInputProps> = ({value, children}) => {
+  const [types, setType] = React.useState<VolumeType[]>(
+    (value || []).map((v) => {
+      if (!v || !!v.host_path) {
+        return 'host';
+      } else if (!!v && !!v.config_map) {
+        return 'conf';
+      } else {
+        return 'secret';
+      }
+    })
+  );
   return (
     <Form.List name={['volumes']}>
       {(fields, {add, remove}) => {
         return (
           <div>
             {fields.map((field) => {
+              if (!types[field.key]) types[field.key] = 'host';
               return (
                 <Row gutter={8} key={field.key}>
                   <Col style={{width: `calc(100% - 32px)`}}>
                     <Row gutter={8}>
                       <Col span={6}>
                         <Form.Item>
-                          <Select value={type} onChange={setType}>
+                          <Select
+                            value={types[field.key]}
+                            onChange={(type) => {
+                              let _types: VolumeType[] = ([] as any).concat(
+                                types
+                              );
+                              _types[field.key] = type;
+                              setType(_types);
+                            }}
+                          >
                             <Select.Option value="host">主机路径</Select.Option>
                             <Select.Option value="conf">
                               ConfigMap
@@ -50,13 +70,15 @@ const VolumesInput: React.FC<VolumesInputProps> = ({children}) => {
                       </Col>
                       <Col span={12}>
                         <Form.Item
-                          key={type}
-                          name={[field.name, ItemName[type]]}
-                          fieldKey={[field.fieldKey, ItemName[type]] as any}
+                          key={types[field.key]}
+                          name={[field.name, ItemName[types[field.key]]]}
+                          fieldKey={
+                            [field.fieldKey, ItemName[types[field.key]]] as any
+                          }
                           rules={[
                             {
                               validator: async (_, value) => {
-                                switch (type) {
+                                switch (types[field.key]) {
                                   case 'secret':
                                     if (!value || !value.secretName) {
                                       throw new Error('未设置证书');
@@ -78,7 +100,7 @@ const VolumesInput: React.FC<VolumesInputProps> = ({children}) => {
                             },
                           ]}
                         >
-                          {children(type)}
+                          {children(types[field.key])}
                         </Form.Item>
                       </Col>
                     </Row>

@@ -15,6 +15,7 @@ export interface CreateAppProps {
 const CreateApp = ({namespace}: CreateAppProps) => {
   const [loading, setLoading] = React.useState(false);
   const [visible, setVisible] = React.useState(true);
+  const [show, setShow] = React.useState(false);
   return (
     <>
       <Button
@@ -30,42 +31,43 @@ const CreateApp = ({namespace}: CreateAppProps) => {
         title="添加应用"
         width={720}
         placement="right"
-        onClose={() => {
-          setVisible(false);
-        }}
+        onClose={() => setVisible(false)}
+        afterVisibleChange={() => setShow(true)}
         visible={visible}
       >
-        <AppForm
-          initialValues={{
-            namespace,
-            type: 'Deployment',
-            replicas: 1,
-            containers: [{}],
-          }}
-          onSubmit={async (values) => {
-            console.log(values);
-            // setLoading(true);
-            // if (await createApp!(values)) {
-            // } else {
-            //   setVisible(false);
-            // }
-            // setLoading(false);
-          }}
-        >
-          <div className={'drawer-bottom-actions'}>
-            <Button
-              onClick={() => {
-                setVisible(false);
-              }}
-              style={{marginRight: 8}}
-            >
-              取消
-            </Button>
-            <Button type="primary" htmlType="submit" loading={loading}>
-              提交
-            </Button>
-          </div>
-        </AppForm>
+        {show && (
+          <AppForm
+            initialValues={{
+              namespace,
+              type: 'Deployment',
+              replicas: 1,
+              containers: [{}],
+            }}
+            onSubmit={async (values) => {
+              console.log(values);
+              // setLoading(true);
+              // if (await createApp!(values)) {
+              // } else {
+              //   setVisible(false);
+              // }
+              // setLoading(false);
+            }}
+          >
+            <div className={'drawer-bottom-actions'}>
+              <Button
+                onClick={() => {
+                  setVisible(false);
+                }}
+                style={{marginRight: 8}}
+              >
+                取消
+              </Button>
+              <Button type="primary" htmlType="submit" loading={loading}>
+                提交
+              </Button>
+            </div>
+          </AppForm>
+        )}
       </Drawer>
     </>
   );

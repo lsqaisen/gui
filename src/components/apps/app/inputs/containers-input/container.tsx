@@ -1,5 +1,7 @@
 import * as React from 'react';
-import {Form, Drawer, Card, Button} from 'antd';
+import {Form, Drawer, Card, Button, Descriptions, Input} from 'antd';
+import {Inputs} from 'library';
+import * as YAML from 'js-yaml';
 import {Container} from 'api/type/app';
 
 export interface IContainers {
@@ -16,12 +18,13 @@ const ContainersInput: React.FC<IContainers> = ({
   const [form] = Form.useForm();
   return (
     <>
-      <Card style={{cursor: 'pointer'}} onClick={() => setVisible(true)}>
-        <Card.Meta
-          title={!value || !value.name ? '未配置，点击配置' : value.name}
-          description={!!value && value.image}
-        />
-      </Card>
+      <Inputs.Code
+        mode="yaml"
+        autosize
+        options={{lineNumbers: false, lineWrapping: true}}
+        onFocus={() => setVisible(true)}
+        value={!value || !value.name ? '未配置，点击配置' : YAML.dump(value)}
+      />
       <Drawer
         destroyOnClose={false}
         bodyStyle={{height: 'calc(100% - 108px)', overflow: 'auto'}}
