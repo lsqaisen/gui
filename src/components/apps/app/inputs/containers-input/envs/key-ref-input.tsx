@@ -107,19 +107,19 @@ const KeyRef = ({
           {/* </Form.Item> */}
         </Col>
         <Col span={12}>
-          <Form.Item
+          {/* <Form.Item
             name={[field?.name as any, 'valueFrom', type, 'key']}
             fieldKey={[field?.fieldKey, 'valueFrom', type, 'key'] as any}
             rules={[{required: true, message: '标签值必须填写'}]}
-          >
-            <Select>
-              {keys.map((v) => (
-                <Select.Option key={v} value={v}>
-                  {v}
-                </Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
+          > */}
+          <Select>
+            {keys.map((v) => (
+              <Select.Option key={v} value={v}>
+                {v}
+              </Select.Option>
+            ))}
+          </Select>
+          {/* </Form.Item> */}
         </Col>
       </Row>
       // </Form.Item>
