@@ -29,11 +29,8 @@ const ReadOnly = React.forwardRef(
 );
 
 const MountsInput = ({value = [], form}: MountsInputProps) => {
-  let volumes: Volume[] = [];
+  let volumes: Volume[] = form.getFieldValue('volumes') || [];
   const mounts = value || [];
-  React.useLayoutEffect(() => {
-    volumes = form.getFieldValue('volumes');
-  }, []);
   return (
     <Form.List name={['mounts']}>
       {(fields, {add, remove}) => {

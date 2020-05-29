@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {connect} from 'dva';
-import {Button, Drawer, Modal} from 'antd';
-import {Page} from 'library';
+import {Button, Drawer, Modal, Select} from 'antd';
+import {Page, SearchSelect} from 'library';
 import Table from '@/components/apps/app/table';
 import CreateApp from './basic/actions/create';
 // import EditApp from '@/components/apps/app/edit';
@@ -27,6 +27,36 @@ const AppList = ({loading, ns, apps, dispatch}: AppListProps) => {
     ns && getApps();
   }, [ns]);
   const [v, setV] = React.useState(false);
+  const getImages = (payload: any) =>
+    dispatch({type: 'registry/getImages', payload});
+  return (
+    <SearchSelect
+      style={{width: 200}}
+      asyncSearch={(page) => {
+        return new Promise(async (resolve, reject) => {
+          try {
+            const {items, total}: any = await getImages!({
+              domain: 'on',
+              page: page + 1,
+              size: 10,
+            });
+            console.log(items, page);
+            page * 10 >= total ? reject() : resolve(items);
+          } catch (err) {
+            reject();
+          }
+        });
+      }}
+    >
+      {(data: any) => {
+        return data.map((v: any) => (
+          <Select.Option key={v.name} value={v.name}>
+            {v.name.split('/').pop()}
+          </Select.Option>
+        ));
+      }}
+    </SearchSelect>
+  );
   return (
     <Layout ns={ns} goto={goto}>
       <Page

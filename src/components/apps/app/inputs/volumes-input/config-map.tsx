@@ -47,7 +47,6 @@ const ConfigMapInput: React.FC<ConfigMapInputProps> = ({
             optional: false,
           }}
           onFinish={(values) => {
-            console.log(values);
             onChange(values);
             setVisible(false);
           }}
