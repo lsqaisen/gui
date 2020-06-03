@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Form, Row, Col, Input, Button, Tooltip} from 'antd';
+import {Form, Row, Col, Input, Button, Tooltip, Select} from 'antd';
 import {EditOutlined} from '@ant-design/icons';
 import {SearchSelect} from 'library';
 import {getImagesRequest} from 'api/type/registry';
@@ -34,57 +34,70 @@ const ImageInput = ({
                 <SearchSelect
                   value={image}
                   showSearch
-                  initialLoad
                   placeholder="选择镜像名称"
                   onChange={(value) => {
                     onChange([value].filter((v) => !!v).join(':'));
                   }}
-                  asyncSearch={async (page, callback) => {
-                    const {items, total}: any = await getImages!({
-                      domain: 'on',
-                      page,
-                      size: 10,
-                    });
-                    callback({
-                      total,
-                      results: items.map((image: any) => ({
-                        key: image.name,
-                        label: (
-                          <Tooltip title={image.name}>
-                            {image.name.split('/').pop()}
-                          </Tooltip>
-                        ),
-                      })),
+                  asyncSearch={(page) => {
+                    return new Promise(async (resolve, reject) => {
+                      try {
+                        const {items, total}: any = await getImages!({
+                          domain: 'on',
+                          page,
+                          size: 10,
+                        });
+                        resolve(items);
+                        page * 10 >= total ? reject() : resolve(items);
+                      } catch (err) {
+                        reject();
+                      }
                     });
                   }}
-                />
+                >
+                  {(data: any) => {
+                    return data.map((v: any) => (
+                      <Select.Option key={v.name} value={v.name}>
+                        {v.name.split('/').pop()}
+                      </Select.Option>
+                    ));
+                  }}
+                </SearchSelect>
               </FormItem>
             </Col>
             <Col span={8}>
               <FormItem>
                 <SearchSelect
                   value={tag}
-                  isScroll={false}
                   placeholder="请选择tag"
-                  asyncSearch={async (_, callback) => {
-                    const response: any[] = await getTags!(
-                      (value || '')
-                        .split('/')
-                        .slice(1)
-                        .join('/')
-                    );
-                    callback({
-                      total: response.length,
-                      results: response.map((v: any) => ({
-                        key: `${v.tag}`,
-                        label: `${v.tag}`,
-                      })),
+                  asyncSearch={async (page) => {
+                    return new Promise(async (resolve, reject) => {
+                      if (page > 1) reject();
+                      try {
+                        const response: any[] = await getTags!(
+                          (value || '')
+                            .split('/')
+                            .slice(1)
+                            .join('/')
+                        );
+                        resolve(response);
+                      } catch (err) {
+                        reject();
+                      }
                     });
                   }}
                   onChange={(value) => {
                     onChange([image, value].filter((v) => !!v).join(':'));
                   }}
-                />
+                >
+                  {(data) =>
+                    data.map((v) => (
+                      <Select.Option
+                        key={`${v.tag}`}
+                        value={`${v.tag}`}
+                      >{`${v.tag}`}</Select.Option>
+                    ))
+                  }
+                </SearchSelect>
               </FormItem>
             </Col>
           </Row>

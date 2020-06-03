@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {Select, Spin} from 'antd';
 import {SelectProps} from 'antd/lib/select';
-import InfiniteScroll from '../infinite-scroller/';
-// import InfiniteScroll from 'react-infinite-scroller';
+import InfiniteScroll from 'react-infinite-scroller';
 import styles from './style/index.less';
 
 export interface SearchSelectState {
@@ -12,8 +11,9 @@ export interface SearchSelectState {
 }
 
 export interface SearchSelectProps<VT = any> extends SelectProps<VT> {
-  asyncSearch: (page: number) => Promise<VT>;
-  children: (data: any[]) => React.ReactNode;
+  asyncSearch: (page: number) => Promise<VT[]>;
+  children: (data: VT[]) => React.ReactNode;
+  onChange?: (value: VT, option: any, data?: any[]) => void;
 }
 
 function reducer(state: SearchSelectState, newState: SearchSelectState) {
@@ -23,6 +23,7 @@ function reducer(state: SearchSelectState, newState: SearchSelectState) {
 const SearchSelect: React.FC<SearchSelectProps> = ({
   onFocus = () => {},
   onBlur = () => {},
+  onChange = () => {},
   asyncSearch,
   children,
   ...props
@@ -34,56 +35,72 @@ const SearchSelect: React.FC<SearchSelectProps> = ({
     hasMore: true,
   });
 
-  const onLoad = async (page: number = 0) => {
+  const onLoad = async (page: number = 1) => {
     setState({loading: true});
     try {
       const _data = await asyncSearch(page);
-      setState({data: data?.concat(_data)});
+      if (page === 1) {
+        setState({loading: false, hasMore: true, data: [].concat(_data)});
+      } else {
+        setState({loading: false, data: data?.concat(_data)});
+      }
     } catch (err) {
-      setState({hasMore: false});
+      setState({loading: false, hasMore: false});
     }
-    setState({loading: false});
   };
 
   return (
     <Select
       {...props}
       loading={loading}
+      listHeight={data!.length * 32}
       onFocus={(e) => {
         onLoad();
         onFocus(e);
       }}
       onBlur={(e) => {
-        setState({data: [], loading: false, hasMore: true});
         setKey(new Date().getTime());
         onBlur(e);
       }}
-      dropdownRender={(menuNode) => (
-        <div
-          key={key}
-          className={styles[`infinite-container`]}
-          style={{maxHeight: 250}}
-        >
-          <InfiniteScroll
-            initialLoad={false}
-            pageStart={0}
-            threshold={100}
-            loadMore={onLoad}
-            hasMore={!loading && hasMore}
-            useWindow={false}
+      onChange={(value, option) => onChange(value, option, data)}
+      notFoundContent={
+        loading ? (
+          <div className={styles[`infinite-loading`]}>
+            <Spin size="small" />
+          </div>
+        ) : (
+          '暂无数据'
+        )
+      }
+      dropdownClassName={`${styles[`search-select`]}`}
+      dropdownRender={(menuNode) => {
+        return (
+          <div
+            key={key}
+            className={styles[`infinite-container`]}
+            style={{maxHeight: 32 * 9}}
           >
-            {menuNode}
-            {loading && (
-              <div
-                key="infinite-loading"
-                className={styles[`infinite-loading`]}
-              >
-                <Spin size="small" />
-              </div>
-            )}
-          </InfiniteScroll>
-        </div>
-      )}
+            <InfiniteScroll
+              pageStart={1}
+              initialLoad={false}
+              threshold={256}
+              loadMore={onLoad}
+              hasMore={!loading && hasMore}
+              useWindow={false}
+            >
+              {menuNode}
+              {loading && data!.length > 0 && (
+                <div
+                  key="infinite-loading"
+                  className={styles[`infinite-loading`]}
+                >
+                  <Spin size="small" />
+                </div>
+              )}
+            </InfiniteScroll>
+          </div>
+        );
+      }}
     >
       {children(data!)}
     </Select>

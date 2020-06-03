@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Form, Button, Drawer, Input, Radio, Row, Col} from 'antd';
+import {Form, Button, Drawer, Input, Radio, Row, Col, Select} from 'antd';
 import {SearchSelect} from 'library';
 import {IConfigMap} from '@/models/apps/configmap';
 import ItemsInput from './items';
@@ -61,29 +61,35 @@ const ConfigMapInput: React.FC<ConfigMapInputProps> = ({
                 >
                   <SearchSelect
                     style={{width: '100%'}}
-                    isScroll={false}
-                    initialLoad
                     placeholder="选择ConfigMap"
-                    asyncSearch={async (page, callback) => {
-                      let configmaps: IConfigMap[] = await getConfigMaps!();
-                      callback({
-                        total: configmaps.length,
-                        results: configmaps.map((v) => ({
-                          key: v.name,
-                          label: v.name,
-                          ...v,
-                        })) as any,
+                    asyncSearch={async (page) => {
+                      return new Promise(async (resolve, reject) => {
+                        if (page > 1) reject();
+                        try {
+                          const configmaps: IConfigMap[] = await getConfigMaps!();
+                          resolve(configmaps);
+                        } catch (err) {
+                          reject();
+                        }
                       });
                     }}
-                    onChangeOptions={(name, _, configmaps: IConfigMap[]) => {
+                    onChange={(name, _, data: IConfigMap[] = []) => {
                       setItemsData(
                         Object.entries(
-                          configmaps.find((v) => v.name === name)!.data || {}
+                          data.find((v) => v.name === name)!.data || {}
                         ).map(([key]) => key)
                       );
                       form.setFieldsValue({items: undefined});
                     }}
-                  />
+                  >
+                    {(data) =>
+                      data.map((v) => (
+                        <Select.Option key={v.name} value={v.name}>
+                          {v.name}
+                        </Select.Option>
+                      ))
+                    }
+                  </SearchSelect>
                 </Form.Item>
               </Col>
               <Col style={{width: 82}}>

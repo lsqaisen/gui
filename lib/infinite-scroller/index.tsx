@@ -35,7 +35,7 @@ export default class extends React.PureComponent<InfiniteScrollProps, any> {
     isReverse: false,
     useCapture: false,
     loader: null,
-    getScrollParent: null
+    getScrollParent: null,
   };
 
   pageLoaded: number | undefined = undefined;
@@ -83,7 +83,7 @@ export default class extends React.PureComponent<InfiniteScrollProps, any> {
       get passive() {
         passive = true;
         return passive;
-      }
+      },
     };
 
     try {
@@ -101,7 +101,7 @@ export default class extends React.PureComponent<InfiniteScrollProps, any> {
     if (this.isPassiveSupported()) {
       options = {
         useCapture: this.props.useCapture,
-        passive: true
+        passive: true,
       };
     }
     return options;

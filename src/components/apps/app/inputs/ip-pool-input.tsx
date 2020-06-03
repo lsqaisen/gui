@@ -1,4 +1,5 @@
 import {SearchSelect} from 'library';
+import {Select} from 'antd';
 
 export interface IIPPoolInput {
   value?: any;
@@ -8,7 +9,7 @@ export interface IIPPoolInput {
 
 const IPPoolInput = <T extends any>({
   value,
-  onChange,
+  onChange = () => {},
   getIPPools,
 }: IIPPoolInput) => {
   return (
@@ -17,20 +18,28 @@ const IPPoolInput = <T extends any>({
       style={{width: '100%'}}
       showSearch
       allowClear
-      initialLoad={true}
       placeholder="选择虚拟子网"
-      onChange={onChange}
-      asyncSearch={async (_, callback) => {
-        const pools: T[] = await getIPPools!();
-        callback({
-          total: pools.length,
-          results: pools.map((pool) => ({
-            key: pool.name,
-            label: pool.name,
-          })),
+      onChange={(value) => onChange!(value)}
+      asyncSearch={async (page) => {
+        return new Promise(async (resolve, reject) => {
+          if (page >= 2) reject();
+          try {
+            const pools: T[] = await getIPPools!();
+            resolve(pools);
+          } catch (err) {
+            reject();
+          }
         });
       }}
-    />
+    >
+      {(data) =>
+        data.map((pool) => (
+          <Select.Option key={pool.name} value={pool.name}>
+            {pool.name}
+          </Select.Option>
+        ))
+      }
+    </SearchSelect>
   );
 };
 

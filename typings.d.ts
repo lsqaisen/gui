@@ -7,6 +7,7 @@ declare module 'jsencrypt';
 declare module 'react-time-format';
 declare module 'react-dom';
 declare module 'inputmask';
+declare module 'react-infinite-scroller';
 
 interface Window {
   Number: any;

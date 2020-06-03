@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Form, Button, Drawer, Input, Radio, Row, Col} from 'antd';
+import {Form, Button, Drawer, Input, Radio, Row, Col, Select} from 'antd';
 import {SearchSelect} from 'library';
 import {ISecret} from '@/models/apps/secret';
 import ItemsInput from './items';
@@ -63,21 +63,19 @@ const SecretInput: React.FC<SecretInputProps> = ({
                 >
                   <SearchSelect
                     style={{width: '100%'}}
-                    isScroll={false}
-                    initialLoad
                     placeholder="选择Secret"
-                    asyncSearch={async (page, callback) => {
-                      let secrets: ISecret[] = await getSecrets!();
-                      callback({
-                        total: secrets.length,
-                        results: secrets.map((v) => ({
-                          key: v.metadata.name,
-                          label: v.metadata.name,
-                          ...v,
-                        })) as any,
+                    asyncSearch={async (page) => {
+                      return new Promise(async (resolve, reject) => {
+                        if (page > 1) reject();
+                        try {
+                          const secrets: ISecret[] = await getSecrets!();
+                          resolve(secrets);
+                        } catch (err) {
+                          reject();
+                        }
                       });
                     }}
-                    onChangeOptions={(name, _, secrets: ISecret[]) => {
+                    onChange={(name, _, secrets: ISecret[] = []) => {
                       setItemsData(
                         Object.entries(
                           secrets.find((v) => v.metadata.name === name)!.data ||
@@ -85,7 +83,18 @@ const SecretInput: React.FC<SecretInputProps> = ({
                         ).map(([key]) => key)
                       );
                     }}
-                  />
+                  >
+                    {(data) =>
+                      data.map((v) => (
+                        <Select.Option
+                          key={v.metadata.name}
+                          value={v.metadata.name}
+                        >
+                          {v.metadata.name}
+                        </Select.Option>
+                      ))
+                    }
+                  </SearchSelect>
                 </Form.Item>
               </Col>
               <Col style={{width: 82}}>
