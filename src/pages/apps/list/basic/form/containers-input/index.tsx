@@ -48,7 +48,7 @@ const Containers = ({ns, form, dispatch, ...props}: ContainersProps) => {
         >
           <ImageInput />
         </Form.Item>
-        <Form.Item required name="volume_mounts" label="挂载点">
+        <Form.Item name="volume_mounts" label="挂载点">
           <ContainersInput.Mounts form={form} />
         </Form.Item>
         <Form.Item name="env" label="环境变量">

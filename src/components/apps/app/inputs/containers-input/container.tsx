@@ -18,13 +18,20 @@ const ContainersInput: React.FC<IContainers> = ({
   const [form] = Form.useForm();
   return (
     <>
-      <Inputs.Code
-        mode="yaml"
-        autosize
-        options={{lineNumbers: false, lineWrapping: true}}
-        onFocus={() => setVisible(true)}
-        value={!value || !value.name ? '未配置，点击配置' : YAML.dump(value)}
-      />
+      {!value || !value.name ? (
+        <Input.TextArea
+          placeholder="点击配置"
+          onFocus={() => setVisible(true)}
+        />
+      ) : (
+        <Inputs.Code
+          mode="yaml"
+          autosize
+          options={{lineNumbers: false, lineWrapping: true}}
+          onFocus={() => setVisible(true)}
+          value={YAML.dump(value)}
+        />
+      )}
       <Drawer
         destroyOnClose={false}
         bodyStyle={{height: 'calc(100% - 108px)', overflow: 'auto'}}

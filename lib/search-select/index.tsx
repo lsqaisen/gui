@@ -40,7 +40,11 @@ const SearchSelect: React.FC<SearchSelectProps> = ({
     try {
       const _data = await asyncSearch(page);
       if (page === 1) {
-        setState({loading: false, hasMore: true, data: [].concat(_data)});
+        setState({
+          loading: false,
+          hasMore: true,
+          data: ([] as any[]).concat(_data),
+        });
       } else {
         setState({loading: false, data: data?.concat(_data)});
       }

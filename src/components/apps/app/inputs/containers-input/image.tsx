@@ -19,6 +19,7 @@ const ImageInput = ({
   getImages,
   getTags,
 }: ImageInputProps) => {
+  const [total, setTotal] = React.useState(0);
   const [type, setType] = React.useState('select');
   const [image, tag] = (value || ':').split(':');
   return (
@@ -32,7 +33,7 @@ const ImageInput = ({
                 extra={`搜索针对于当前下拉显示的数据，默认显示10条数据，下拉滚动可加载更多数据`}
               >
                 <SearchSelect
-                  value={image}
+                  value={image || undefined}
                   showSearch
                   placeholder="选择镜像名称"
                   onChange={(value) => {
@@ -40,17 +41,22 @@ const ImageInput = ({
                   }}
                   asyncSearch={(page) => {
                     return new Promise(async (resolve, reject) => {
-                      try {
-                        const {items, total}: any = await getImages!({
-                          domain: 'on',
-                          page,
-                          size: 10,
-                        });
-                        resolve(items);
-                        page * 10 >= total ? reject() : resolve(items);
-                      } catch (err) {
+                      if (total !== 0 && (page - 1) * 10 >= total) {
                         reject();
+                      } else {
+                        try {
+                          const {items, total: _total}: any = await getImages!({
+                            domain: 'on',
+                            page,
+                            size: 10,
+                          });
+                          if (total !== _total) setTotal(_total);
+                          resolve(items);
+                        } catch (err) {
+                          reject();
+                        }
                       }
+                      reject();
                     });
                   }}
                 >
@@ -67,7 +73,7 @@ const ImageInput = ({
             <Col span={8}>
               <FormItem>
                 <SearchSelect
-                  value={tag}
+                  value={tag || undefined}
                   placeholder="请选择tag"
                   asyncSearch={async (page) => {
                     return new Promise(async (resolve, reject) => {

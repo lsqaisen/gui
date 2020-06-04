@@ -46,7 +46,7 @@ const AppForm: React.FC<AppFormProps> = ({
       <Form.Item required name="namespace" label="命名空间">
         <Input disabled />
       </Form.Item>
-      {/* <Form.Item
+      <Form.Item
         required
         validateFirst
         name="name"
@@ -69,37 +69,29 @@ const AppForm: React.FC<AppFormProps> = ({
         ]}
       >
         <NameInput placeholder="服务名称" />
-      </Form.Item> */}
-      {/* <Form.Item name="ip_pool" label="虚拟子网">
+      </Form.Item>
+      <Form.Item name="ip_pool" label="虚拟子网">
         <IPPoolInput />
-      </Form.Item> */}
-      {/* <Form.Item name="type" label="类型" required>
+      </Form.Item>
+      <Form.Item name="type" label="类型" required>
         <Radio.Group style={{maxWidth: 320}}>
           <Radio value="Deployment">Deployment（可扩展的部署Pod）</Radio>
           <Radio value="DaemonSet">DaemonSet（在每个主机上运行Pod）</Radio>
           <Radio value="StatefulSet">StatefulSet（有状态集的运行Pod）</Radio>
         </Radio.Group>
-      </Form.Item> */}
-      {/* <Form.Item
+      </Form.Item>
+      <Form.Item
         name="labels"
         style={{marginBottom: 0}}
         label="标签"
         extra={`只能包含字母、数字及分隔符("-"、"_"、"."、"/")， 且必须以字母、数字开头和结尾`}
-        validateStatus="success"
-        help={undefined}
       >
         <LabelsInput form={form} />
-      </Form.Item> */}
-      <Form.Item
-        name="volumes"
-        style={{marginBottom: 0}}
-        label="数据卷"
-        // validateStatus="success"
-        // help={undefined}
-      >
+      </Form.Item>
+      <Form.Item name="volumes" style={{marginBottom: 0}} label="数据卷">
         <VolumesInput ns={initialValues.namespace} />
       </Form.Item>
-      {/* <Form.Item
+      <Form.Item
         required
         name="replicas"
         label="实例数量"
@@ -111,14 +103,8 @@ const AppForm: React.FC<AppFormProps> = ({
           max={10000}
           placeholder="实例数量"
         />
-      </Form.Item> */}
-      <Form.Item
-        name="containers"
-        style={{marginBottom: 0}}
-        label="容器配置"
-        // validateStatus="success"
-        // help={undefined}
-      >
+      </Form.Item>
+      <Form.Item name="containers" style={{marginBottom: 0}} label="容器配置">
         <ContainersInput ns={initialValues.namespace} form={form} />
       </Form.Item>
       {children}
